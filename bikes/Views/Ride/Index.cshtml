@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Ride>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/_MainLayout.cshtml";
+}
+
+@section HEAD {
+    <script>
+        $(function () {
+            $("#btnAdd").click(function () {
+                location.href = '@Url.Action("Add")';
+            });
+        });
+    </script>
+}
+
+<h2>Rides</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Description</th>
+            <th>Date</th>
+            <th>Distance</th>
+            <th>Rider</th>
+            <th>Bike</th>
+            <th>Amount</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach(Ride ride in Model)
+        {
+            <tr>
+                <td>@Html.ActionLink(ride.route, "Edit", new { id = ride.id })</td>
+                <td>@ride.ride_date.ToString("ddd dd MMM yyyy")</td>
+                <td>@ride.distance</td>
+                <td>@ride.rider</td>
+                <td>@ride.bike</td>
+                <td>£@ride.amount.ToString("0.00")</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<button id="btnAdd" type="button" class="btn btn-default">Add Ride</button>

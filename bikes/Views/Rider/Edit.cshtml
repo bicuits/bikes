@@ -1,0 +1,29 @@
+﻿@model RiderVM
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/_MainLayout.cshtml";
+}
+
+<div class="page-header">
+    <h2>Edit Rider</h2>
+</div>
+
+@using (Html.BeginForm("Command", "Rider"))
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.name)
+        @Html.EditorFor(m => m.name, new { htmlAttributes = new { @class = "form-control" } })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.rate)
+        @Html.EditorFor(m => m.rate, new { htmlAttributes = new { @class = "form-control" } })
+    </div>
+
+    <div class="form-group">
+        @Html.HiddenFor(m => m.id)
+        <button type="submit" class="btn btn-default" name="command" value="save">Submit</button>
+        <button type="submit" class="btn btn-default" name="command" value="cancel">Cancel</button>
+        <button type="submit" class="btn btn-default" name="command" value="delete">Remove</button>
+    </div>
+}

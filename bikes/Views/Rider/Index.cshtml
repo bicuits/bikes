@@ -1,0 +1,29 @@
+﻿@model List<Rider>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/_MainLayout.cshtml";
+}
+
+@section HEAD {
+    <script>
+        $(function () {
+            $("#btnAdd").click(function () {
+                location.href = '@Url.Action("Add")';
+            });
+        });
+    </script>
+}
+
+<div class="page-header">
+    <h2>Riders</h2>
+</div>
+
+<ul class="list-group">
+    @foreach (Rider rider in Model)
+    {
+        <li class="list-group-item">
+            @Html.ActionLink(rider.name, "Edit", new { id = rider.id } )
+        </li>
+    }
+</ul>
+<button id="btnAdd" type="button" class="btn btn-default">Add Rider</button>
