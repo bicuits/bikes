@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+
+    <link rel="stylesheet" type="text/css" href="~/Content/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/bootstrap/bootstrap-theme.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/css/public.css" />
+
+    <script src="~/Content/jquery/jquery-1.9.1.min.js"></script>
+    <script src="~/Content/jquery/jquery.validate.min.js"></script>
+    <script src="~/Content/jquery/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Content/bootstrap/scripts/bootstrap.min.js"></script>
+</head>
+<body>
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-inverse navbar-static-top">
+        <div class="container">
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="#">Drurys Bike Rides - Login</a>
+                    </li>
+                </ul>
+            </div><!--/.nav-collapse -->
+        </div>
+    </nav>
+
+    <div class="container" role="main">
+        @RenderBody()
+    </div>
+
+</body>
+</html>

@@ -43,8 +43,10 @@ namespace Bikes.App
             Route route = new Route();
 
             route.id = id;
+
             route.name = name;
             route.distance = distance;
+
             route.notes = notes;
             return route;
         }

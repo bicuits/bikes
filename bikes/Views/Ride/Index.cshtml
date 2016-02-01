@@ -34,10 +34,10 @@
             <tr>
                 <td>@Html.ActionLink(ride.route, "Edit", new { id = ride.id })</td>
                 <td>@ride.ride_date.ToString("ddd dd MMM yyyy")</td>
-                <td>@ride.distance</td>
+                <td>@ride.rideLength.ToString("0.#")</td>
                 <td>@ride.rider</td>
                 <td>@ride.bike</td>
-                <td>£@ride.amount.ToString("0.00")</td>
+                <td>@ride.rideValue.ToString("C")</td>
             </tr>
         }
     </tbody>

@@ -1,0 +1,43 @@
+﻿@model AdminVM
+@{
+    ViewBag.Title = "Admin";
+    Layout = "~/Views/_MainLayout.cshtml";
+}
+
+<h2>Admin</h2>
+
+@using (Html.BeginForm("Command", "Admin", FormMethod.Post))
+{
+    <div class="form-group">
+        <button type="submit" class="btn btn-default" name="command" value="archive">Archive Rides</button>
+        <button type="submit" class="btn btn-default" name="command" value="cancel">Exit Admin</button>
+    </div>
+
+}
+
+<h3>Payments</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Recipient</th>
+            <th>Date</th>
+            <th>Amount</th>
+            <th>Paid</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (Payment payment in Model.payments)
+        {
+            <tr>
+                <td>@payment.rider</td>
+                <td>@payment.created_date.ToString("ddd dd MMM yyyy")</td>
+                <td>@payment.amount.ToString("C")</td>
+                <td>@(payment.paid_date.HasValue ? payment.paid_date.Value.ToString("ddd dd MMM yyyy") : "unpaid")</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+

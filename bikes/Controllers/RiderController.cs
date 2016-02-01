@@ -7,7 +7,7 @@ using Bikes.Model;
 
 namespace Bikes.App
 {
-    public class RiderController : Controller
+    public class RiderController : BikesControllerBase
     {
         [HttpGet]
         public ActionResult Index()
@@ -36,19 +36,15 @@ namespace Bikes.App
         [HttpPost]
         public ActionResult Command(String command, RiderVM model)
         {
-            Rider rider;
-
             switch (command)
             {
                 case "save":
-                    rider = model.toRider();
+                    Rider rider = model.toRider();
                     rider.save();
                     break;
 
                 case "delete":
-                    rider = Rider.getRider(model.id);
-                    rider.deleted = true;
-                    rider.save();
+                    Rider.deleteRider(model.id);
                     break;
 
                 default:

@@ -24,6 +24,6 @@
         @Html.HiddenFor(m => m.id)
         <button type="submit" class="btn btn-default" name="command" value="save">Submit</button>
         <button type="submit" class="btn btn-default" name="command" value="cancel">Cancel</button>
-        <button type="submit" class="btn btn-default" name="command" value="delete">Remove</button>
+        <button type="submit" class="btn btn-default" name="command" value="delete" onclick="return confirm('Are you sure oyu want to delete this item?')">Remove</button>
     </div>
 }

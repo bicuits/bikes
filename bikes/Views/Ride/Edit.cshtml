@@ -4,6 +4,30 @@
     Layout = "~/Views/_MainLayout.cshtml";
 }
 
+@section HEAD {
+    <script>
+        $(function () {
+            $("#rideDate").datepicker({format: "dd/mm/yyyy"});
+
+            var setCustom = function () {
+                if ($("#routeList").val() == 1) {
+                    $("#customProperties").css("display", "block");
+                    $("#defaultProperties").css("display", "none");
+                    $("#returnRide").prop("checked", false);
+                } else {
+                    //even though it is not being used we need to ensure that distance 
+                    //contians a value so it will validate OK
+                    $("#defaultProperties").css("display", "block");
+                    $("#customProperties").css("display", "none");
+                    $("#distance").val("0");
+                }
+            };
+            setCustom();
+            $("#routeList").change(setCustom);
+        });
+    </script>
+}
+
 <div class="page-header">
     <h2>Edit Ride</h2>
 </div>
@@ -11,18 +35,32 @@
 @using (Html.BeginForm("Command", "Ride"))
 {
     <div class="form-group">
-        @Html.LabelFor(m => m.routeId)
-        @Html.DropDownListFor(m => m.routeId, Model.routeList, new { @class = "form-control" })
+        <label>Route</label>
+        @Html.DropDownListFor(m => m.routeId, Model.routeList, new { id = "routeList", @class = "form-control" })
     </div>
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.ride_date)
-        @Html.EditorFor(m => m.ride_date, new { htmlAttributes = new { @class = "form-control" } })
-    </div>
-
-    <div class="form-group">
+    <div id="customProperties" class="form-group">
         @Html.LabelFor(m => m.distance)
-        @Html.EditorFor(m => m.distance, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.EditorFor(m => m.distance, new { htmlAttributes = new { id = "distance", @class = "form-control" } })
+    </div>
+
+    <div id="defaultProperties" class="form-group">
+        <label>
+            @Html.CheckBoxFor(m => m.returnRide, new { htmlAttributes = new { id = "returnRide", @class = "form-control" } })
+            this is a return ride
+        </label>
+    </div>
+
+    <div class="form-group">
+        <label>
+            @Html.CheckBoxFor(m => m.payable, new { htmlAttributes = new { @class = "form-control" } })
+            this ride earns rewards
+        </label>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.rideDate)
+        @Html.TextBoxFor(m => m.rideDate, new { id = "rideDate", @class = "form-control" } )
     </div>
 
     <div class="form-group">
@@ -44,7 +82,7 @@
         @Html.HiddenFor(m => m.id)
         <button type="submit" class="btn btn-default" name="command" value="save">Submit</button>
         <button type="submit" class="btn btn-default" name="command" value="cancel">Cancel</button>
-        <button type="submit" class="btn btn-default" name="command" value="delete">Remove</button>
+        <button type="submit" class="btn btn-default" name="command" value="delete" onclick="return confirm('Are you sure oyu want to delete this item?')">Remove</button>
     </div>
 }
 

@@ -7,7 +7,7 @@ using Bikes.Model;
 
 namespace Bikes.App
 {
-    public class RideController : Controller
+    public class RideController : BikesControllerBase
     {
         [HttpGet]
         public ActionResult Index()

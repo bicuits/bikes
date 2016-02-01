@@ -7,6 +7,7 @@ using Bikes.Model;
 
 namespace Bikes.App
 {
+    [Authorize(Roles = "user")]
     public class RouteController : Controller
     {
         [HttpGet]
@@ -36,21 +37,17 @@ namespace Bikes.App
         [HttpPost]
         public ActionResult Command(String command, RouteVM model)
         {
-            Route route;
-
             switch (command)
             {
                 case "save":
-                    route = model.toRoute();
+                    Route route = model.toRoute();
                     route.save();
                     break;
 
                 case "delete":
                     if (model.id != Route.DefaultRouteId)
                     {
-                        route = Route.getRoute(model.id);
-                        route.deleted = true;
-                        route.save();
+                        Route.deleteRoute(model.id);
                     }
                     break;
 

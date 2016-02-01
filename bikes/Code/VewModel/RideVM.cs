@@ -18,9 +18,18 @@ namespace Bikes.App
         [Required]
         public double distance { get; set; }
 
+        [Display(Name = "Return")]
+        [Required]
+        public bool returnRide { get; set; }
+
+        [Display(Name = "Payable")]
+        [Required]
+        public bool payable { get; set; }
+
         [Display(Name = "Date")]
         [Required]
-        public DateTime ride_date { get; set; }
+        [DataType(DataType.Text)]
+        public String rideDate { get; set; }
 
         [Display(Name = "Route")]
         [Required]
@@ -39,7 +48,6 @@ namespace Bikes.App
         public int riderId { get; set; }
         public int routeId { get; set; }
         public int bikeId { get; set; }
-        public int rate { get; set; }
 
         public IEnumerable<SelectListItem> bikeList
         {
@@ -67,7 +75,7 @@ namespace Bikes.App
 
         public RideVM()
         {
-            ride_date = DateTime.Now;
+            rideDate = DateTime.Now.ToString("dd/MM/yyyy");
         }
 
         public RideVM(Ride ride)
@@ -80,14 +88,16 @@ namespace Bikes.App
             routeId = ride.route_id;
 
             distance = ride.distance;
-            notes = ride.notes;
-            ride_date = ride.ride_date;
+            returnRide = ride.return_ride;
+            payable = ride.payable;
 
-            //read-only columns
+            notes = ride.notes;
+            rideDate = ride.ride_date.ToString("dd/MM/yyyy");
+
+            //Following fields for display only, not persisted
             bike = ride.bike;
             rider = ride.rider;
             route = ride.route;
-            rate = ride.rate;
         }
 
         public Ride toRide()
@@ -101,8 +111,10 @@ namespace Bikes.App
             ride.rider_id = riderId;
 
             ride.distance = distance;
+            ride.return_ride = returnRide;
+            ride.payable = payable;
             ride.notes = notes;
-            ride.ride_date = ride_date;
+            ride.ride_date = DateTime.Parse(rideDate);
 
             return ride;
         }
