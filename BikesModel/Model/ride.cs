@@ -73,25 +73,25 @@ namespace Bikes.Model
 
         public static List<Ride> getRides()
         {
-            Database db = new PetaPoco.Database("bikes-clunie");
+            Database db = new PetaPoco.Database(ModelConfig.connectionStringName);
             return db.Fetch<Ride>(sql());
         }
 
         public static Ride getRide(int id)
         {
-            Database db = new PetaPoco.Database("bikes-clunie");
+            Database db = new PetaPoco.Database(ModelConfig.connectionStringName);
             return db.FirstOrDefault<Ride>(sql().Append("AND a.id = @0", id));
         }
 
         public static void deleteRide(int id)
         {
-            Database db = new PetaPoco.Database("bikes-clunie");
+            Database db = new PetaPoco.Database(ModelConfig.connectionStringName);
             db.Execute("DELETE FROM ride WHERE id = @0", id);
         }
 
         public void save()
         {
-            Database db = new PetaPoco.Database("bikes-clunie");
+            Database db = new PetaPoco.Database(ModelConfig.connectionStringName);
             db.Save(this);
         }
     }

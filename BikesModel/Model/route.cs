@@ -21,25 +21,25 @@ namespace Bikes.Model
 
         public static List<Route> getRoutes()
         {
-            Database db = new PetaPoco.Database("bikes-clunie");
+            Database db = new PetaPoco.Database(ModelConfig.connectionStringName);
             return db.Fetch<Route>("");
         }
 
         public static Route getRoute(int id)
         {
-            Database db = new PetaPoco.Database("bikes-clunie");
+            Database db = new PetaPoco.Database(ModelConfig.connectionStringName);
             return db.FirstOrDefault<Route>("WHERE id = @0", id);
         }
 
         public static void deleteRoute(int id)
         {
-            Database db = new PetaPoco.Database("bikes-clunie");
+            Database db = new PetaPoco.Database(ModelConfig.connectionStringName);
             db.Execute("DELETE FROM route WHERE id = @0", id);
         }
 
         public void save()
         {
-            Database db = new PetaPoco.Database("bikes-clunie");
+            Database db = new PetaPoco.Database(ModelConfig.connectionStringName);
 
             if (id == Route.DefaultRouteId)
             {

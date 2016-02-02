@@ -28,19 +28,19 @@ namespace Bikes.Model
 
         public static List<RideInfo> getArchiveRides()
         {
-            Database db = new PetaPoco.Database("bikes-clunie");
+            Database db = new PetaPoco.Database(ModelConfig.connectionStringName);
             return db.Fetch<RideInfo>("");
        }
 
         public static RideInfo getArchiveRide(int id)
         {
-            Database db = new PetaPoco.Database("bikes-clunie");
+            Database db = new PetaPoco.Database(ModelConfig.connectionStringName);
             return db.FirstOrDefault<RideInfo>("WHERE id = @0", id);
         }
 
         internal void save()
         {
-            Database db = new PetaPoco.Database("bikes-clunie");
+            Database db = new PetaPoco.Database(ModelConfig.connectionStringName);
             db.Save(this);
         }
 

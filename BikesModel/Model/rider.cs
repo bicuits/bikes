@@ -16,7 +16,7 @@ namespace Bikes.Model
 
         public static List<Rider> getRiders()
         {
-            Database db = new PetaPoco.Database("bikes-clunie");
+            Database db = new PetaPoco.Database(ModelConfig.connectionStringName);
             List<Rider> riders = db.Fetch<Rider>("");
 
             return riders;
@@ -24,7 +24,7 @@ namespace Bikes.Model
 
         public static Rider getRider(int id)
         {
-            Database db = new PetaPoco.Database("bikes-clunie");
+            Database db = new PetaPoco.Database(ModelConfig.connectionStringName);
             Rider rider = db.FirstOrDefault<Rider>("WHERE id = @0", id);
 
             return rider;
@@ -32,12 +32,12 @@ namespace Bikes.Model
 
         public static void deleteRider(int id)
         {
-            Database db = new PetaPoco.Database("bikes-clunie");
+            Database db = new PetaPoco.Database(ModelConfig.connectionStringName);
             db.Execute("DELETE FROM ride WHERE id = @0", id);
         }
         public void save()
         {
-            Database db = new PetaPoco.Database("bikes-clunie");
+            Database db = new PetaPoco.Database(ModelConfig.connectionStringName);
             db.Save(this);
         }
     }

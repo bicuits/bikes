@@ -3,6 +3,7 @@ using System.Web.Security;
 using System.Security.Cryptography;
 using System.Text;
 using System.Linq;
+using System.Configuration;
 
 namespace Bikes.App
 {
@@ -16,11 +17,12 @@ namespace Bikes.App
 
             byte[] src = Encoding.Unicode.GetBytes(username + password);
             byte[] hash = algorithm.ComputeHash(src);
-            byte[] key = new byte[] { 0x58, 0xB1, 0x62, 0xBA, 0xEF, 0xE6, 0x97, 0x3B, 0x4B, 0xD4, 0x75, 0x46, 0x22, 0xC5, 0x27, 0x56, 0x3C, 0x46, 0x97, 0x56, 0x38, 0x03, 0x13, 0xE6, 0xD8, 0xFC, 0xD7, 0xF2, 0x58, 0x18, 0x33, 0xCC };
 
-            //System.IO.File.WriteAllText(
-            //    System.Web.HttpContext.Current.Server.MapPath("~/App_Data/key.txt"),
-            //    BitConverter.ToString(hash));
+            System.IO.File.WriteAllText(
+                System.Web.HttpContext.Current.Server.MapPath("~/App_Data/key.txt"),
+                Convert.ToBase64String(hash));
+
+            byte[] key = Convert.FromBase64String(ConfigurationManager.AppSettings["hash"]);
 
             return key.SequenceEqual(hash);
         }

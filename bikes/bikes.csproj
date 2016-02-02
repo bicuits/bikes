@@ -43,6 +43,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="MySql.Data, Version=6.9.8.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.6.9.8\lib\net45\MySql.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -195,6 +199,10 @@
     <Content Include="Content\datepicker\css\bootstrap-datepicker3.min.css.map" />
     <Content Include="Content\datepicker\css\bootstrap-datepicker3.standalone.css.map" />
     <Content Include="Content\datepicker\css\bootstrap-datepicker3.standalone.min.css.map" />
+    <None Include="connectionStrings.config" />
+    <None Include="appSettings.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Content\jquery\jquery-1.9.1.intellisense.js" />
     <Content Include="Content\bootstrap\scripts\bootstrap.js" />
     <Content Include="Content\bootstrap\scripts\bootstrap.min.js" />
