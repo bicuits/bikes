@@ -13,6 +13,7 @@ namespace Bikes.Model
         public int id { get; set; }
         public String name { get; set; }
         public int rate { get; set; }
+        public String color { get; set; } //strictly this should be stored in the app?
 
         public static List<Rider> getRiders()
         {

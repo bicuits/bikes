@@ -50,7 +50,7 @@ namespace Bikes.Model
 
             info.ride_date = ride.ride_date;
             info.archive_date = DateTime.Now;
-            info.distance = ride.distance;
+            info.distance = ride.rideLength;
             info.cash = ride.rideValue;
             info.return_ride = ride.return_ride;
             info.notes = ride.notes == null ? "" : ride.notes ;

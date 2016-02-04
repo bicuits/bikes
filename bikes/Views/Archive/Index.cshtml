@@ -15,6 +15,7 @@
             <th>Rider</th>
             <th>Bike</th>
             <th>Amount</th>
+            <th>Notes</th>
         </tr>
     </thead>
 
@@ -28,6 +29,7 @@
                 <td>@ride.rider</td>
                 <td>@ride.bike</td>
                 <td>@ride.cash.ToString("C")</td>
+                <td>@ride.notesSummary()</td>
             </tr>
         }
     </tbody>

@@ -32,7 +32,7 @@ namespace Bikes.App
             {
                 //log the user in
                 FormsAuthentication.SetAuthCookie(model.username.ToLower(), false);
-                return RedirectToAction("Index", "Ride");
+                return RedirectToAction("Home", "Home");
             }
             else
             {

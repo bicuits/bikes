@@ -21,13 +21,13 @@ namespace Bikes.Model
 
         public static List<Payment> getPayments()
         {
-            Database db = new PetaPoco.Database("bikes-clunie");
+            Database db = new PetaPoco.Database(ModelConfig.connectionStringName);
             return db.Fetch<Payment>("");
         }
 
         public static Rider getPayment(int id)
         {
-            Database db = new PetaPoco.Database("bikes-clunie");
+            Database db = new PetaPoco.Database(ModelConfig.connectionStringName);
             return db.FirstOrDefault<Rider>("WHERE id = @0", id);
         }
 
@@ -40,7 +40,7 @@ namespace Bikes.Model
             payment.created_date = DateTime.Now;
             payment.paid_date = null;
             
-            Database db = new PetaPoco.Database("bikes-clunie");
+            Database db = new PetaPoco.Database(ModelConfig.connectionStringName);
             db.Save(payment);
         }
 
@@ -52,7 +52,7 @@ namespace Bikes.Model
 
         public void save()
         {
-            Database db = new PetaPoco.Database("bikes-clunie");
+            Database db = new PetaPoco.Database(ModelConfig.connectionStringName);
             db.Save(this);
         }
     }

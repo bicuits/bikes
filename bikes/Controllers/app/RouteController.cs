@@ -8,7 +8,7 @@ using Bikes.Model;
 namespace Bikes.App
 {
     [Authorize(Roles = "user")]
-    public class RouteController : Controller
+    public class RouteController : BikesControllerBase
     {
         [HttpGet]
         public ActionResult Index()

@@ -105,6 +105,7 @@
     <Content Include="Content\bootstrap\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap\bootstrap.css" />
     <Content Include="Content\bootstrap\bootstrap.min.css" />
+    <Content Include="Content\chartjs\Chart.min.js" />
     <Content Include="Content\css\public.css" />
     <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\datepicker\css\bootstrap-datepicker.css" />
@@ -220,21 +221,26 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Code\BikesAppConfig.cs" />
+    <Compile Include="Code\BikesDebug.cs" />
     <Compile Include="Code\Membership.cs" />
+    <Compile Include="Code\ModelExtensions.cs" />
     <Compile Include="Code\VewModel\AdminVM.cs" />
     <Compile Include="Code\VewModel\BikeVM.cs" />
     <Compile Include="Code\VewModel\LoginVM.cs" />
     <Compile Include="Code\VewModel\RiderVM.cs" />
     <Compile Include="Code\VewModel\RideVM.cs" />
     <Compile Include="Code\VewModel\RouteVM.cs" />
-    <Compile Include="Controllers\AdminController.cs" />
-    <Compile Include="Controllers\ArchiveController.cs" />
-    <Compile Include="Controllers\BikeController.cs" />
-    <Compile Include="Controllers\BikesControllerBase.cs" />
-    <Compile Include="Controllers\LoginController.cs" />
-    <Compile Include="Controllers\RideController.cs" />
-    <Compile Include="Controllers\RiderController.cs" />
-    <Compile Include="Controllers\RouteController.cs" />
+    <Compile Include="Controllers\app\AdminController.cs" />
+    <Compile Include="Controllers\app\ArchiveController.cs" />
+    <Compile Include="Controllers\app\BikeController.cs" />
+    <Compile Include="Controllers\app\BikesControllerBase.cs" />
+    <Compile Include="Controllers\app\HomeController.cs" />
+    <Compile Include="Controllers\app\LoginController.cs" />
+    <Compile Include="Controllers\app\RideController.cs" />
+    <Compile Include="Controllers\app\RiderController.cs" />
+    <Compile Include="Controllers\app\RouteController.cs" />
+    <Compile Include="Controllers\api\RiderSummaryController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -258,6 +264,7 @@
     <None Include="Properties\PublishProfiles\Webhosting UK.pubxml" />
     <Content Include="Views\Admin\Admin.cshtml" />
     <Content Include="Views\Archive\Index.cshtml" />
+    <Content Include="Views\Home\Home.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -268,6 +275,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Scripts\" />
+    <Folder Include="Views\RiderSummary\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

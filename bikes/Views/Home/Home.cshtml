@@ -1,0 +1,113 @@
+﻿
+@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/_MainLayout.cshtml";
+}
+
+@section HEAD {
+    <style type="text/css">
+        .panel-body div {
+            margin: 10px;
+        }
+        .panel-body td {
+            padding-left: 10px;
+        }
+    </style>
+
+    <script src="~/Content/chartjs/Chart.min.js" ></script>
+    <script>
+
+
+        $(function () {
+            //var data = {
+            //    labels: ["January", "February"],
+            //    datasets: [
+            //        {
+            //            fillColor: "rgba(220, 0, 0, 0.5)",
+            //            strokeColor: "rgba(220, 0, 0, 0.8)",
+            //            highlightFill: "rgba(220, 0, 0, 0.75)",
+            //            highlightStroke: "rgba(220, 0, 0, 1)",
+            //            data: [200, 123]
+            //        },
+            //        {
+            //            fillColor: "rgba(0, 220, 0, 0.5)",
+            //            strokeColor: "rgba(0, 220, 0, 0.8)",
+            //            highlightFill: "rgba(0, 220, 0, 0.75)",
+            //            highlightStroke: "rgba(0, 220, 0, 1)",
+            //            data: [79, 67]
+            //        },
+            //        {
+            //            fillColor: "rgba(0, 0, 220, 0.5)",
+            //            strokeColor: "rgba(0, 0, 220, 0.8)",
+            //            highlightFill: "rgba(0, 0, 220, 0.75)",
+            //            highlightStroke: "rgba(0, 0, 220, 1)",
+            //            data: [79, 67]
+            //        }
+
+            //    ]
+            //};
+
+            var addTableCells = function (data, selector) {
+                var i,j;
+                var tr,tbody;
+
+                tbody = $(selector);
+
+                for (i = 0; i < data.labels.length; i++) {
+                    tr = $("<tr></tr>").appendTo(tbody);
+                    //name
+                    $("<td></td>")
+                        .html(data.labels[i])
+                        .appendTo(tr);
+                    //recent mileage
+                    $("<td class='text-right'></td>")
+                        .html(data.datasets[0].data[i])
+                        .appendTo(tr);
+                    //yearly mileage
+                    $("<td class='text-right'>0</td>")
+                        .appendTo(tr);
+                    //amount earned
+                    $("<td class='text-right'>&pound;&nbsp;0</td>")
+                        .appendTo(tr);
+                }
+            };
+
+            $.get(
+                "/api/RiderSummary",
+                function (data) {
+                    var ctx = $("#barRiderDistance").get(0).getContext("2d");
+                    new Chart(ctx).Bar(data);
+
+                    addTableCells(data, "#riderSummaryRows");
+                },
+                "json");
+
+        });
+    </script>
+}
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Recent mileage</h3>
+    </div>
+    <div class="panel-body  text-center">
+        <div style="display:inline-block">
+            <canvas id="barRiderDistance" width="400" height="400" style="border:1px solid black;"></canvas>
+        </div>
+        <div style="display:inline-block">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Recent Mileage</th>
+                        <th>Year Mileage</th>
+                        <th>Amount outstanding</th>
+                    </tr>
+                </thead>
+                <tbody id="riderSummaryRows">
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>

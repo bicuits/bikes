@@ -15,19 +15,19 @@ namespace Bikes.Model
 
         public static List<Bike> getBikes()
         {
-            Database db = new PetaPoco.Database("bikes-clunie");
+            Database db = new PetaPoco.Database(ModelConfig.connectionStringName);
             return db.Fetch<Bike>("");
         }
 
         public static Bike getBike(int id)
         {
-            Database db = new PetaPoco.Database("bikes-clunie");
+            Database db = new PetaPoco.Database(ModelConfig.connectionStringName);
             return db.FirstOrDefault<Bike>("WHERE id = @0", id);
         }
 
         public static void deleteBike(int id)
         {
-            Database db = new PetaPoco.Database("bikes-clunie");
+            Database db = new PetaPoco.Database(ModelConfig.connectionStringName);
             db.Execute("DELETE FROM bike WHERE id = @0", id);
         }
 

@@ -8,7 +8,7 @@
     <h2>Edit Rider</h2>
 </div>
 
-@using (Html.BeginForm("Command", "Rider"))
+@using (Html.BeginForm("Command", "Rider", FormMethod.Post))
 {
     <div class="form-group">
         @Html.LabelFor(m => m.name)
@@ -18,6 +18,16 @@
     <div class="form-group">
         @Html.LabelFor(m => m.rate)
         @Html.EditorFor(m => m.rate, new { htmlAttributes = new { @class = "form-control" } })
+    </div>
+
+    <label>Chart colour </label>
+    <div class="form-group form-inline">
+        @Html.LabelFor(m => m.red)
+        @Html.EditorFor(m => m.red, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.LabelFor(m => m.green)
+        @Html.EditorFor(m => m.green, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.LabelFor(m => m.blue)
+        @Html.EditorFor(m => m.blue, new { htmlAttributes = new { @class = "form-control" } })
     </div>
 
     <div class="form-group">

@@ -18,9 +18,9 @@ namespace Bikes.App
             byte[] src = Encoding.Unicode.GetBytes(username + password);
             byte[] hash = algorithm.ComputeHash(src);
 
-            System.IO.File.WriteAllText(
-                System.Web.HttpContext.Current.Server.MapPath("~/App_Data/key.txt"),
-                Convert.ToBase64String(hash));
+            //System.IO.File.WriteAllText(
+            //    System.Web.HttpContext.Current.Server.MapPath("~/App_Data/key.txt"),
+            //    Convert.ToBase64String(hash));
 
             byte[] key = Convert.FromBase64String(ConfigurationManager.AppSettings["hash"]);
 
@@ -202,7 +202,11 @@ namespace Bikes.App
 
         public override string[] GetRolesForUser(string username)
         {
-            if (username.ToLower() == "mary")
+            if (BikesAppConfig.debug)
+            {
+                return new String[] { "user" };
+            }
+            else if (username.ToLower() == "mary")
             {
                 return new String[] { "user" };
             }
