@@ -15,37 +15,11 @@
     </style>
 
     <script src="~/Content/chartjs/Chart.min.js" ></script>
+    
     <script>
 
 
         $(function () {
-            //var data = {
-            //    labels: ["January", "February"],
-            //    datasets: [
-            //        {
-            //            fillColor: "rgba(220, 0, 0, 0.5)",
-            //            strokeColor: "rgba(220, 0, 0, 0.8)",
-            //            highlightFill: "rgba(220, 0, 0, 0.75)",
-            //            highlightStroke: "rgba(220, 0, 0, 1)",
-            //            data: [200, 123]
-            //        },
-            //        {
-            //            fillColor: "rgba(0, 220, 0, 0.5)",
-            //            strokeColor: "rgba(0, 220, 0, 0.8)",
-            //            highlightFill: "rgba(0, 220, 0, 0.75)",
-            //            highlightStroke: "rgba(0, 220, 0, 1)",
-            //            data: [79, 67]
-            //        },
-            //        {
-            //            fillColor: "rgba(0, 0, 220, 0.5)",
-            //            strokeColor: "rgba(0, 0, 220, 0.8)",
-            //            highlightFill: "rgba(0, 0, 220, 0.75)",
-            //            highlightStroke: "rgba(0, 0, 220, 1)",
-            //            data: [79, 67]
-            //        }
-
-            //    ]
-            //};
 
             var addTableCells = function (data, selector) {
                 var i,j;
@@ -75,10 +49,29 @@
             $.get(
                 "/api/RiderSummary",
                 function (data) {
-                    var ctx = $("#barRiderDistance").get(0).getContext("2d");
-                    new Chart(ctx).Bar(data);
 
+                    if (data.labels.length == 0) {
+                        //draw a placeholder message
+                        $("#barRiderDistance").css("display", "none");
+                        $("#barRiderDistancePlaceholder").css("display", "block");
+                    } else {
+                        var ctx = $("#barRiderDistance").get(0).getContext("2d");
+                        new Chart(ctx).Bar(data, { responsive: true, maintainAspectRatio: false });
+                    }
                     addTableCells(data, "#riderSummaryRows");
+                },
+                "json");
+
+            $.get(
+                "/api/YearSummary",
+                function (data) {
+                    var options = {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        multiTooltipTemplate: "<%=datasetLabel%> <%=value%>"
+                };
+                    var ctx = $("#barYearSummary").get(0).getContext("2d");
+                    new Chart(ctx).Bar(data, options);
                 },
                 "json");
 
@@ -86,28 +79,60 @@
     </script>
 }
 
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <h3 class="panel-title">Recent mileage</h3>
-    </div>
-    <div class="panel-body  text-center">
-        <div style="display:inline-block">
-            <canvas id="barRiderDistance" width="400" height="400" style="border:1px solid black;"></canvas>
+<div class="row">
+
+    <div class="col-sm-6">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Recent mileage</h3>
+            </div>
+            <div class="panel-body">
+                <div>
+                    <canvas id="barRiderDistance" style="width:100%;height:400px;"></canvas>
+                    <div id="barRiderDistancePlaceholder" style="display:none;">
+                        No rides to display
+                    </div>
+                </div>
+            </div>
         </div>
-        <div style="display:inline-block">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Recent Mileage</th>
-                        <th>Year Mileage</th>
-                        <th>Amount outstanding</th>
-                    </tr>
-                </thead>
-                <tbody id="riderSummaryRows">
-                </tbody>
-            </table>
+    </div>
+
+    <div class="col-sm-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Summary</h3>
+            </div>
+            <div class="panel-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Recent Mileage</th>
+                            <th>Year Mileage</th>
+                            <th>Amount outstanding</th>
+                        </tr>
+                    </thead>
+                    <tbody id="riderSummaryRows"></tbody>
+                </table>
+            </div>
         </div>
 
     </div>
 </div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Mileage by month</h3>
+            </div>
+            <div class="panel-body">
+                <div>
+                    <canvas id="barYearSummary" style="width:100%;height:400px;"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

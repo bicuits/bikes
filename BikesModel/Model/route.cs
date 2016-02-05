@@ -14,15 +14,16 @@ namespace Bikes.Model
         public String name { get; set; }
         public float distance { get; set; }
         public String notes { get; set; }
+        public bool deleted { get; internal set; }
 
-        public const int DefaultRouteId = 1;
-        public const string DefaultRouteName = "Other";
-        public const float DefaultRouteDistance = 0f;
+        public const int DefaultId = 1;
+        public const string DefaultName = "Other";
+        public const float DefaultDistance = 0f;
 
         public static List<Route> getRoutes()
         {
             Database db = new PetaPoco.Database(ModelConfig.connectionStringName);
-            return db.Fetch<Route>("");
+            return db.Fetch<Route>("WHERE deleted = FALSE");
         }
 
         public static Route getRoute(int id)
@@ -34,18 +35,18 @@ namespace Bikes.Model
         public static void deleteRoute(int id)
         {
             Database db = new PetaPoco.Database(ModelConfig.connectionStringName);
-            db.Execute("DELETE FROM route WHERE id = @0", id);
+            db.Execute("UPDATE route SET deleted = TRUE WHERE id = @0", id);
         }
 
         public void save()
         {
             Database db = new PetaPoco.Database(ModelConfig.connectionStringName);
 
-            if (id == Route.DefaultRouteId)
+            if (id == Route.DefaultId)
             {
                 //cannot change name or distance for the default route
-                name = DefaultRouteName;
-                distance = DefaultRouteDistance;
+                name = DefaultName;
+                distance = DefaultDistance;
             }
             db.Save(this);
         }

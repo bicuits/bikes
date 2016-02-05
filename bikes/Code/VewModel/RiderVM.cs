@@ -46,11 +46,9 @@ namespace Bikes.App
             name = rider.name;
             rate = rider.rate;
 
-            String[] colors = rider.color.Split(new char[] { ',' });
-
-            red = int.Parse(colors[0]);
-            green = int.Parse(colors[1]);
-            blue = int.Parse(colors[2]);
+            red = rider.color.R;
+            green = rider.color.G;
+            blue = rider.color.B;
         }
 
         public Rider toRider()
@@ -60,7 +58,8 @@ namespace Bikes.App
             rider.id = id;
             rider.name= name;
             rider.rate = rate;
-            rider.color = String.Format("{0},{1},{2}", red, green, blue);
+            rider.color = System.Drawing.Color.FromArgb(255, red, green, blue);
+
             return rider;
         }
 

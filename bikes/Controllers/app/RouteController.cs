@@ -45,7 +45,7 @@ namespace Bikes.App
                     break;
 
                 case "delete":
-                    if (model.id != Route.DefaultRouteId)
+                    if (model.id != Route.DefaultId)
                     {
                         Route.deleteRoute(model.id);
                     }

@@ -231,6 +231,7 @@
     <Compile Include="Code\VewModel\RiderVM.cs" />
     <Compile Include="Code\VewModel\RideVM.cs" />
     <Compile Include="Code\VewModel\RouteVM.cs" />
+    <Compile Include="Controllers\api\YearSummaryController.cs" />
     <Compile Include="Controllers\app\AdminController.cs" />
     <Compile Include="Controllers\app\ArchiveController.cs" />
     <Compile Include="Controllers\app\BikeController.cs" />

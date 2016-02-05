@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using PetaPoco;
+using System.Drawing;
 
 namespace Bikes.Model
 {
@@ -13,12 +14,26 @@ namespace Bikes.Model
         public int id { get; set; }
         public String name { get; set; }
         public int rate { get; set; }
-        public String color { get; set; } //strictly this should be stored in the app?
+        public String color_code { get; set; } //strictly this should be stored in the app?
+        public bool deleted { get; internal set; }
+
+        [PetaPoco.Ignore]
+        public Color color
+        {
+            get
+            {
+                return ColorTranslator.FromHtml(color_code);
+            }
+            set
+            {
+                color_code = ColorTranslator.ToHtml(value);
+            }
+        }
 
         public static List<Rider> getRiders()
         {
             Database db = new PetaPoco.Database(ModelConfig.connectionStringName);
-            List<Rider> riders = db.Fetch<Rider>("");
+            List<Rider> riders = db.Fetch<Rider>("WHERE deleted = FALSE");
 
             return riders;
         }
@@ -34,7 +49,7 @@ namespace Bikes.Model
         public static void deleteRider(int id)
         {
             Database db = new PetaPoco.Database(ModelConfig.connectionStringName);
-            db.Execute("DELETE FROM ride WHERE id = @0", id);
+            db.Execute("UPDATE ride SET deleted = TRUE WHERE id = @0", id);
         }
         public void save()
         {

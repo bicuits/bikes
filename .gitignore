@@ -3,6 +3,7 @@
 
 #PJD Additions
 bikes/connectionStrings.config
+bikes/App_Data/
 
 # User-specific files
 *.suo

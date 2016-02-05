@@ -10,16 +10,18 @@ CREATE TABLE rider
 	id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
 	rate INT DEFAULT 0,
-	color VARCHAR(255) DEFAULT '220,220,220',
+	color_code VARCHAR(255) DEFAULT '#E0E0E0',
+	deleted BOOLEAN DEFAULT FALSE,
     last_updated TIMESTAMP
-);
+) AUTO_INCREMENT = 0;
 
 CREATE TABLE bike
 (
 	id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,                    
+	deleted BOOLEAN DEFAULT FALSE,
     last_updated TIMESTAMP
-);
+) AUTO_INCREMENT = 0;
 
 CREATE TABLE route
 (
@@ -27,6 +29,7 @@ CREATE TABLE route
     name VARCHAR(255) NOT NULL,                    
 	distance FLOAT NOT NULL,
     notes TEXT,                    
+	deleted BOOLEAN DEFAULT FALSE,
     last_updated TIMESTAMP
 ) AUTO_INCREMENT = 0;
 
@@ -35,7 +38,7 @@ CREATE TABLE ride
 	id INT AUTO_INCREMENT PRIMARY KEY,
 	route_id INT NOT NULL,
 	rider_id INT NOT NULL,
-	bike_id INT,
+	bike_id INT NOT NULL,
 	distance FLOAT DEFAULT 0,
 	return_ride BOOLEAN DEFAULT FALSE,
 	payable BOOLEAN DEFAULT FALSE,
@@ -47,9 +50,15 @@ CREATE TABLE ride
 CREATE TABLE ride_archive
 (
 	id INT AUTO_INCREMENT PRIMARY KEY,
+
 	route VARCHAR(255) NOT NULL,
 	rider VARCHAR(255) NOT NULL,
 	bike VARCHAR(255) NOT NULL,
+
+	route_id INT NOT NULL,
+	rider_id INT NOT NULL,
+	bike_id INT NOT NULL,
+
 	distance FLOAT NOT NULL,
 	return_ride BOOLEAN NOT NULL,
 	ride_date DATETIME NOT NULL, 
@@ -69,4 +78,5 @@ CREATE TABLE payment
     last_updated TIMESTAMP
 );
 
+INSERT bike (name) VALUES ('Other');
 INSERT route (name, distance, notes) VALUES ('Other', 0, 'Enter your own mileage');

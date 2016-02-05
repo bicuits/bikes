@@ -13,10 +13,14 @@ namespace Bikes.Model
         public int id { get; set; }
         public String name { get; set; }
 
+        public const int DefaultId = 1;
+        public const string DefaultName = "Other";
+        public bool deleted { get; internal set; }
+
         public static List<Bike> getBikes()
         {
             Database db = new PetaPoco.Database(ModelConfig.connectionStringName);
-            return db.Fetch<Bike>("");
+            return db.Fetch<Bike>("WHERE deleted = FALSE");
         }
 
         public static Bike getBike(int id)
@@ -28,12 +32,17 @@ namespace Bikes.Model
         public static void deleteBike(int id)
         {
             Database db = new PetaPoco.Database(ModelConfig.connectionStringName);
-            db.Execute("DELETE FROM bike WHERE id = @0", id);
+            db.Execute("UPDATE bike SET deleted = TRUE WHERE id = @0", id);
         }
 
         public void save()
         {
             Database db = new PetaPoco.Database("bikes-clunie");
+            if (id == Route.DefaultId)
+            {
+                //cannot change name for the default bike
+                name = DefaultName;
+            }
             db.Save(this);
         }
     }

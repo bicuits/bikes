@@ -10,11 +10,11 @@ namespace Bikes.App
 {
     public static class BikesDebug
     {
-        public static void dumpToFile(String Filename, String data)
+        public static void dumpToFile(String filename, String data)
         {
             if (BikesDebug.debug)
             {
-                File.WriteAllText(HostingEnvironment.MapPath("~/App_Data/riderSummary.json"), data);
+                File.WriteAllText(HostingEnvironment.MapPath("~/App_Data/" + filename), data);
             }
 
         }

@@ -15,7 +15,7 @@
         @Html.EditorFor(m => m.name,
             new
             {
-                htmlAttributes = ( Model.id == Bikes.Model.Route.DefaultRouteId  ?
+                htmlAttributes = ( Model.id == Bikes.Model.Route.DefaultId  ?
                     (object) new { @class = "form-control", @readonly = "readonly" } :
                     (object) new { @class = "form-control" } )
             })
@@ -26,7 +26,7 @@
         @Html.EditorFor(m => m.distance,
             new
             {
-                htmlAttributes = (Model.id == Bikes.Model.Route.DefaultRouteId ?
+                htmlAttributes = (Model.id == Bikes.Model.Route.DefaultId ?
                     (object) new { @class = "form-control", @readonly = "readonly" } :
                     (object) new { @class = "form-control" })
             })

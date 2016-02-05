@@ -37,7 +37,7 @@ namespace Bikes.Model
         {
             get
             {
-                if (route_id == Route.DefaultRouteId)
+                if (route_id == Route.DefaultId)
                 {
                     return distance;
                 }

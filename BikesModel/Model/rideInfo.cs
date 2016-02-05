@@ -19,9 +19,14 @@ namespace Bikes.Model
         public double cash { get; internal set; }
         public bool return_ride { get; internal set; }
         public String notes { get; internal set; }
+
         public String bike { get; internal set; }
         public String rider { get; internal set; }
         public String route { get; internal set; }
+
+        public int route_id { get; internal set; }
+        public int bike_id { get; internal set; }
+        public int rider_id { get; internal set; }
 
         internal RideInfo()
         { }
@@ -50,13 +55,19 @@ namespace Bikes.Model
 
             info.ride_date = ride.ride_date;
             info.archive_date = DateTime.Now;
+
             info.distance = ride.rideLength;
             info.cash = ride.rideValue;
             info.return_ride = ride.return_ride;
             info.notes = ride.notes == null ? "" : ride.notes ;
+
             info.bike = ride.bike == null ? "unknown" : ride.bike;
             info.rider = ride.rider;
             info.route = ride.route;
+
+            info.rider_id = ride.rider_id;
+            info.bike_id = ride.bike_id;
+            info.route_id = ride.route_id;
 
             //create an archive record
             info.save();
