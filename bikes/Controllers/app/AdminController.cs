@@ -14,7 +14,6 @@ namespace Bikes.App
         {
             AdminVM model = new AdminVM();
 
-            model.archives = RideInfo.getArchiveRides();
             model.payments = Payment.getPayments();
 
             return View("Admin", model);
@@ -28,7 +27,6 @@ namespace Bikes.App
             switch (command)
             {
                 case "archive":
-                    archiveRides();
                     result = RedirectToAction("Index");
                     break;
 
@@ -38,34 +36,6 @@ namespace Bikes.App
             }
 
             return result;
-        }
-
-        private void archiveRides()
-        {
-            List<Ride> allRides = Ride.getRides();
-
-            foreach (Rider rider in Rider.getRiders())
-            {
-                double total = 0;
-
-                //get the rides for this rider
-                IEnumerable<Ride> rides = allRides.Where(r => r.rider_id == rider.id);
-                
-                foreach (Ride ride in rides)
-                {
-                    //total the values of each ride
-                    total += ride.rideValue;
-
-                    //archive the ride
-                    RideInfo.archiveRide(ride);
-                }
-
-                //make a payment record for this rider
-                if (total > 0.01)
-                {
-                    Payment.makePayment(rider.name, total);
-                }
-            }
         }
     }
 }

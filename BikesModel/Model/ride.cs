@@ -11,53 +11,25 @@ namespace Bikes.Model
     public class Ride
     {
         //read/write properites persisted to the database
-        public int id { get; set; }                 //primary key
-        public int bike_id { get; set; }            //foreign key, which bike was ridden
-        public int rider_id { get; set; }           //foreign key, who rode the bike
-        public int route_id { get; set; }           //foreign key, what route did they ride
-        public DateTime ride_date { get; set; }     //date the ride was ridden
-        public double distance { get; set; }        //distance ridden, only used for route type "other"
-        public bool return_ride { get; set; }       //was the route ridden one-way or there and back
-        public bool payable { get; set; }           //does the ride have a cash value
-        public String notes { get; set; }           //user defined field
+        public int id { get; internal set; }                 //primary key
 
-        //read-only properties
-        [PetaPoco.ResultColumn]
-        public String bike { get; internal set; }   //for display - name of the bike ridden
-        [PetaPoco.ResultColumn]
-        public String rider { get; internal set; }  //for display - name of the rider
-        [PetaPoco.ResultColumn]
-        public String route { get; internal set; }  //for display - name of the route ridden
-        [PetaPoco.ResultColumn]
-        public int rate { get; internal set; }      //for display or calculation - pence per mile
-        [PetaPoco.ResultColumn]
-        public double routeLength{ get; internal set; }  //for display or calculation - length of the route (one-way only)
-        [PetaPoco.Ignore]
-        public double rideLength                   //for display or calculation - the total distance ridden
+        public int bike_id { get; internal set; }            //foreign key, which bike was ridden
+        public int rider_id { get; internal set; }           //foreign key, who rode the bike
+        public int route_id { get; internal set; }           //foreign key, what route did they ride
+        public int payment_id { get; internal set; }         //foreign key, hwhere was the reward paid
+
+        public String bike { get; internal set; }            //name of the bike ridden
+        public String rider { get; internal set; }           //name of the rider
+        public String route { get; internal set; }           //name of the route ridden
+
+        public DateTime ride_date { get; internal set; }     //date the ride was ridden
+        public String notes { get; internal set; }           //user defined field
+        public double reward { get; internal set; }          //earned value in Pounds
+        public double distance { get; internal set; }        //length of the route (including return trip)
+
+        internal Ride()
         {
-            get
-            {
-                if (route_id == Route.DefaultId)
-                {
-                    return distance;
-                }
-                else if (return_ride)
-                {
-                    return routeLength * 2;
-                }
-                else
-                {
-                    return routeLength;
-                }
-            }
-        }                            
-        [PetaPoco.Ignore]
-        public double rideValue                  //for display or calculation - the cash value of the ride
-        {
-            get
-            {
-                return payable ? (rideLength * rate) / 100f : 0f;
-            }
+            payment_id = Payment.NullPaymentId;
         }
 
         //utility function to build the sql statement to perform the join
@@ -65,8 +37,8 @@ namespace Bikes.Model
         {
             return Sql
                 .Builder
-                .Append("SELECT a.id, a.distance, a.return_ride, a.ride_date, a.payable, a.bike_id, a.rider_id, a.route_id, a.notes,")
-                .Append("b.name AS route, b.distance AS routeLength, c.name AS rider, c.rate AS rate, d.name AS bike")
+                .Append("SELECT a.id, a.bike_id, a.rider_id, a.route_id, a.ride_date, a.notes, a.reward, a.distance,")
+                .Append("b.name AS route, c.name AS rider, d.name AS bike")
                 .Append("FROM ride a, route b, rider c, bike d")
                 .Append("WHERE a.route_id = b.id AND a.rider_id = c.id AND a.bike_id = d.id");
         }
@@ -85,14 +57,43 @@ namespace Bikes.Model
 
         public static void deleteRide(int id)
         {
-            Database db = new PetaPoco.Database(ModelConfig.connectionStringName);
-            db.Execute("DELETE FROM ride WHERE id = @0", id);
+            Ride ride = getRide(id);
+
+            //do not allow rides that have been paid to be deleted
+            if (ride != null && ride.payment_id == Payment.NullPaymentId)
+            {
+                Database db = new PetaPoco.Database(ModelConfig.connectionStringName);
+                db.Execute("DELETE FROM ride WHERE id = @0", id);
+            }
         }
 
-        public void save()
+        public static void add(
+                        int bike_id,
+                        int rider_id,
+                        int route_id,
+                        DateTime ride_date,
+                        String notes,
+                        double reward,
+                        double distance)
         {
+            Ride ride = new Ride();
+
+            ride.bike_id = bike_id;
+            ride.rider_id = rider_id;
+            ride.route_id = route_id;
+
+            //if no names supplied then look up from ids
+            ride.bike = Bike.getBike(bike_id).name;
+            ride.rider = Rider.getRider(rider_id).name;
+            ride.route = Route.getRoute(route_id).name;
+            ride.ride_date = ride_date;
+
+            ride.notes = notes;
+            ride.reward = reward;
+            ride.distance = distance;
+
             Database db = new PetaPoco.Database(ModelConfig.connectionStringName);
-            db.Save(this);
+            db.Insert(ride);
         }
     }
 }

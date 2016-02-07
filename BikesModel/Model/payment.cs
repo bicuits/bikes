@@ -17,6 +17,8 @@ namespace Bikes.Model
         public DateTime created_date { get; set; }
         public DateTime? paid_date { get; set; }
 
+        public const int NullPaymentId = 0;
+
         internal Payment() { }
 
         public static List<Payment> getPayments()

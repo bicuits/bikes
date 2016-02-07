@@ -8,7 +8,6 @@ namespace Bikes.App
 {
     public class AdminVM
     {
-        public IEnumerable<RideInfo> archives { get; set; }
         public IEnumerable<Payment> payments { get; set; }
     }
 }

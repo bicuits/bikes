@@ -35,7 +35,7 @@
 @using (Html.BeginForm("Command", "Ride"))
 {
     <div class="form-group">
-        <label>Route</label>
+        @Html.LabelFor(m => m.routeId)
         @Html.DropDownListFor(m => m.routeId, Model.routeList, new { id = "routeList", @class = "form-control" })
     </div>
 

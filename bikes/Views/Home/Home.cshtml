@@ -27,21 +27,23 @@
 
                 tbody = $(selector);
 
-                for (i = 0; i < data.labels.length; i++) {
+                for (i = 0; i < data.length; i++) {
                     tr = $("<tr></tr>").appendTo(tbody);
                     //name
                     $("<td></td>")
-                        .html(data.labels[i])
+                        .html(data[i].rider)
                         .appendTo(tr);
-                    //recent mileage
+                    //mileage this month
                     $("<td class='text-right'></td>")
-                        .html(data.datasets[0].data[i])
+                        .html(data[i].monthDistance)
                         .appendTo(tr);
-                    //yearly mileage
-                    $("<td class='text-right'>0</td>")
+                    //mileage for year
+                    $("<td class='text-right'></td>")
+                        .html(data[i].yearDistance)
                         .appendTo(tr);
                     //amount earned
-                    $("<td class='text-right'>&pound;&nbsp;0</td>")
+                    $("<td class='text-right'></td>")
+                        .html(data[i].cash)
                         .appendTo(tr);
                 }
             };
@@ -58,7 +60,6 @@
                         var ctx = $("#barRiderDistance").get(0).getContext("2d");
                         new Chart(ctx).Bar(data, { responsive: true, maintainAspectRatio: false });
                     }
-                    addTableCells(data, "#riderSummaryRows");
                 },
                 "json");
 
@@ -69,9 +70,11 @@
                         responsive: true,
                         maintainAspectRatio: false,
                         multiTooltipTemplate: "<%=datasetLabel%> <%=value%>"
-                };
+                    };
                     var ctx = $("#barYearSummary").get(0).getContext("2d");
-                    new Chart(ctx).Bar(data, options);
+                    new Chart(ctx).Bar(data.chartData, options);
+
+                    addTableCells(data.riderSummary, "#riderSummaryRows");
                 },
                 "json");
 
@@ -85,7 +88,7 @@
 
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">Recent mileage</h3>
+                <h3 class="panel-title">Mileage this month</h3>
             </div>
             <div class="panel-body">
                 <div>
@@ -108,9 +111,9 @@
                     <thead>
                         <tr>
                             <th>Name</th>
-                            <th>Recent Mileage</th>
-                            <th>Year Mileage</th>
-                            <th>Amount outstanding</th>
+                            <th class="text-right">month</th>
+                            <th class="text-right">year</th>
+                            <th class="text-right">Amount</th>
                         </tr>
                     </thead>
                     <tbody id="riderSummaryRows"></tbody>
@@ -125,7 +128,7 @@
     <div class="col-sm-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">Mileage by month</h3>
+                <h3 class="panel-title">Year summary</h3>
             </div>
             <div class="panel-body">
                 <div>

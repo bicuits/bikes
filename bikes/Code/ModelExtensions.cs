@@ -13,11 +13,6 @@ namespace Bikes.App
             return getSummary(ride.notes);
         }
 
-        public static String notesSummary(this RideInfo ride)
-        {
-            return getSummary(ride.notes);
-        }
-
         private static String getSummary(String src)
         {
             String result;

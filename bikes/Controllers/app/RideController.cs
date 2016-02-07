@@ -21,16 +21,15 @@ namespace Bikes.App
         {
             RideVM model = new RideVM();
 
-            return View("Edit", model);
+            return View("AddRide", model);
         }
 
         [HttpGet]
-        public ActionResult Edit(int id)
+        public ActionResult View(int id)
         {
-            Ride ride = Ride.getRide(id);
-            RideVM model = new RideVM(ride);
+            RideVM model = new RideVM(Ride.getRide(id));
 
-            return View("Edit", model);
+            return View("ViewRide", model);
         }
 
         [HttpPost]
@@ -39,8 +38,33 @@ namespace Bikes.App
             switch (command)
             {
                 case "save":
-                    Ride ride = model.toRide();
-                    ride.save();
+
+                    double rideLength;
+
+                    if (model.routeId == Route.DefaultId)
+                    {
+                        rideLength = model.distance;
+                    }
+                    else
+                    {
+                        rideLength = Route.getRoute(model.routeId).distance;
+                        if (model.returnRide)
+                        {
+                            rideLength *= 2;
+                        }
+                    }
+
+                    double rideValue = model.payable ? (rideLength * Rider.getRider(model.riderId).rate) / 100f : 0f;
+
+                    Ride.add(
+                        bike_id: model.bikeId,
+                        rider_id: model.riderId,
+                        route_id: model.routeId,
+                        ride_date: DateTime.Parse(model.rideDate),
+                        notes: model.notes,
+                        reward: rideValue,
+                        distance: rideLength
+                        );
                     break;
 
                 case "delete":

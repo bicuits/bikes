@@ -56,7 +56,6 @@
     </Compile>
     <Compile Include="Model\PetaPoco\PetaPoco.cs" />
     <Compile Include="Model\ride.cs" />
-    <Compile Include="Model\rideInfo.cs" />
     <Compile Include="Model\rider.cs" />
     <Compile Include="Model\route.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

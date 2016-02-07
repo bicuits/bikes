@@ -1,0 +1,18 @@
+﻿@model RideVM
+@{
+    ViewBag.Title = "ViewRide";
+    Layout = "~/Views/_MainLayout.cshtml";
+}
+
+<h2>ViewRide</h2>
+
+
+<div>TO DO...</div>
+@using (Html.BeginForm("Command", "Ride"))
+{
+    <div class="form-group">
+        @Html.HiddenFor(m => m.id)
+        <button type="submit" class="btn btn-default" name="command" value="cancel">Cancel</button>
+        <button type="submit" class="btn btn-default" name="command" value="delete" onclick="return confirm('Are you sure oyu want to delete this item?')">Remove</button>
+    </div>
+}

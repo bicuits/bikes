@@ -13,7 +13,8 @@ namespace Bikes.App
     {
         public JObject Get()
         {
-            IEnumerable<Ride> rides = Ride.getRides();
+            //get the rides for this month
+            IEnumerable<Ride> rides = Ride.getRides().Where(r => r.ride_date.Month == DateTime.Now.Month);
             IEnumerable<IGrouping<int, Ride>> groups = rides.GroupBy(r => r.rider_id);
 
             JObject recentRides = new JObject(
@@ -27,7 +28,7 @@ namespace Bikes.App
                             new JProperty("highlightFill", "rgba(220, 220, 220, 0.75)"),
                             new JProperty("highlightStroke", "rgba(220, 220, 220, 1)"),
                             new JProperty("data",
-                                new JArray(groups.Select(g => g.Sum(r => r.rideLength)
+                                new JArray(groups.Select(g => g.Sum(r => r.distance)
                                 )))))));
 
             BikesDebug.dumpToFile("recentRides.json", recentRides.ToString(Newtonsoft.Json.Formatting.Indented));

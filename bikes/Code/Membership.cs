@@ -18,9 +18,7 @@ namespace Bikes.App
             byte[] src = Encoding.Unicode.GetBytes(username + password);
             byte[] hash = algorithm.ComputeHash(src);
 
-            //System.IO.File.WriteAllText(
-            //    System.Web.HttpContext.Current.Server.MapPath("~/App_Data/key.txt"),
-            //    Convert.ToBase64String(hash));
+            BikesDebug.dumpToFile("key.txt", Convert.ToBase64String(hash));
 
             byte[] key = Convert.FromBase64String(ConfigurationManager.AppSettings["hash"]);
 
