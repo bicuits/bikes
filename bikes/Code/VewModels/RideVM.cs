@@ -31,17 +31,6 @@ namespace Bikes.App
         [DataType(DataType.Text)]
         public String rideDate { get; set; }
 
-        //[Display(Name = "Route")]
-        //[Required]
-        //public String route { get; set; }
-
-        //[Display(Name = "Rider")]
-        //[Required]
-        //public String rider { get; set; }
-
-        //[Display(Name = "Bike")]
-        //public String bike { get; set; }
-
         [Display(Name = "Notes")]
         public String notes { get; set; }
 
@@ -72,7 +61,15 @@ namespace Bikes.App
         {
             get
             {
-                return new SelectList(Route.getRoutes(), "id", "name");
+                return new SelectList(
+                    Route.getRoutes()
+                    .Select(r => new
+                    {
+                        id = r.id,
+                        name = r.id == Route.DefaultId ? r.name : String.Format("{0} ({1} miles)", r.name, r.distance)
+                    }), 
+                    "id", 
+                    "name");
             }
         }
 

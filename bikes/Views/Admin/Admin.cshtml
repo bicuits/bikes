@@ -9,7 +9,7 @@
 @using (Html.BeginForm("Command", "Admin", FormMethod.Post))
 {
     <div class="form-group">
-        <button type="submit" class="btn btn-default" name="command" value="archive">Archive Rides</button>
+        <button type="submit" class="btn btn-default" name="command" value="pay">Pay into bank</button>
         <button type="submit" class="btn btn-default" name="command" value="cancel">Exit Admin</button>
     </div>
 
@@ -22,7 +22,6 @@
             <th>Recipient</th>
             <th>Date</th>
             <th>Amount</th>
-            <th>Paid</th>
         </tr>
     </thead>
 
@@ -33,7 +32,6 @@
                 <td>@payment.rider</td>
                 <td>@payment.created_date.ToString("ddd dd MMM yyyy")</td>
                 <td>@payment.amount.ToString("C")</td>
-                <td>@(payment.paid_date.HasValue ? payment.paid_date.Value.ToString("ddd dd MMM yyyy") : "unpaid")</td>
             </tr>
         }
     </tbody>

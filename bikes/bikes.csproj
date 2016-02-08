@@ -219,28 +219,28 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Code\BikesAppConfig.cs" />
-    <Compile Include="Code\BikesDebug.cs" />
-    <Compile Include="Code\Membership.cs" />
-    <Compile Include="Code\ModelExtensions.cs" />
-    <Compile Include="Code\VewModel\AdminVM.cs" />
-    <Compile Include="Code\VewModel\BikeVM.cs" />
-    <Compile Include="Code\VewModel\LoginVM.cs" />
-    <Compile Include="Code\VewModel\RiderVM.cs" />
-    <Compile Include="Code\VewModel\RideVM.cs" />
-    <Compile Include="Code\VewModel\RouteVM.cs" />
-    <Compile Include="Controllers\api\YearSummaryController.cs" />
-    <Compile Include="Controllers\app\AdminController.cs" />
-    <Compile Include="Controllers\app\BikeController.cs" />
-    <Compile Include="Controllers\app\BikesControllerBase.cs" />
-    <Compile Include="Controllers\app\HomeController.cs" />
-    <Compile Include="Controllers\app\LoginController.cs" />
-    <Compile Include="Controllers\app\RideController.cs" />
-    <Compile Include="Controllers\app\RiderController.cs" />
-    <Compile Include="Controllers\app\RouteController.cs" />
-    <Compile Include="Controllers\api\RiderSummaryController.cs" />
+    <Compile Include="Code\App_Start\RouteConfig.cs" />
+    <Compile Include="Code\App_Start\WebApiConfig.cs" />
+    <Compile Include="Code\App\BikesAppConfig.cs" />
+    <Compile Include="Code\App\BikesDebug.cs" />
+    <Compile Include="Code\App\Membership.cs" />
+    <Compile Include="Code\App\ModelExtensions.cs" />
+    <Compile Include="Code\VewModels\AdminVM.cs" />
+    <Compile Include="Code\VewModels\BikeVM.cs" />
+    <Compile Include="Code\VewModels\LoginVM.cs" />
+    <Compile Include="Code\VewModels\RiderVM.cs" />
+    <Compile Include="Code\VewModels\RideVM.cs" />
+    <Compile Include="Code\VewModels\RouteVM.cs" />
+    <Compile Include="Code\Controllers\api\YearSummaryController.cs" />
+    <Compile Include="Code\Controllers\app\AdminController.cs" />
+    <Compile Include="Code\Controllers\app\BikeController.cs" />
+    <Compile Include="Code\Controllers\app\BikesControllerBase.cs" />
+    <Compile Include="Code\Controllers\app\HomeController.cs" />
+    <Compile Include="Code\Controllers\app\LoginController.cs" />
+    <Compile Include="Code\Controllers\app\RideController.cs" />
+    <Compile Include="Code\Controllers\app\RiderController.cs" />
+    <Compile Include="Code\Controllers\app\RouteController.cs" />
+    <Compile Include="Code\Controllers\api\RiderSummaryController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -274,7 +274,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Scripts\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
-using System.Web;
+using System.Web.Configuration;
 
 namespace Bikes.App
 {
@@ -13,9 +13,8 @@ namespace Bikes.App
             get
             {
                 //settings are "true", "false"
-                return bool.Parse(ConfigurationManager.AppSettings["debug"]);
+                return bool.Parse(WebConfigurationManager.AppSettings["debug"]);
             }
         }
-
     }
 }

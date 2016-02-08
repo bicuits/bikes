@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Bikes.Model;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
+using Bikes.Model.Banking;
 
 namespace Bikes.App
 {
@@ -22,6 +23,12 @@ namespace Bikes.App
         [Required(ErrorMessage = "please enter the rate per mile")]
         public int rate { get; set; }
 
+        [Display(Name = "Bank username")]
+        public String bankUsername { get; set; }
+
+        [Display(Name = "Bank account number")]
+        public String bankAccountNumber { get; set; }
+
         [Required(ErrorMessage = "please enter the colour for display in charts")]
         public int red { get; set; }
 
@@ -30,7 +37,6 @@ namespace Bikes.App
 
         [Required(ErrorMessage = "please enter the colour for display in charts")]
         public int blue { get; set; }
-
 
         public RiderVM()
         {
@@ -49,6 +55,9 @@ namespace Bikes.App
             red = rider.color.R;
             green = rider.color.G;
             blue = rider.color.B;
+
+            bankUsername = rider.bank_username == null ? "" : rider.bank_username;
+            bankAccountNumber = rider.bank_account_id == Bank.DefaultAccountId ? "" : rider.bank_account_id.ToString();
         }
 
         public Rider toRider()
@@ -59,6 +68,14 @@ namespace Bikes.App
             rider.name= name;
             rider.rate = rate;
             rider.color = System.Drawing.Color.FromArgb(255, red, green, blue);
+            rider.bank_username = bankUsername == null ? bankUsername : bankUsername.Trim();
+            rider.bank_account_id = Bank.DefaultAccountId;
+
+            int accountId;
+            if (int.TryParse(bankAccountNumber, out accountId))
+            {
+                rider.bank_account_id = accountId;
+            }
 
             return rider;
         }

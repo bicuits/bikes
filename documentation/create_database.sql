@@ -9,6 +9,9 @@ CREATE TABLE rider
 (
 	id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
+    bank_branch_id  INT,
+    bank_username   VARCHAR(255),
+    bank_account_id INT DEFAULT 0,
 	rate INT DEFAULT 0,
 	color_code VARCHAR(255) DEFAULT '#E0E0E0',
 	deleted BOOLEAN DEFAULT FALSE,
@@ -40,13 +43,14 @@ CREATE TABLE ride
 	route_id INT NOT NULL,
 	rider_id INT NOT NULL,
 	bike_id INT NOT NULL,
-	payment_id INT NOT NULL,
+	payment_id INT DEFAULT 0,
 
 	bike VARCHAR(255) NOT NULL,
 	rider VARCHAR(255) NOT NULL,
 	route VARCHAR(255) NOT NULL,
 	
-	ride_date DATETIME DEFAULT NULL, 
+	paid BOOLEAN DEFAULT FALSE,
+	ride_date DATETIME DEFAULT NULL,
     notes TEXT,                    
 	reward FLOAT DEFAULT 0,
 	distance FLOAT DEFAULT 0,
@@ -59,7 +63,9 @@ CREATE TABLE payment
 	id INT AUTO_INCREMENT PRIMARY KEY,
 	rider VARCHAR(255) NOT NULL,
 	amount FLOAT NOT NULL,
-	created_date DATETIME NOT NULL, 
+    bank_branch   VARCHAR(255) NOT NULL,
+    bank_username   VARCHAR(255) NOT NULL,
+    bank_account VARCHAR(255) NOT NULL,
 	paid_date DATETIME,
     last_updated TIMESTAMP
 ) AUTO_INCREMENT = 0;

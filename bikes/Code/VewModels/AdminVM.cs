@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using Bikes.Model;
+using Bikes.Model.Banking;
 
 namespace Bikes.App
 {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using PetaPoco;
+using Bikes.Model.Banking;
 
 namespace Bikes.Model
 {
@@ -23,6 +24,7 @@ namespace Bikes.Model
         public String route { get; internal set; }           //name of the route ridden
 
         public DateTime ride_date { get; internal set; }     //date the ride was ridden
+        public bool paid { get; internal set; }              //if the reward as been paid or not
         public String notes { get; internal set; }           //user defined field
         public double reward { get; internal set; }          //earned value in Pounds
         public double distance { get; internal set; }        //length of the route (including return trip)
@@ -37,7 +39,8 @@ namespace Bikes.Model
         {
             return Sql
                 .Builder
-                .Append("SELECT a.id, a.bike_id, a.rider_id, a.route_id, a.ride_date, a.notes, a.reward, a.distance,")
+                .Append("SELECT a.id, a.bike_id, a.rider_id, a.route_id, a.ride_date, a.notes,")
+                .Append("a.reward, a.distance, a.paid, a.payment_id,")
                 .Append("b.name AS route, c.name AS rider, d.name AS bike")
                 .Append("FROM ride a, route b, rider c, bike d")
                 .Append("WHERE a.route_id = b.id AND a.rider_id = c.id AND a.bike_id = d.id");
@@ -45,13 +48,19 @@ namespace Bikes.Model
 
         public static List<Ride> getRides()
         {
-            Database db = new PetaPoco.Database(ModelConfig.connectionStringName);
+            Database db = new PetaPoco.Database(ModelConfig.connectionStringName("bikes"));
             return db.Fetch<Ride>(sql());
+        }
+
+        public static List<Ride> getUnpaidRides()
+        {
+            Database db = new PetaPoco.Database(ModelConfig.connectionStringName("bikes"));
+            return db.Fetch<Ride>(sql().Append("WHERE a.paid = FALSE", Payment.NullPaymentId));
         }
 
         public static Ride getRide(int id)
         {
-            Database db = new PetaPoco.Database(ModelConfig.connectionStringName);
+            Database db = new PetaPoco.Database(ModelConfig.connectionStringName("bikes"));
             return db.FirstOrDefault<Ride>(sql().Append("AND a.id = @0", id));
         }
 
@@ -62,9 +71,22 @@ namespace Bikes.Model
             //do not allow rides that have been paid to be deleted
             if (ride != null && ride.payment_id == Payment.NullPaymentId)
             {
-                Database db = new PetaPoco.Database(ModelConfig.connectionStringName);
+                Database db = new PetaPoco.Database(ModelConfig.connectionStringName("bikes"));
                 db.Execute("DELETE FROM ride WHERE id = @0", id);
             }
+        }
+
+        public void setAsPaid(int paymentId)
+        {
+            if (paid && paymentId == Payment.NullPaymentId)
+            {
+                throw new ApplicationException("Attempt to mark ride as unpaid");
+            }
+
+            payment_id = paymentId;
+            paid = true;
+            Database db = new PetaPoco.Database(ModelConfig.connectionStringName("bikes"));
+            db.Save(this);
         }
 
         public static void add(
@@ -89,10 +111,17 @@ namespace Bikes.Model
             ride.ride_date = ride_date;
 
             ride.notes = notes;
-            ride.reward = reward;
             ride.distance = distance;
+            ride.reward = reward;
 
-            Database db = new PetaPoco.Database(ModelConfig.connectionStringName);
+            if (reward == 0)
+            {
+                //set any rides with no value as paid by default
+                ride.paid = true;
+                ride.payment_id = Payment.NullPaymentId;
+            }
+
+            Database db = new PetaPoco.Database(ModelConfig.connectionStringName("bikes"));
             db.Insert(ride);
         }
     }
