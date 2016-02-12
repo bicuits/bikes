@@ -43,7 +43,11 @@
                         .appendTo(tr);
                     //amount earned
                     $("<td class='text-right'></td>")
-                        .html(data[i].cash)
+                        .html(data[i].cashUnpaid)
+                        .appendTo(tr);
+                    //amount earned
+                    $("<td class='text-right'></td>")
+                        .html(data[i].cashYear)
                         .appendTo(tr);
                 }
             };
@@ -113,7 +117,8 @@
                             <th>Name</th>
                             <th class="text-right">month</th>
                             <th class="text-right">year</th>
-                            <th class="text-right">Amount</th>
+                            <th class="text-right">unpaid</th>
+                            <th class="text-right">total</th>
                         </tr>
                     </thead>
                     <tbody id="riderSummaryRows"></tbody>

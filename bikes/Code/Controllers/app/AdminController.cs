@@ -11,6 +11,13 @@ namespace Bikes.App
     public class AdminController : BikesControllerBase 
     {
         [HttpGet]
+        public ActionResult IndexA()
+        {
+            return View("AdminA");
+        }
+
+
+        [HttpGet]
         public ActionResult Index()
         {
             AdminVM model = new AdminVM();
@@ -28,7 +35,11 @@ namespace Bikes.App
             switch (command)
             {
                 case "pay":
-                    payAll();
+
+                    //had this over to the API controller
+                    var controller = DependencyResolver.Current.GetService<PaymentController>();
+                    controller.Post();
+
                     result = RedirectToAction("Index");
                     break;
 
@@ -38,54 +49,6 @@ namespace Bikes.App
             }
 
             return result;
-        }
-
-        private class Invoice
-        {
-            public int riderId { get; set; }
-            public double amount { get; set; }
-        }
-
-        private void payAll()
-        {
-            IEnumerable<Rider> riders = Rider.getRiders(includeDeleted: true);
-            IEnumerable<Ride> unpaidRides = Ride.getUnpaidRides();
-
-            foreach (var group in unpaidRides.GroupBy(r => r.rider_id))
-            {
-                Rider rider = riders.Where(r => r.id == group.Key).First();
-                double total = group.Sum(r => r.reward);
-
-                //if rider has a valid-looking account set up
-                if (rider.bank_username != null &&
-                    rider.bank_username.Length > 0 &&
-                    rider.bank_account_id != Bank.DefaultAccountId)
-                {
-                    //pay into the bank
-                    Payment payment = Bank.deposit(rider,
-                        total,
-                        "Bike mileage payment");
-
-                    if (payment.success)
-                    {
-                        //mark each ride as paid
-                        foreach (Ride ride in group)
-                        {
-                            ride.setAsPaid(payment.id);
-                        }
-                    }
-                    else
-                    {
-                        //payment failed
-                        //do nothing
-                    }
-                }
-                else
-                {
-                    //money owing but no account set up
-                    //do nothing
-                }
-            }
         }
     }
 }

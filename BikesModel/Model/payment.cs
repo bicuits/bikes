@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PetaPoco;
+using Newtonsoft.Json.Linq;
 
 namespace Bikes.Model.Banking
 {
@@ -22,6 +23,8 @@ namespace Bikes.Model.Banking
         public string bank_username { get; internal set; }
         public string bank_account { get; internal set; }
         public DateTime? paid_date { get; internal set; }
+
+        [PetaPoco.Ignore]
         public bool success { get; internal set; }
 
         internal Payment()
@@ -70,6 +73,19 @@ namespace Bikes.Model.Banking
         {
             Database db = new PetaPoco.Database(ModelConfig.connectionStringName("bikes"));
             db.Save(this);
+        }
+
+        public JObject toJObject()
+        {
+            return new JObject(
+                new JProperty("id", id),
+                new JProperty("success", success),
+                new JProperty("rider", rider),
+                new JProperty("amount", amount.ToString("C")),
+                new JProperty("paid_date", paid_date.Value.ToString("dd MMM yyyy")),
+                new JProperty("bank_branch", bank_branch),
+                new JProperty("bank_username", bank_username),
+                new JProperty("bank_account", bank_account));
         }
     }
 }

@@ -11,7 +11,7 @@ using System.Drawing;
 
 namespace Bikes.App
 {
-    public class YearSummaryController : ApiController
+    public class YearSummaryController : BikesApiControllerBase
     {
         [HttpGet]
         public JObject Get()
@@ -32,7 +32,8 @@ namespace Bikes.App
                         new JProperty("rider", riderName(riders, g.Key)),
                         new JProperty("monthDistance", g.Where(r => r.ride_date.Month == DateTime.Now.Month).Sum(r => r.distance)),
                         new JProperty("yearDistance", g.Sum(r => r.distance)),
-                        new JProperty("cash", g.Where(r => r.paid == false).Sum(r => r.reward).ToString("C"))))); 
+                        new JProperty("cashYear", g.Sum(r => r.reward).ToString("C")),
+                        new JProperty("cashUnpaid", g.Where(r => r.paid == false).Sum(r => r.reward).ToString("C"))))); 
 
             JObject yearRides = new JObject(
                 new JProperty("labels",

@@ -38,7 +38,7 @@ namespace Bikes.App
             switch (command)
             {
                 case "save":
-
+                    Rider rider = Rider.getRider(model.riderId);
                     double rideLength;
 
                     if (model.routeId == Route.DefaultId)
@@ -54,7 +54,7 @@ namespace Bikes.App
                         }
                     }
 
-                    double rideValue = model.payable ? (rideLength * Rider.getRider(model.riderId).rate) / 100f : 0f;
+                    double rideValue = model.payable ? (rideLength * rider.rate) / 100f : 0;
 
                     Ride.add(
                         bike_id: model.bikeId,

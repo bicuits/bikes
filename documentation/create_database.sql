@@ -2,7 +2,6 @@ DROP TABLE IF EXISTS rider;
 DROP TABLE IF EXISTS bike;
 DROP TABLE IF EXISTS route;
 DROP TABLE IF EXISTS ride;
-DROP TABLE IF EXISTS ride_archive;
 DROP TABLE IF EXISTS payment;
 
 CREATE TABLE rider
@@ -10,8 +9,9 @@ CREATE TABLE rider
 	id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     bank_branch_id  INT,
+    bank_customer_id  INT,
+    bank_account_id INT,
     bank_username   VARCHAR(255),
-    bank_account_id INT DEFAULT 0,
 	rate INT DEFAULT 0,
 	color_code VARCHAR(255) DEFAULT '#E0E0E0',
 	deleted BOOLEAN DEFAULT FALSE,

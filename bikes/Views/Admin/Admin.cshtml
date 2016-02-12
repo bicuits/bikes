@@ -26,11 +26,11 @@
     </thead>
 
     <tbody>
-        @foreach (Payment payment in Model.payments)
+        @foreach (Bikes.Model.Banking.Payment payment in Model.payments)
         {
             <tr>
                 <td>@payment.rider</td>
-                <td>@payment.created_date.ToString("ddd dd MMM yyyy")</td>
+                <td>@payment.paid_date.HasValue ? payment.Paid_date.ToString("dd MMM yyyy") : ""</td>
                 <td>@payment.amount.ToString("C")</td>
             </tr>
         }

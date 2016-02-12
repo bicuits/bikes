@@ -9,8 +9,19 @@ namespace Bikes.Model.Banking
 {
     public class Bank
     {
+        public const int DefaultCustomerId = 0;
+        public const int DefaultBranchId = 0;
         public const int DefaultAccountId = 0;
         public const int DrurysLedgerId = 1;
+        public const int DrurysBranchId = 2;
+
+        public enum UserRoles
+        {
+            none = 0,
+            customer = 1,
+            manager = 2,
+            administrator = 3
+        }
 
         private enum TranTypes
         {
@@ -20,17 +31,128 @@ namespace Bikes.Model.Banking
             interest = 3
         }
 
-        private class Customer
+        public class Branch
         {
-            public int customerId { get; set; }
-            public int branchId { get; set; }
-            public int roleId { get; set; }
+            public int branchId { get; internal set; }
+            public String name { get; internal set; }
+
+            internal Branch() { }
         }
 
-        private class Account
+        public class Customer
         {
-            public int id { get; set; }
-            public int holderId { get; set; }
+            public int customerId { get; internal set; }
+            public int branchId { get; internal set; }
+            public String username { get; internal set; }
+
+            internal Customer() { }
+        }
+
+        public class Account
+        {
+            public int id { get; internal set; }
+            public int holderId { get; internal set; }
+            public String name { get; internal set; }
+
+            internal Account() { }
+        }
+
+        public static List<Branch> listBranches()
+        {
+            List<Branch> branches = new List<Branch>();
+
+            //branches.Add(
+            //    new Branch()
+            //    {
+            //        branchId = DefaultBranchId,
+            //        name = "other"
+            //    });
+
+            branches.Add(
+                new Branch()
+                {
+                    branchId = 2,
+                    name = "Drumtochty Branch"
+                });
+
+            return branches;
+        }
+
+        public static List<Customer> listCustomersForBranch(int branchId)
+        {
+            List<Customer> list = new List<Customer>();
+            //list.Add(
+            //    new Customer()
+            //    {
+            //        customerId = DefaultCustomerId,
+            //        branchId = branchId,
+            //        username = "other"
+            //    });
+
+
+            using (MySqlConnection conn = new MySqlConnection(ModelConfig.connectionString("bank")))
+            {
+                MySqlCommand command = new MySqlCommand("listCustomers", conn);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("_branch_id", branchId);
+
+                conn.Open();
+                MySqlDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    if ((UserRoles)(int)reader["role_id"] == UserRoles.customer)
+                    {
+                        Customer cust = new Customer();
+                        //must have
+                        cust.customerId = (int)reader["customer_id"];
+                        cust.branchId = (int)reader["branch_id"];
+                        cust.username = (String)reader["username"];
+
+                        list.Add(cust);
+                    }
+                }
+                reader.Close();
+                conn.Close();
+            }
+
+            return list;
+        }
+
+        public static List<Account> listAccountsForCustomer(int customerId)
+        {
+            List<Account> accounts = new List<Account>();
+
+            //accounts.Add(new Account()
+            //{
+            //    id = DefaultAccountId,
+            //    holderId = DefaultCustomerId,
+            //    name = "other"
+            //});
+
+            using (MySqlConnection conn = new MySqlConnection(ModelConfig.connectionString("bank")))
+            {
+                MySqlCommand command = new MySqlCommand("listAccountsForCustomer", conn);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("_customer_id", customerId);
+
+                conn.Open();
+                MySqlDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    Account account = new Account();
+                    account.id = (int)reader["account_id"];
+                    account.holderId = (int)reader["holder_id"];
+                    account.name = (string)reader["account_name"];
+
+                    accounts.Add(account);
+                }
+                reader.Close();
+                conn.Close();
+            }
+
+            return accounts;
         }
 
         public static Payment deposit(Rider rider, double amount, string description)
@@ -45,7 +167,7 @@ namespace Bikes.Model.Banking
             {
                 //first get the account and check it is the drurys branch
                 Customer holder = getCustomerFromUsername(rider.bank_username);
-                Account destAccount = getAccount(rider.bank_account_id);
+                Account destAccount = getAccount(rider.bank_account_id.Value);
 
                 //check that the account belongs to the user
                 if (destAccount.holderId != holder.customerId)
@@ -109,6 +231,7 @@ namespace Bikes.Model.Banking
 
             return customer;
         }
+
         private static Account getAccount(int accountId)
         {
             Account account = null;
@@ -134,6 +257,7 @@ namespace Bikes.Model.Banking
 
             return account;
         }
+
         private static Account getLedger(int branchId)
         {
             Account account = null;

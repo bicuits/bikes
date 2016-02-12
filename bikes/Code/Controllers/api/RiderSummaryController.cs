@@ -9,7 +9,7 @@ using Bikes.Model;
 
 namespace Bikes.App
 {
-    public class RiderSummaryController : ApiController
+    public class RiderSummaryController : BikesApiControllerBase
     {
         public JObject Get()
         {

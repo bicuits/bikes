@@ -225,6 +225,11 @@
     <Compile Include="Code\App\BikesDebug.cs" />
     <Compile Include="Code\App\Membership.cs" />
     <Compile Include="Code\App\ModelExtensions.cs" />
+    <Compile Include="Code\Controllers\api\BankAccountController.cs" />
+    <Compile Include="Code\Controllers\api\BankBranchController.cs" />
+    <Compile Include="Code\Controllers\api\BankCustomerController.cs" />
+    <Compile Include="Code\Controllers\api\PaymentController.cs" />
+    <Compile Include="Code\Controllers\api\BikesApiControllerBase.cs" />
     <Compile Include="Code\VewModels\AdminVM.cs" />
     <Compile Include="Code\VewModels\BikeVM.cs" />
     <Compile Include="Code\VewModels\LoginVM.cs" />
@@ -265,6 +270,7 @@
     <Content Include="Views\Admin\Admin.cshtml" />
     <Content Include="Views\Home\Home.cshtml" />
     <Content Include="Views\Ride\ViewRide.cshtml" />
+    <Content Include="Views\Admin\AdminA.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

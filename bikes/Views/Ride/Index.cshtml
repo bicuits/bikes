@@ -16,6 +16,10 @@
 
 <h2>Rides</h2>
 
+<div>
+    <button id="btnAdd" type="button" class="btn btn-default">Add Ride</button>
+</div>
+
 <table class="table">
     <thead>
         <tr>
@@ -25,6 +29,7 @@
             <th>Rider</th>
             <th>Bike</th>
             <th>Amount</th>
+            <th>Paid</th>
             <th>Notes</th>
         </tr>
     </thead>
@@ -39,10 +44,10 @@
                 <td>@ride.rider</td>
                 <td>@ride.bike</td>
                 <td>@ride.reward.ToString("C")</td>
+                <td>@(ride.paid ? "paid" : "")</td>
                 <td>@ride.notesSummary()</td>
             </tr>
         }
     </tbody>
 </table>
 
-<button id="btnAdd" type="button" class="btn btn-default">Add Ride</button>

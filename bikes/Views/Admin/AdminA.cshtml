@@ -1,0 +1,84 @@
+﻿
+@{
+    ViewBag.Title = "AdminA";
+    Layout = "~/Views/_MainLayout.cshtml";
+}
+
+@section HEAD {
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+    <script>
+        //create the angular application for the page
+        var app = angular.module("adminApp", []);
+
+        //create the page controller
+        app.controller("adminController", ["$scope", "$http", function ($scope, $http) {
+
+            $scope.paymentStatusMessage = "";
+            $scope.processing = false;
+
+            $scope.getPayments = function () {
+                $http
+                .get("/api/payment")
+                .then(
+                    function (response) {
+                        $scope.payments = response.data.payments;
+                    },
+                    function (reponse) {
+                    }
+                );
+            };
+
+            $scope.payAll = function () {
+                $scope.processing = true;
+                $scope.paymentStatusMessage = "processing...";
+
+                $http
+                .post('/api/payment')
+                .then(
+                    function (response) {
+                        $scope.paymentStatusMessage = " " + response.data.payments.length + " payments made";
+                        $scope.processing = false;
+                        $scope.getPayments();
+                    },
+                    function (response) {
+                        $scope.paymentStatusMessage = "failed to make payments: " + response.statusText;
+                        $scope.processing = false;
+
+                    }
+                );
+            };
+
+            $scope.getPayments();
+        }]);
+
+    </script>
+}
+
+<div ng-app="adminApp" ng-controller="adminController">
+    <div>
+        <button type="button" name="btnPayAll" ng-disabled="processing" ng-click="payAll()">Pay all riders</button>
+        <span>{{paymentStatusMessage}}</span>
+    </div>
+
+    <h2>Payment history</h2>
+    <div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>rider</th>
+                    <th>amount</th>
+                    <th>date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="p in payments">
+                    <td>{{p.rider}}</td>
+                    <td>{{p.amount}}</td>
+                    <td>{{p.paid_date}}</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
