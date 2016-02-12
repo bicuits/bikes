@@ -76,14 +76,16 @@ namespace Bikes.App
             Payment payment = null;
             IEnumerable<Ride> ridesToPay = unpaidRides.Where(r => r.rider_id == rider.id);
 
-            double total = ridesToPay.Sum(r => r.reward);
+            double total = ridesToPay.Sum(r => r.reward + r.bonus);
 
             //if rider has a valid-looking account set up
             if (total > 0 &&
-                rider.bank_branch_id != null &&
-                rider.bank_username != null &&
-                rider.bank_username.Length > 0 &&
-                rider.bank_account_id != null)
+                rider.bank_branch_id.HasValue && 
+                rider.bank_branch_id != Bank.DefaultBranchId &&
+                rider.bank_customer_id.HasValue &&
+                rider.bank_customer_id != Bank.DefaultCustomerId &&
+                rider.bank_account_id.HasValue &&
+                rider.bank_account_id != Bank.DefaultAccountId)
             {
                 //pay into the bank
                 payment = Bank.deposit(rider,

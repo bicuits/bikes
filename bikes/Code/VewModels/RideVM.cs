@@ -26,6 +26,10 @@ namespace Bikes.App
         [Required]
         public bool payable { get; set; }
 
+        [Display(Name = "Bonus")]
+        [Required]
+        public double bonus { get; set; }
+
         [Display(Name = "Date")]
         [Required]
         [DataType(DataType.Text)]
@@ -40,6 +44,13 @@ namespace Bikes.App
         public int routeId { get; set; }
         [Display(Name = "Bike")]
         public int bikeId { get; set; }
+
+        [Display(Name = "Rider")]
+        public string rider { get; private set; }
+        [Display(Name = "Route")]
+        public string route { get; private set; }
+        [Display(Name = "Bike")]
+        public string bike { get; private set; }
 
         public IEnumerable<SelectListItem> bikeList
         {
@@ -87,16 +98,17 @@ namespace Bikes.App
             riderId = ride.rider_id;
             routeId = ride.route_id;
 
+            bike = ride.bike;
+            rider = ride.rider;
+            route = ride.route;
+
             distance = ride.distance;
             returnRide = false;
             payable = true;
+            bonus = ride.bonus;
 
             notes = ride.notes;
             rideDate = ride.ride_date.ToString("dd/MM/yyyy");
-
-            //bike = ride.bike;
-            //rider = ride.rider;
-            //route = ride.route;
         }
     }
 }

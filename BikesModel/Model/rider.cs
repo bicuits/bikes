@@ -18,7 +18,7 @@ namespace Bikes.Model
         public bool deleted { get; internal set; }
         public int? bank_branch_id { get; set; }
         public int? bank_customer_id { get; set; }
-        public string bank_username { get; set; }
+        //public string bank_username { get; set; }
         public int? bank_account_id { get; set; }
 
         public Rider()

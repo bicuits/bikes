@@ -166,10 +166,11 @@ namespace Bikes.Model.Banking
             try
             {
                 //first get the account and check it is the drurys branch
-                Customer holder = getCustomerFromUsername(rider.bank_username);
+                Customer holder = getCustomer(rider.bank_customer_id.Value);
                 Account destAccount = getAccount(rider.bank_account_id.Value);
 
-                //check that the account belongs to the user
+                //Check that the account belongs to the user.  Remove if other branches are to be allowed.
+                //Also need to implement getBranch() and use dynamic data for branch info.
                 if (destAccount.holderId != holder.customerId)
                 {
                     throw new ApplicationException("Cannot pay into bank.  User is not an account holder.");
@@ -177,8 +178,8 @@ namespace Bikes.Model.Banking
 
                 Account ledger = getLedger(holder.branchId);
 
-                //hard coded check that were are using drurys branch ledger
-                //TO DO: make this chack dynamic from the rider's branch data property
+                //hard coded check that were are using drurys branch ledger, 
+                //remove this check if the app is to be used for other branches
                 if (ledger.id != DrurysLedgerId)
                 {
                     throw new ApplicationException("Attempt to post transaction to non-drurys branch");
@@ -187,16 +188,25 @@ namespace Bikes.Model.Banking
                 //post the transaction to the bank database
                 postTran(ledger.id, destAccount.id, (int)Math.Floor(amount * 100), description);
 
-                //create a record of the transaction in the bikes database
-                payment.rider = rider.name;
-                payment.amount = amount;
-                payment.paid_date = DateTime.Now;
-                payment.bank_branch = rider.bank_branch_id.ToString();
-                payment.bank_username = rider.bank_username;
-                payment.bank_account = rider.bank_account_id.ToString();
-
                 payment.success = true;
-                payment.save();
+
+                try
+                {
+                    //create a record of the transaction in the bikes database
+                    payment.rider = rider.name;
+                    payment.amount = amount;
+                    payment.paid_date = DateTime.Now;
+                    payment.bank_branch = "Drumtochty Branch";
+                    payment.bank_username = holder.username;
+                    payment.bank_account = destAccount.name;
+
+                    payment.save();
+                }
+                catch
+                {
+                    //still report success even if we have failed to log the payment, otherwise
+                    //it will keep on getting paid again on any further retries
+                }
             }
             catch (Exception e)
             {
@@ -206,15 +216,15 @@ namespace Bikes.Model.Banking
             return payment;
         }
 
-        private static Customer getCustomerFromUsername(string username)
+        private static Customer getCustomer(int customerId)
         {
             Customer customer = null;
 
             using (MySqlConnection conn = new MySqlConnection(ModelConfig.connectionString("bank")))
             {
-                MySqlCommand command = new MySqlCommand("getCustomerFromUsername", conn);
+                MySqlCommand command = new MySqlCommand("getCustomer", conn);
                 command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("_username", username);
+                command.Parameters.AddWithValue("_customer_id", customerId);
 
                 conn.Open();
                 MySqlDataReader reader = command.ExecuteReader();
@@ -224,6 +234,7 @@ namespace Bikes.Model.Banking
                     customer = new Customer();
                     customer.customerId = (int)reader["customer_id"];
                     customer.branchId = (int)reader["branch_id"];
+                    customer.username = reader["username"] as String;
                 }
                 reader.Close();
                 conn.Close();
@@ -250,6 +261,7 @@ namespace Bikes.Model.Banking
                     account = new Account();
                     account.id = (int)reader["account_id"];
                     account.holderId = (int)reader["holder_id"];
+                    account.name = reader["account_name"] as String;
                 }
                 reader.Close();
                 conn.Close();

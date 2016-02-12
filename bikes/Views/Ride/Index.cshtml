@@ -38,12 +38,12 @@
         @foreach(Ride ride in Model)
         {
             <tr>
-                <td>@Html.ActionLink(ride.route, "View", new { id = ride.id })</td>
+                <td>@Html.ActionLink(ride.route, "Edit", new { id = ride.id })</td>
                 <td>@ride.ride_date.ToString("ddd dd MMM yyyy")</td>
                 <td>@ride.distance.ToString("0.#")</td>
                 <td>@ride.rider</td>
                 <td>@ride.bike</td>
-                <td>@ride.reward.ToString("C")</td>
+                <td>@((ride.reward + ride.bonus).ToString("C"))</td>
                 <td>@(ride.paid ? "paid" : "")</td>
                 <td>@ride.notesSummary()</td>
             </tr>

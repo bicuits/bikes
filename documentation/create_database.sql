@@ -1,3 +1,5 @@
+USE bikes;
+
 DROP TABLE IF EXISTS rider;
 DROP TABLE IF EXISTS bike;
 DROP TABLE IF EXISTS route;
@@ -11,7 +13,6 @@ CREATE TABLE rider
     bank_branch_id  INT,
     bank_customer_id  INT,
     bank_account_id INT,
-    bank_username   VARCHAR(255),
 	rate INT DEFAULT 0,
 	color_code VARCHAR(255) DEFAULT '#E0E0E0',
 	deleted BOOLEAN DEFAULT FALSE,
@@ -53,6 +54,7 @@ CREATE TABLE ride
 	ride_date DATETIME DEFAULT NULL,
     notes TEXT,                    
 	reward FLOAT DEFAULT 0,
+	bonus FLOAT DEFAULT 0,
 	distance FLOAT DEFAULT 0,
 
     last_updated TIMESTAMP

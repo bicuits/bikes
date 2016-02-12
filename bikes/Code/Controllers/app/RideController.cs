@@ -25,11 +25,11 @@ namespace Bikes.App
         }
 
         [HttpGet]
-        public ActionResult View(int id)
+        public ActionResult Edit(int id)
         {
             RideVM model = new RideVM(Ride.getRide(id));
 
-            return View("ViewRide", model);
+            return View("EditRide", model);
         }
 
         [HttpPost]
@@ -37,7 +37,7 @@ namespace Bikes.App
         {
             switch (command)
             {
-                case "save":
+                case "add":
                     Rider rider = Rider.getRider(model.riderId);
                     double rideLength;
 
@@ -63,8 +63,13 @@ namespace Bikes.App
                         ride_date: DateTime.Parse(model.rideDate),
                         notes: model.notes,
                         reward: rideValue,
+                        bonus: model.bonus,
                         distance: rideLength
                         );
+                    break;
+
+                case "save":
+                    Ride.setNotes(model.id, model.notes);
                     break;
 
                 case "delete":
