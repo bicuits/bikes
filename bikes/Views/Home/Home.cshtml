@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Home";
+    ViewBag.Title = "Drurys Bikes - Summary";
     Layout = "~/Views/_MainLayout.cshtml";
 }
 
@@ -79,7 +79,11 @@
                         $("#barRiderDistancePlaceholder").css("display", "block");
                     } else {
                         var ctx = $("#barRiderDistance").get(0).getContext("2d");
-                        new Chart(ctx).Bar(data, { responsive: true, maintainAspectRatio: false });
+                        new Chart(ctx).Bar(data, {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            multiTooltipTemplate: "<%=datasetLabel%> <%=value%>"
+                        });
                     }
                 },
                 "json");
@@ -95,7 +99,7 @@
                     var ctx = $("#barYearSummary").get(0).getContext("2d");
                     new Chart(ctx).Bar(data.chartData, options);
 
-                    addBarLegend(data.chartData, "#barLegend");
+                    addBarLegend(data.chartData, ".barLegend");
 
                     addTableCells(data.riderSummary, "#riderSummaryRows");
 
@@ -121,6 +125,7 @@
                         No rides to display
                     </div>
                 </div>
+                <div class="barLegend"></div>
             </div>
         </div>
     </div>
@@ -159,7 +164,7 @@
                 <div>
                     <canvas id="barYearSummary" style="width:100%;height:400px;"></canvas>
                 </div>
-                <div id="barLegend"></div>
+                <div class="barLegend"></div>
             </div>
         </div>
     </div>

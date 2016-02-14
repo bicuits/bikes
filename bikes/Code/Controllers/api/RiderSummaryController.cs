@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using Newtonsoft.Json.Linq;
 using Bikes.Model;
+using System.Drawing;
 
 namespace Bikes.App
 {
@@ -16,20 +17,22 @@ namespace Bikes.App
             //get the rides for this month
             IEnumerable<Ride> rides = Ride.getRides().Where(r => r.ride_date.Month == DateTime.Now.Month);
             IEnumerable<IGrouping<int, Ride>> groups = rides.GroupBy(r => r.rider_id);
+            IEnumerable<Rider> riders = Rider.getRiders();
 
             JObject recentRides = new JObject(
-                new JProperty("labels", 
-                    new JArray(groups.Select(g => g.First().rider))),
+                new JProperty("labels",
+                    new JArray(DateTime.Now.ToString("MMMM"))),
                 new JProperty("datasets",
-                    new JArray(
+                    new JArray(groups.Select(g => 
                         new JObject(
-                            new JProperty("fillColor", "rgba(220, 220, 220, 0.5)"),
-                            new JProperty("strokeColor", "rgba(220, 220, 220, 0.8)"),
-                            new JProperty("highlightFill", "rgba(220, 220, 220, 0.75)"),
-                            new JProperty("highlightStroke", "rgba(220, 220, 220, 1)"),
+                            new JProperty("label", g.riderName(riders)),
+                            new JProperty("fillColor", g.chartColor(riders, 112)),
+                            new JProperty("strokeColor", g.chartColor(riders, 200)),
+                            new JProperty("highlightFill", g.chartColor(riders, 180)),
+                            new JProperty("highlightStroke", g.chartColor(riders, 255)),
                             new JProperty("data",
-                                new JArray(groups.Select(g => g.Sum(r => r.distance)
-                                )))))));
+                                new JArray(g.Sum(r => r.distance))))))));
+
 
             BikesDebug.dumpToFile("recentRides.json", recentRides.ToString(Newtonsoft.Json.Formatting.Indented));
 

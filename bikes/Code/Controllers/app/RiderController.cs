@@ -12,7 +12,7 @@ namespace Bikes.App
         [HttpGet]
         public ActionResult Index()
         {
-            List<Rider> riders = Rider.getRiders();
+            IEnumerable<Rider> riders = Rider.getRiders().OrderBy(r => r.name);
             return View("Index", riders);
         }
 

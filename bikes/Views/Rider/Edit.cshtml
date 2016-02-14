@@ -2,7 +2,7 @@
 @using System.Drawing;
 @model RiderVM
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Drurys Bikes - Edit Ride";
     Layout = "~/Views/_MainLayout.cshtml";
 }
 
@@ -181,10 +181,6 @@
 
         </div>
 
-        @*<div>Branch = {{bank.branchId}}</div>
-        <div>Customer = {{bank.customerId}}</div>
-        <div>Account = {{bank.accountId}}</div>*@
-
         <div class="form-group">
             <input type="hidden" name="id" value="@Model.id" />
 
@@ -194,7 +190,7 @@
 
             <button type="submit" class="btn btn-default" name="command" value="save">Submit</button>
             <button type="submit" class="cancel btn btn-default" name="command" value="cancel">Cancel</button>
-            <button type="submit" class="cancel btn btn-default" name="command" value="delete" onclick="return confirm('Are you sure oyu want to delete this item?')">Remove</button>
+            <button type="submit" class="cancel btn btn-default" name="command" value="delete" onclick="return confirm('Are you sure you want to delete this item?')">Remove</button>
         </div>
     }
 </div>

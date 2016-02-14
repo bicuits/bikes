@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using Bikes.Model;
 using System.Text.RegularExpressions;
+using System.Drawing;
 
 namespace Bikes.App
 {
@@ -52,6 +53,19 @@ namespace Bikes.App
             }
 
             return result;
+        }
+
+        public static string riderName(this IGrouping<int, Ride> group, IEnumerable<Rider> riders)
+        {
+            return riders.Where(r => r.id == group.Key).First().name;
+        }
+
+        public static string chartColor(this IGrouping<int, Ride> group, IEnumerable<Rider> riders, byte alpha)
+        {
+            Rider rider = riders.Where(r => r.id == group.Key).First();
+            Color color = Color.FromArgb(alpha, rider.color);
+
+            return String.Format("rgba({0},{1},{2},{3:n2})", color.R, color.G, color.B, color.A / 255f);
         }
 
     }

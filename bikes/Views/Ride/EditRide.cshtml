@@ -1,6 +1,6 @@
 ﻿@model RideVM
 @{
-    ViewBag.Title = "ViewRide";
+    ViewBag.Title = "Drurys Bikes - Edit Ride";
     Layout = "~/Views/_MainLayout.cshtml";
 }
 
@@ -16,7 +16,7 @@
     <div class="form-group">
         <button type="submit" class="btn btn-default" name="command" value="save">Save</button>
         <button type="submit" class="btn btn-default" name="command" value="cancel">Cancel</button>
-        <button type="submit" class="btn btn-default" name="command" value="delete" onclick="return confirm('Are you sure oyu want to delete this item?')">Remove</button>
+        <button type="submit" class="btn btn-default" name="command" value="delete" onclick="return confirm('Are you sure you want to delete this item?')">Remove</button>
         @Html.HiddenFor(m => m.id)
     </div>
 }

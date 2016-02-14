@@ -15,7 +15,7 @@ namespace Bikes.App
 
             HashAlgorithm algorithm = SHA256.Create();
 
-            byte[] src = Encoding.Unicode.GetBytes(username + password);
+            byte[] src = Encoding.Unicode.GetBytes(username.ToLower() + password);
             byte[] hash = algorithm.ComputeHash(src);
 
             BikesDebug.dumpToFile("key.txt", Convert.ToBase64String(hash));

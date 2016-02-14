@@ -29,7 +29,7 @@ namespace Bikes.App
             JArray riderSummary =
                 new JArray(groups.Select(g =>
                     new JObject(
-                        new JProperty("rider", riderName(riders, g.Key)),
+                        new JProperty("rider", g.riderName(riders)),
                         new JProperty("monthDistance", g.Where(r => r.ride_date.Month == DateTime.Now.Month).Sum(r => r.distance)),
                         new JProperty("yearDistance", g.Sum(r => r.distance)),
                         new JProperty("cashYear", g.Sum(r => r.reward).ToString("C")),
@@ -43,11 +43,11 @@ namespace Bikes.App
                     //create a dataset for each rider
                     new JArray(groups.Select(g => 
                         new JObject(
-                            new JProperty("label", riderName(riders, g.Key)),
-                            new JProperty("fillColor", riderColor(riders, g.Key, 112)),
-                            new JProperty("strokeColor", riderColor(riders, g.Key, 200)),
-                            new JProperty("highlightFill", riderColor(riders, g.Key, 180)),
-                            new JProperty("highlightStroke", riderColor(riders, g.Key, 255)),
+                            new JProperty("label", g.riderName(riders)),
+                            new JProperty("fillColor", g.chartColor(riders, 112)),
+                            new JProperty("strokeColor", g.chartColor(riders, 200)),
+                            new JProperty("highlightFill", g.chartColor(riders, 180)),
+                            new JProperty("highlightStroke", g.chartColor(riders, 255)),
                             new JProperty("data",
                                 //group the rides for each rider by month
                                 new JArray(months.Select(i => 
@@ -62,19 +62,6 @@ namespace Bikes.App
 
             return result;
 
-        }
-
-        private String riderColor(IEnumerable<Rider> riders, int id, byte alpha)
-        {
-            Rider rider = riders.Where(r => r.id == id).First();
-
-            Color color = Color.FromArgb(alpha, rider.color);
-
-            return String.Format("rgba({0},{1},{2},{3:n2})", color.R, color.G, color.B, color.A/255f);
-        }
-        private String riderName(IEnumerable<Rider> riders, int id)
-        {
-            return riders.Where(r => r.id == id).First().name;
         }
     }
 }

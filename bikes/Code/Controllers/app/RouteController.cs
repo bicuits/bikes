@@ -13,7 +13,7 @@ namespace Bikes.App
         [HttpGet]
         public ActionResult Index()
         {
-            List<Route> routes = Route.getRoutes();
+            IEnumerable<Route> routes = Route.getRoutes().OrderBy(r => r.name);
             return View("Index", routes);
         }
 

@@ -13,7 +13,7 @@ namespace Bikes.App
         public ActionResult Index()
         {
             List<Ride> rides = Ride.getRides();
-            return View("Index", rides.OrderBy(r => r.ride_date));
+            return View("Index", rides.OrderByDescending(r => r.ride_date));
         }
 
         [HttpGet]
