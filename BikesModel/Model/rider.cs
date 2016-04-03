@@ -60,7 +60,7 @@ namespace Bikes.Model
         public static void deleteRider(int id)
         {
             Database db = new PetaPoco.Database(ModelConfig.connectionStringName("bikes"));
-            db.Execute("UPDATE ride SET deleted = TRUE WHERE id = @0", id);
+            db.Execute("UPDATE rider SET deleted = TRUE WHERE id = @0", id);
         }
         public void save()
         {
