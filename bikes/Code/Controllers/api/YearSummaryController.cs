@@ -30,10 +30,10 @@ namespace Bikes.App
                 new JArray(groups.Select(g =>
                     new JObject(
                         new JProperty("rider", g.riderName(riders)),
-                        new JProperty("monthDistance", g.Where(r => r.ride_date.Month == DateTime.Now.Month).Sum(r => r.distance)),
-                        new JProperty("yearDistance", g.Sum(r => r.distance)),
-                        new JProperty("cashYear", g.Sum(r => r.reward).ToString("C")),
-                        new JProperty("cashUnpaid", g.Where(r => r.paid == false).Sum(r => r.reward).ToString("C"))))); 
+                        new JProperty("monthDistance", Math.Round( g.Where(r => r.ride_date.Month == DateTime.Now.Month).Sum(r => r.distance))),
+                        new JProperty("yearDistance", Math.Round(g.Sum(r => r.distance))),
+                        new JProperty("cashYear", g.Sum(r => r.reward + r.bonus).ToString("C")),
+                        new JProperty("cashUnpaid", g.Where(r => r.paid == false).Sum(r => r.reward + r.bonus).ToString("C"))))); 
 
             JObject yearRides = new JObject(
                 new JProperty("labels",
