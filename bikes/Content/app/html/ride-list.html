@@ -1,0 +1,15 @@
+﻿
+<h2>Rides</h2>
+
+<div class="panel">
+    <button type="button" class="btn btn-primary" ng-click="add()">Add Ride</button>
+</div>
+
+<table class="table table-striped table-bordered">
+    <tr>
+        <th>Name</th>
+    </tr>
+    <tr ng-repeat="bike in bikes">
+        <td><a ui-sref="rideEdit({id: ride.id})">{{ride.name}}</a></td>
+    </tr>
+</table>

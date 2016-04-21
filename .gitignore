@@ -5,6 +5,8 @@
 bikes/connectionStrings.config
 bikes/App_Data/
 
+bower_components
+
 # User-specific files
 *.suo
 *.user

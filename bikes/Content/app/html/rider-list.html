@@ -1,0 +1,17 @@
+﻿
+<h2>Riders</h2>
+
+<div class="panel">
+    <button type="button" class="btn btn-primary" ng-click="add()">Add Rider</button>
+</div>
+
+
+<table class="table table-striped table-bordered">
+    <tr>
+        <th>Name</th>
+    </tr>
+    <tr ng-repeat="rider in riders">
+        <td><a ui-sref="riderEdit({id: rider.id})">{{rider.name}}</a></td>
+    </tr>
+</table>
+

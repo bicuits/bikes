@@ -9,7 +9,7 @@ using Bikes.Model;
 using System.Globalization;
 using System.Drawing;
 
-namespace Bikes.App
+namespace Bikes.Api
 {
     public class YearSummaryController : BikesApiControllerBase
     {
@@ -58,7 +58,7 @@ namespace Bikes.App
                     new JProperty("chartData", yearRides),
                     new JProperty("riderSummary", riderSummary));
 
-            BikesDebug.dumpToFile("yearRides.json", result.ToString(Newtonsoft.Json.Formatting.Indented));
+            App.BikesDebug.dumpToFile("yearRides.json", result.ToString(Newtonsoft.Json.Formatting.Indented));
 
             return result;
 

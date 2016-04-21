@@ -38,7 +38,7 @@ namespace Bikes.Model
         public void save()
         {
             Database db = new PetaPoco.Database(ModelConfig.connectionStringName("bikes"));
-            if (id == Route.DefaultId)
+            if (id == Bike.DefaultId)
             {
                 //cannot change name for the default bike
                 name = DefaultName;

@@ -8,7 +8,7 @@ using Newtonsoft.Json.Linq;
 using Bikes.Model;
 using Bikes.Model.Banking;
 
-namespace Bikes.App
+namespace Bikes.Api
 {
 
     public class PaymentController : BikesApiControllerBase

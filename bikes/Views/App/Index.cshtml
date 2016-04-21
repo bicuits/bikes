@@ -1,0 +1,56 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Bikes</title>
+
+    <link rel="stylesheet" type="text/css" href="~/Content/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/bootstrap/bootstrap-theme.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/datepicker/css/bootstrap-datepicker3.min.css" />
+
+    <script src="~/Content/jquery/jquery-1.9.1.js"></script>
+    <script src="~/Content/jquery/jquery.validate.js"></script>
+    <script src="~/Content/jquery/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Content/bootstrap/scripts/bootstrap.js"></script>
+    <script src="~/Content/datepicker/js/bootstrap-datepicker.js"></script>
+
+    <script src="~/Content/angular/angular.js"></script>
+    <script src="~/Content/angular-resource/angular-resource.js"></script>
+    <script src="~/Content/angular-ui-router/release/angular-ui-router.js"></script>
+
+    <script src="~/Content/app/app.js"></script>
+    <script src="~/Content/app/bike-services.js"></script>
+    <script src="~/Content/app/bike.js"></script>
+    <script src="~/Content/app/rider.js"></script>
+    <script src="~/Content/app/route.js"></script>
+    <script src="~/Content/app/ride.js"></script>
+
+</head>
+
+<body ng-app="bikesApp">
+
+        <!-- NAVIGATION -->
+        <nav class="navbar navbar-inverse" role="navigation">
+            <ul class="nav navbar-nav">
+                <li><a ui-sref="home">Home</a></li>
+                <li><a ui-sref="rideList">Rides</a></li>
+                <li><a ui-sref="bikeList">Bikes</a></li>
+                <li><a ui-sref="riderList">Riders</a></li>
+                <li><a ui-sref="routeList">Routes</a></li>
+            </ul>
+        </nav>
+
+        <!-- MAIN CONTENT -->
+        <div class="container">
+
+            <div ui-view></div>
+
+        </div>
+</body>
+</html>

@@ -94,9 +94,9 @@ namespace Bikes.App
         {
             id = ride.id;
 
-            bikeId = ride.bike_id;
+            //bikeId = ride.bike_id;
             riderId = ride.rider_id;
-            routeId = ride.route_id;
+            //routeId = ride.route_id;
 
             bike = ride.bike;
             rider = ride.rider;

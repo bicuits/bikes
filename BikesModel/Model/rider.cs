@@ -27,19 +27,6 @@ namespace Bikes.Model
             bank_branch_id = 1;
         }
 
-        [PetaPoco.Ignore]
-        public Color color
-        {
-            get
-            {
-                return ColorTranslator.FromHtml(color_code);
-            }
-            set
-            {
-                color_code = ColorTranslator.ToHtml(value);
-            }
-        }
-
         public static List<Rider> getRiders(bool includeDeleted = false)
         {
             String whereClause = includeDeleted ? "" : "WHERE deleted = FALSE";

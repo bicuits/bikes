@@ -8,7 +8,7 @@ using Newtonsoft.Json.Linq;
 using Bikes.Model;
 using System.Drawing;
 
-namespace Bikes.App
+namespace Bikes.Api
 {
     public class RiderSummaryController : BikesApiControllerBase
     {
@@ -34,7 +34,7 @@ namespace Bikes.App
                                 new JArray(g.Sum(r => r.distance))))))));
 
 
-            BikesDebug.dumpToFile("recentRides.json", recentRides.ToString(Newtonsoft.Json.Formatting.Indented));
+            App.BikesDebug.dumpToFile("recentRides.json", recentRides.ToString(Newtonsoft.Json.Formatting.Indented));
 
             return recentRides;
         }

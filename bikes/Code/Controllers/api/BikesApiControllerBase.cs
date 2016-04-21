@@ -5,10 +5,11 @@ using System.Web;
 using System.Web.Http;
 
 
-namespace Bikes.App
+namespace Bikes.Api
 {
     [Authorize(Roles = "user")]
     public class BikesApiControllerBase : ApiController
     {
+
     }
 }

@@ -33,7 +33,7 @@ namespace Bikes.Model.Banking
 
         public class Branch
         {
-            public int branchId { get; internal set; }
+            public int id { get; internal set; }
             public String name { get; internal set; }
 
             internal Branch() { }
@@ -41,9 +41,9 @@ namespace Bikes.Model.Banking
 
         public class Customer
         {
-            public int customerId { get; internal set; }
+            public int id { get; internal set; }
             public int branchId { get; internal set; }
-            public String username { get; internal set; }
+            public String name { get; internal set; }
 
             internal Customer() { }
         }
@@ -71,7 +71,7 @@ namespace Bikes.Model.Banking
             branches.Add(
                 new Branch()
                 {
-                    branchId = 2,
+                    id = 2,
                     name = "Drumtochty Branch"
                 });
 
@@ -105,9 +105,9 @@ namespace Bikes.Model.Banking
                     {
                         Customer cust = new Customer();
                         //must have
-                        cust.customerId = (int)reader["customer_id"];
+                        cust.id = (int)reader["customer_id"];
                         cust.branchId = (int)reader["branch_id"];
-                        cust.username = (String)reader["username"];
+                        cust.name = (String)reader["username"];
 
                         list.Add(cust);
                     }
@@ -171,7 +171,7 @@ namespace Bikes.Model.Banking
 
                 //Check that the account belongs to the user.  Remove if other branches are to be allowed.
                 //Also need to implement getBranch() and use dynamic data for branch info.
-                if (destAccount.holderId != holder.customerId)
+                if (destAccount.holderId != holder.id)
                 {
                     throw new ApplicationException("Cannot pay into bank.  User is not an account holder.");
                 }
@@ -197,7 +197,7 @@ namespace Bikes.Model.Banking
                     payment.amount = amount;
                     payment.paid_date = DateTime.Now;
                     payment.bank_branch = "Drumtochty Branch";
-                    payment.bank_username = holder.username;
+                    payment.bank_username = holder.name;
                     payment.bank_account = destAccount.name;
 
                     payment.save();
@@ -232,9 +232,9 @@ namespace Bikes.Model.Banking
                 if (reader.Read())
                 {
                     customer = new Customer();
-                    customer.customerId = (int)reader["customer_id"];
+                    customer.id = (int)reader["customer_id"];
                     customer.branchId = (int)reader["branch_id"];
-                    customer.username = reader["username"] as String;
+                    customer.name = reader["username"] as String;
                 }
                 reader.Close();
                 conn.Close();

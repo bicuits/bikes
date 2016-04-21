@@ -8,6 +8,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
 using Bikes.Model.Banking;
 using System.Drawing;
+using Bikes.Api;
 
 namespace Bikes.App
 {

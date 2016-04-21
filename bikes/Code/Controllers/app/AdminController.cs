@@ -37,7 +37,7 @@ namespace Bikes.App
                 case "pay":
 
                     //had this over to the API controller
-                    var controller = DependencyResolver.Current.GetService<PaymentController>();
+                    var controller = DependencyResolver.Current.GetService<Api.PaymentController>();
                     controller.Post();
 
                     result = RedirectToAction("Index");

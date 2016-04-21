@@ -7,23 +7,15 @@ using System.Net.Http;
 using System.Web.Http;
 using Bikes.Model.Banking;
 
-namespace Bikes.App
+namespace Bikes.Api
 {
     public class BankCustomerController : BikesApiControllerBase
     {
         [HttpGet]
-        public JArray Get(int id)
+        [Route("api/bank/branch/{id:int}/customer")]
+        public IEnumerable<Bank.Customer> Get(int id)
         {
-            JArray result = new JArray(
-                Bank
-                .listCustomersForBranch(id)
-                .Select(c => new JObject(
-                    new JProperty("id", c.customerId.ToString()),
-                    new JProperty("name", c.username))));
-
-            BikesDebug.dumpToFile("customer-options.json", result.ToString(Newtonsoft.Json.Formatting.Indented));
-
-            return result;
+            return Bank.listCustomersForBranch(id);
         }
     }
 }
