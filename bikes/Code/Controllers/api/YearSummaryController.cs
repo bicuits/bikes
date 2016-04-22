@@ -14,7 +14,8 @@ namespace Bikes.Api
     public class YearSummaryController : BikesApiControllerBase
     {
         [HttpGet]
-        public JObject Get()
+        [Route("api/YearSummary/{year:int}")]
+        public JObject Get(int year)
         {
             int[] months = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
 

@@ -19,11 +19,17 @@
             <label for="bikeSelect" class="control-label">Bike</label>
             <select id="bikeSelect" ng-model="ride.bikeId" ng-options="b.id as b.name for b in bikes" class="form-control"></select>
         </div>
-
+        
         <!-- Route select -->
         <div class="form-group">
             <label for="routeSelect" class="control-label">Route</label>
             <select id="routeSelect" ng-model="ride.routeId" ng-options="r.id as r.name for r in routes" class="form-control"></select>
+        </div>
+
+        <!-- Date datepicker -->
+        <div class="form-group">
+            <label for="rideDate" class="control-label">Date</label>
+            <input type="text" ng-model="ride.rideDate" class="form-control" id="rideDate" placeholder="dd/mm/yyyy" />
         </div>
 
         <!-- Distance number -->
@@ -46,6 +52,7 @@
         <div class="form-group" ng-show="ride.payable">
             <label for="bonus" class="control-label">Bonus</label>
             <input type="number" ng-model="ride.bonus" class="form-control" id="bonus" placeholder="Bonus in pounds" />
+            <label ng-show="ride.payable">The total reward for this ride is {{calculateReward()}}</label>
         </div>
 
         <!-- Notes text -->
@@ -54,7 +61,6 @@
             <input type="text" ng-model="ride.notes" class="form-control" id="notes" placeholder="Notes" />
         </div>
 
-        <label ng-show="ride.payable">The total reward for this ride is {{calculateReward()}}</label>
     </div>
 
     <div class="form-group">
@@ -63,3 +69,9 @@
     </div>
 
 </form>
+
+<script>
+        $(function () {
+            $("#rideDate").datepicker({format: "dd/mm/yyyy"});
+        });
+</script>

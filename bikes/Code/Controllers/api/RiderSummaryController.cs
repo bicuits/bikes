@@ -12,7 +12,9 @@ namespace Bikes.Api
 {
     public class RiderSummaryController : BikesApiControllerBase
     {
-        public JObject Get()
+        [HttpGet]
+        [Route("api/RiderSummary/{month:int}")]
+        public JObject Get(int month)
         {
             //get the rides for this month
             IEnumerable<Ride> rides = Ride.getRides().Where(r => r.ride_date.Month == DateTime.Now.Month);

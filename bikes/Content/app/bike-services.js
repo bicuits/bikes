@@ -20,6 +20,14 @@ angular
     return resource("/api/ride/:id", { id: "@id" })
 }])
 
+.factory('YearSummary', ["$resource", function (resource) {
+    return resource("/api/YearSummary/:year", { year: "@year" });
+}])
+
+.factory('RiderSummary', ["$resource", function (resource) {
+    return resource("/api/RiderSummary/:month", { month: "@month" });
+}])
+
 //.factory('Model', ["$resource", function (resource) {
 //    return resource("/api/lookup").get();
 //}])

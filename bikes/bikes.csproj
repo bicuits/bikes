@@ -146,9 +146,9 @@
     <Content Include="Content\app\app.js" />
     <Content Include="Content\app\bike-services.js" />
     <Content Include="Content\app\bike.js" />
+    <Content Include="Content\app\home.js" />
     <Content Include="Content\app\html\bike-edit.html" />
     <Content Include="Content\app\html\bike-list.html" />
-    <Content Include="Content\app\html\home-list.html" />
     <Content Include="Content\app\html\home.html" />
     <Content Include="Content\app\html\ride-add.html" />
     <Content Include="Content\app\html\ride-edit.html" />
