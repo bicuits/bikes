@@ -150,6 +150,7 @@
     <Content Include="Content\app\html\bike-edit.html" />
     <Content Include="Content\app\html\bike-list.html" />
     <Content Include="Content\app\html\home.html" />
+    <Content Include="Content\app\html\payment-list.html" />
     <Content Include="Content\app\html\ride-add.html" />
     <Content Include="Content\app\html\ride-edit.html" />
     <Content Include="Content\app\html\ride-list.html" />
@@ -157,6 +158,7 @@
     <Content Include="Content\app\html\rider-list.html" />
     <Content Include="Content\app\html\route-edit.html" />
     <Content Include="Content\app\html\route-list.html" />
+    <Content Include="Content\app\payment.js" />
     <Content Include="Content\app\ride.js" />
     <Content Include="Content\app\rider.js" />
     <Content Include="Content\app\route.js" />
@@ -291,20 +293,10 @@
     <Compile Include="Code\Controllers\api\RiderController.cs" />
     <Compile Include="Code\Controllers\api\RouteController.cs" />
     <Compile Include="Code\Controllers\app\AppController.cs" />
-    <Compile Include="Code\VewModels\AdminVM.cs" />
-    <Compile Include="Code\VewModels\BikeVM.cs" />
-    <Compile Include="Code\VewModels\LoginVM.cs" />
-    <Compile Include="Code\VewModels\RiderVM.cs" />
-    <Compile Include="Code\VewModels\RideVM.cs" />
-    <Compile Include="Code\VewModels\RouteVM.cs" />
-    <Compile Include="Code\Controllers\api\YearSummaryController.cs" />
-    <Compile Include="Code\Controllers\app\AdminController.cs" />
-    <Compile Include="Code\Controllers\app\BikeController.cs" />
-    <Compile Include="Code\Controllers\app\BikesControllerBase.cs" />
-    <Compile Include="Code\Controllers\app\HomeController.cs" />
     <Compile Include="Code\Controllers\app\LoginController.cs" />
-    <Compile Include="Code\Controllers\app\RiderController.cs" />
-    <Compile Include="Code\Controllers\app\RouteController.cs" />
+    <Compile Include="Code\VewModels\LoginVM.cs" />
+    <Compile Include="Code\VewModels\RideVM.cs" />
+    <Compile Include="Code\Controllers\api\YearSummaryController.cs" />
     <Compile Include="Code\Controllers\api\RiderSummaryController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -314,22 +306,10 @@
   <ItemGroup>
     <Content Include="Views\web.config" />
     <Content Include="packages.config" />
-    <Content Include="Views\_MainLayout.cshtml" />
-    <Content Include="Views\Ride\Index.cshtml" />
-    <Content Include="Views\Ride\AddRide.cshtml" />
-    <Content Include="Views\Bike\Index.cshtml" />
-    <Content Include="Views\Bike\Edit.cshtml" />
     <None Include="Content\jquery\jquery-1.9.1.min.map" />
-    <Content Include="Views\Rider\Edit.cshtml" />
-    <Content Include="Views\Rider\Index.cshtml" />
-    <Content Include="Views\Route\Edit.cshtml" />
-    <Content Include="Views\Route\Index.cshtml" />
     <Content Include="Views\_PublicLayout.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
     <None Include="Properties\PublishProfiles\Webhosting UK.pubxml" />
-    <Content Include="Views\Home\Home.cshtml" />
-    <Content Include="Views\Ride\EditRide.cshtml" />
-    <Content Include="Views\Admin\AdminA.cshtml" />
     <Content Include="Views\App\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

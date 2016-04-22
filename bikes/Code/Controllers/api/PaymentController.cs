@@ -14,58 +14,35 @@ namespace Bikes.Api
     public class PaymentController : BikesApiControllerBase
     {
         [HttpGet]
-        public JObject Get()
+        [Route("api/payment")]
+        public IEnumerable<Payment> Get()
         {
-            return new JObject(
-                    new JProperty("payments",
-                        new JArray(
-                            Payment.getPayments()
-                                   .Select(p => p.toJObject()))));
-        }
-
-        //POST makes a payment for a rider
-        [HttpPost]
-        public JObject Post(int id)
-        {
-            IList<Rider> riders = new List<Rider>();
-            IEnumerable<Ride> unpaidRides = Ride.getUnpaidRides();
-
-            Rider rider = Rider.getRider(id);
-
-            if (rider != null)
-            {
-                riders.Add(rider);
-            }
-
-            return new JObject(
-                new JProperty("payments",
-                    payRiders(riders)));
+            return Payment.getPayments();
         }
 
         //POST makes a payment for all riders
         [HttpPost]
-        public JObject Post()
+        [Route("api/payment")]
+        public List<Payment> Post()
         {
             IEnumerable<Rider> riders = Rider.getRiders(); ;
             IEnumerable<Ride> unpaidRides = Ride.getUnpaidRides();
 
-            return new JObject(
-                new JProperty("payments", 
-                    payRiders(riders)));
+            return payRiders(riders);
         }
 
-        private JArray payRiders(IEnumerable<Rider> riders)
+        private List<Payment> payRiders(IEnumerable<Rider> riders)
         {
             IEnumerable<Ride> unpaidRides = Ride.getUnpaidRides();
 
-            JArray payments = new JArray();
+            List<Payment> payments = new List<Payment>();
 
             foreach (Rider rider in riders)
             {
                 Payment payment = payRider(unpaidRides, rider);
                 if (payment != null)
                 {
-                    payments.Add(payment.toJObject());
+                    payments.Add(payment);
                 }
             }
             return payments;

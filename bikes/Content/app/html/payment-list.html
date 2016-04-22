@@ -1,0 +1,19 @@
+﻿
+<h2>Payment History</h2>
+
+<div class="panel">
+    <button type="button" class="btn btn-primary" ng-click="pay()">Pay all</button>
+</div>
+
+<table class="table table-striped">
+    <tr>
+        <th>Rider</th>
+        <th>Amount</th>
+        <th>Date</th>
+    </tr>
+    <tr ng-repeat="p in payments">
+        <td>>{{p.rider}}</td>
+        <td>>{{p.amount}}</td>
+        <td>>{{p.paid_date}}</td>
+    </tr>
+</table>

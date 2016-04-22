@@ -28,6 +28,10 @@ angular
     return resource("/api/RiderSummary/:month", { month: "@month" });
 }])
 
+.factory('Payment', ["$resource", function (resource) {
+    return resource("/api/payment");
+}])
+
 //.factory('Model', ["$resource", function (resource) {
 //    return resource("/api/lookup").get();
 //}])

@@ -11,12 +11,20 @@ angular
 
     $stateProvider
 
-        // HOME STATES AND NESTED VIEWS ========================================
+        // HOME STATES ========================================
 
         .state('home', {
             url: '/home',
             templateUrl: '/content/app/html/home.html',
             controller: 'homeController'
+        })
+
+        // ADMIN STATES ========================================
+
+        .state('paymentList', {
+            url: '/payment',
+            templateUrl: '/content/app/html/payment-list.html',
+            controller: 'paymentListController'
         })
 
         // RIDE PAGE =================================

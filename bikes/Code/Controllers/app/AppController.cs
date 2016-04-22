@@ -6,7 +6,8 @@ using System.Web.Mvc;
 
 namespace Bikes.App
 {
-    public class AppController : BikesControllerBase
+    [Authorize(Roles = "user")]
+    public class AppController : Controller
     {
         [HttpGet]
         [Route("app")]
