@@ -150,6 +150,7 @@
     <Content Include="Content\app\html\bike-list.html" />
     <Content Include="Content\app\html\home-list.html" />
     <Content Include="Content\app\html\home.html" />
+    <Content Include="Content\app\html\ride-add.html" />
     <Content Include="Content\app\html\ride-edit.html" />
     <Content Include="Content\app\html\ride-list.html" />
     <Content Include="Content\app\html\rider-edit.html" />
@@ -302,7 +303,6 @@
     <Compile Include="Code\Controllers\app\BikesControllerBase.cs" />
     <Compile Include="Code\Controllers\app\HomeController.cs" />
     <Compile Include="Code\Controllers\app\LoginController.cs" />
-    <Compile Include="Code\Controllers\app\RideController.cs" />
     <Compile Include="Code\Controllers\app\RiderController.cs" />
     <Compile Include="Code\Controllers\app\RouteController.cs" />
     <Compile Include="Code\Controllers\api\RiderSummaryController.cs" />

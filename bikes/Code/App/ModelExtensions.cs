@@ -11,6 +11,10 @@ namespace Bikes.Api
 {
     public static class ModelExtensions
     {
+        //public static RideVM toRideVM(this Ride ride)
+        //{
+        //    return new RideVM(ride);
+        //}
         public static String notesSummary(this Ride ride)
         {
             return getSummary(ride.notes);

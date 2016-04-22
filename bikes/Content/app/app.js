@@ -41,9 +41,9 @@ angular
         })
 
         .state('rideAdd', {
-            url: '/ride/:id/add',
-            templateUrl: '/content/app/html/ride-edit.html',
-            controller: 'rideEditController'
+            url: '/ride/add',
+            templateUrl: '/content/app/html/ride-add.html',
+            controller: 'rideAddController'
         })
 
         .state('rideEdit', {

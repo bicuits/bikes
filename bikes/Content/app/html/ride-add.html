@@ -1,0 +1,65 @@
+﻿<h3 ng-hide="ride.id">Add Ride</h3>
+
+<form class="form-horizontal" role="form" ng-submit="saveForm()">
+
+    <!-- Earns Rewards checkbox -->
+    <!-- Return Ride checkbox -->
+    <!-- Date datepicker -->
+
+    <!-- Rider select -->
+    <div class="form-group">
+        <label for="riderSelect" class="control-label">Rider</label>
+        <select id="riderSelect" ng-model="ride.riderId" ng-options="r.id as r.name for r in riders" class="form-control"></select>
+    </div>
+
+    <div ng-show="ride.riderId > 1">
+
+        <!-- Bike select -->
+        <div class="form-group">
+            <label for="bikeSelect" class="control-label">Bike</label>
+            <select id="bikeSelect" ng-model="ride.bikeId" ng-options="b.id as b.name for b in bikes" class="form-control"></select>
+        </div>
+
+        <!-- Route select -->
+        <div class="form-group">
+            <label for="routeSelect" class="control-label">Route</label>
+            <select id="routeSelect" ng-model="ride.routeId" ng-options="r.id as r.name for r in routes" class="form-control"></select>
+        </div>
+
+        <!-- Distance number -->
+        <div class="form-group" ng-show="ride.routeId < 2">
+            <label for="distance" class="control-label">Distance</label>
+            <input type="number" ng-model="ride.distance" class="form-control" id="distance" placeholder="Distance in miles" />
+        </div>
+
+        <!-- ReturnRide checkbox -->
+        <div class="form-group" ng-show="ride.routeId > 1">
+            <label><input type="checkbox" ng-model="ride.returnRide" id="returnRide" /> this is a return ride</label>
+        </div>
+
+        <!-- Payable checkbox -->
+        <div class="form-group">
+            <label><input type="checkbox" ng-model="ride.payable" id="payable" /> this ride earns rewards</label>
+        </div>
+
+        <!-- Bonus number -->
+        <div class="form-group" ng-show="ride.payable">
+            <label for="bonus" class="control-label">Bonus</label>
+            <input type="number" ng-model="ride.bonus" class="form-control" id="bonus" placeholder="Bonus in pounds" />
+        </div>
+
+        <!-- Notes text -->
+        <div class="form-group">
+            <label for="notes" class="control-label">Notes</label>
+            <input type="text" ng-model="ride.notes" class="form-control" id="notes" placeholder="Notes" />
+        </div>
+
+        <label ng-show="ride.payable">The total reward for this ride is {{calculateReward()}}</label>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" class="btn btn-primary" name="save" value="Save" ng-disabled="ride.riderId < 1" />
+        <input type="button" class="btn btn-primary" name="cancel" value="Cancel" ng-click="cancel()" />
+    </div>
+
+</form>

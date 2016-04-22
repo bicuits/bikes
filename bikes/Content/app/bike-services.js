@@ -17,7 +17,7 @@ angular
 }])
 
 .factory('Ride', ["$resource", function (resource) {
-    return resource("/api/ride/:id", { id: "@id" });
+    return resource("/api/ride/:id", { id: "@id" })
 }])
 
 //.factory('Model', ["$resource", function (resource) {

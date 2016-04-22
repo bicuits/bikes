@@ -12,32 +12,67 @@ namespace Bikes.Api
     {
         [HttpGet]
         [Route("api/ride")]
-        public IEnumerable<Ride> Get()
+        public IEnumerable<RideVM> Get()
         {
-            return Ride.getRides();
+            return Ride.getRides().Select(r => new RideVM(r));
         }
 
         [HttpGet]
         [Route("api/ride/{id:int}")]
-        public Ride Get(int id)
+        public RideVM Get(int id)
         {
-            return Ride.getRide(id);
+            return new RideVM(Ride.getRide(id));
         }
 
         [HttpPost]
         [Route("api/ride")]
-        public Ride Post(Ride ride)
+        public RideVM Post(RideVM vm)
         {
-            Ride.save();
-            return ride;
+            //calculate the reward and distance
+            double rideLength;
+            double reward;
+            Rider rider;
+
+            if (vm.routeId == Route.DefaultId)
+            {
+                rideLength = vm.distance;
+            }
+            else
+            {
+                rideLength = Route.getRoute(vm.routeId).distance;
+                if (vm.returnRide)
+                {
+                    rideLength *= 2;
+                }
+            }
+
+            rider = Rider.getRider(vm.riderId);
+
+            reward = vm.payable ? vm.bonus + (rideLength * rider.rate) / 100f : 0;
+
+            //create the ride
+            Ride ride = Ride.add(
+                vm.bikeId, 
+                vm.riderId, 
+                vm.routeId,
+                DateTime.Parse(vm.rideDate),
+                vm.notes,
+                reward,
+                rideLength);
+
+            //return the new ride as a view model
+            return new RideVM(ride);
         }
 
         [HttpPost]
         [Route("api/ride/{id:int}")]
-        public Ride Post(int id, Ride ride)
+        public RideVM Post(int id, RideVM vm)
         {
-            ride.save();
-            return ride;
+            //update the notes.  This is the only field that is not immutable
+            Ride.setNotes(id, vm.notes);
+
+            //return the ride info
+            return new RideVM(Ride.getRide(id));
         }
 
         [HttpDelete]

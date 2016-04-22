@@ -76,7 +76,7 @@ namespace Bikes.Api
             Payment payment = null;
             IEnumerable<Ride> ridesToPay = unpaidRides.Where(r => r.rider_id == rider.id);
 
-            double total = ridesToPay.Sum(r => r.reward + r.bonus);
+            double total = ridesToPay.Sum(r => r.reward);
 
             //if rider has a valid-looking account set up
             if (total > 0 &&

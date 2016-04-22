@@ -27,7 +27,6 @@ namespace Bikes.Model
         public bool paid { get; internal set; }              //if the reward as been paid or not
         public String notes { get; internal set; }           //user defined field
         public double reward { get; internal set; }          //earned value in Pounds
-        public double bonus { get; internal set; }           //one-off bonus for this ride in Pounds
         public double distance { get; internal set; }        //length of the route (including return trip)
 
         internal Ride()
@@ -85,14 +84,13 @@ namespace Bikes.Model
             db.Save(this);
         }
 
-        public static void add(
+        public static Ride add(
                         int bike_id,
                         int rider_id,
                         int route_id,
                         DateTime ride_date,
                         String notes,
                         double reward,
-                        double bonus,
                         double distance)
         {
             Ride ride = new Ride();
@@ -110,12 +108,13 @@ namespace Bikes.Model
             ride.notes = notes;
             ride.distance = distance;
             ride.reward = reward;
-            ride.bonus = bonus;
 
             ride.paid = false;
 
             Database db = new PetaPoco.Database(ModelConfig.connectionStringName("bikes"));
             db.Insert(ride);
+
+            return ride;
         }
 
         public static void setNotes(int rideId, String notes)

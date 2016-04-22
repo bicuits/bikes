@@ -5,11 +5,23 @@
     <button type="button" class="btn btn-primary" ng-click="add()">Add Ride</button>
 </div>
 
-<table class="table table-striped table-bordered">
+<table class="table table-striped">
     <tr>
-        <th>Name</th>
+        <th>Route</th>
+        <th>Rider</th>
+        <th>Date</th>
+        <th>Distance</th>
+        <th>Reward</th>
+        <th>Bike</th>
+        <th>Notes</th>
     </tr>
-    <tr ng-repeat="bike in bikes">
-        <td><a ui-sref="rideEdit({id: ride.id})">{{ride.name}}</a></td>
+    <tr ng-repeat="ride in rides">
+        <td><a ui-sref="rideEdit({id: ride.id})">{{ride.route}}</a></td>
+        <td>{{ride.rider}}</td>
+        <td>{{ride.rideDate}}</td>
+        <td>{{ride.distance}}</td>
+        <td>{{ride.reward.toFixed(2)}}</td>
+        <td>{{ride.bike}}</td>
+        <td>{{ride.notes}}</td>
     </tr>
 </table>
