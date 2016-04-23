@@ -18,7 +18,7 @@ namespace Bikes.Api
         public string rider { get; private set; }
         public string route { get; private set; }
         public string bike { get; private set; }
-        public double reward { get; set; }
+        public decimal reward { get; set; }
         public String rideDate { get; set; }
         public String notes { get; set; }
 
@@ -28,7 +28,7 @@ namespace Bikes.Api
         public int riderId { get; set; }
         public int routeId { get; set; }
         public int bikeId { get; set; }
-        public double bonus { get; set; }
+        public decimal bonus { get; set; }
 
         public RideVM()
         {

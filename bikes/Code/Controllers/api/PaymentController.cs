@@ -15,9 +15,17 @@ namespace Bikes.Api
     {
         [HttpGet]
         [Route("api/payment")]
-        public IEnumerable<Payment> Get()
+        public JArray Get()
         {
-            return Payment.getPayments();
+            //return Payment.getPayments();
+
+            return new JArray(
+                Payment.getPayments().Select(p => 
+                    new JObject(
+                        new JProperty("rider", p.rider),
+                        new JProperty("amount", p.amount),
+                        new JProperty("paid_date", 
+                            p.paid_date.HasValue ? p.paid_date.Value.ToString("dd/MM/yyyy") : ""))));
         }
 
         //POST makes a payment for all riders
@@ -53,7 +61,7 @@ namespace Bikes.Api
             Payment payment = null;
             IEnumerable<Ride> ridesToPay = unpaidRides.Where(r => r.rider_id == rider.id);
 
-            double total = ridesToPay.Sum(r => r.reward);
+            decimal total = ridesToPay.Sum(r => r.reward);
 
             //if rider has a valid-looking account set up
             if (total > 0 &&

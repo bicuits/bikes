@@ -26,7 +26,7 @@ namespace Bikes.Model
         public DateTime ride_date { get; internal set; }     //date the ride was ridden
         public bool paid { get; internal set; }              //if the reward as been paid or not
         public String notes { get; internal set; }           //user defined field
-        public double reward { get; internal set; }          //earned value in Pounds
+        public decimal reward { get; internal set; }          //earned value in Pounds
         public double distance { get; internal set; }        //length of the route (including return trip)
 
         internal Ride()
@@ -90,7 +90,7 @@ namespace Bikes.Model
                         int route_id,
                         DateTime ride_date,
                         String notes,
-                        double reward,
+                        decimal reward,
                         double distance)
         {
             Ride ride = new Ride();

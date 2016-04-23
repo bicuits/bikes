@@ -3,7 +3,7 @@
 
 angular
 
-.module('bikesApp', ['ui.router', "bikeServices"])
+.module('bikesApp', ['ui.router', "ui.grid", "bikeServices"])
 
 .config(function ($stateProvider, $urlRouterProvider) {
 
@@ -17,6 +17,14 @@ angular
             url: '/home',
             templateUrl: '/content/app/html/home.html',
             controller: 'homeController'
+        })
+
+        // FIDDLE STATES ========================================
+
+        .state('linqTest', {
+            url: '/linq-test',
+            templateUrl: '/content/app/html/linq-test.html',
+            controller: 'linqTestController'
         })
 
         // ADMIN STATES ========================================

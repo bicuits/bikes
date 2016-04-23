@@ -13,6 +13,7 @@
     <link rel="stylesheet" type="text/css" href="~/Content/bootstrap/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="~/Content/bootstrap/bootstrap-theme.min.css" />
     <link rel="stylesheet" type="text/css" href="~/Content/datepicker/css/bootstrap-datepicker3.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/angular-ui-grid/ui-grid.css" />
 
     <script src="~/Content/jquery/jquery-1.9.1.js"></script>
     <script src="~/Content/jquery/jquery.validate.js"></script>
@@ -24,8 +25,10 @@
     <script src="~/Content/angular-resource/angular-resource.js"></script>
     <script src="~/Content/angular-ui-router/release/angular-ui-router.js"></script>
 
-    <script src="/Content/chartjs/Chart.min.js"></script>
+    <script src="~/Content/chartjs/Chart.min.js"></script>
 
+    <script src="~/Content/angular-ui-grid/ui-grid.js"></script>
+    
     <script src="~/Content/app/app.js"></script>
     <script src="~/Content/app/bike-services.js"></script>
     <script src="~/Content/app/bike.js"></script>
@@ -35,21 +38,62 @@
     <script src="~/Content/app/home.js"></script>
     <script src="~/Content/app/payment.js"></script>
 
+    <script src="~/Content/app/linq-test.js"></script>
+
 </head>
 
 <body ng-app="bikesApp">
 
+    <!-- MAIN MENU -->
+    <nav class="navbar navbar-inverse navbar-static-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" ui-sref="home">Drurys Bikes</a>
+            </div>
+
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a ui-sref="home">Home</a></li>
+                    <li><a ui-sref="rideList">Rides</a></li>
+                    <li class="dropdown">
+                        <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a ui-sref="bikeList">Bikes</a></li>
+                            <li><a ui-sref="riderList">Riders</a></li>
+                            <li><a ui-sref="routeList">Routes</a></li>
+                            <li><a ui-sref="paymentList">Payments</a></li>
+                        </ul>
+                    </li>
+                    <li><a ui-sref="linqTest">Analysis</a></li>
+                </ul>
+            </div><!--/.nav-collapse -->
+        </div>
+    </nav>
+
+
         <!-- NAVIGATION -->
-        <nav class="navbar navbar-inverse" role="navigation">
+        @*<nav class="navbar navbar-inverse" role="navigation">
             <ul class="nav navbar-nav">
                 <li><a ui-sref="home">Home</a></li>
                 <li><a ui-sref="rideList">Rides</a></li>
-                <li><a ui-sref="bikeList">Bikes</a></li>
-                <li><a ui-sref="riderList">Riders</a></li>
-                <li><a ui-sref="routeList">Routes</a></li>
-                <li><a ui-sref="paymentList">Payments</a></li>
+                <li class="dropdown">
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a ui-sref="bikeList">Bikes</a></li>
+                        <li><a ui-sref="riderList">Riders</a></li>
+                        <li><a ui-sref="routeList">Routes</a></li>
+                        <li><a ui-sref="paymentList">Payments</a></li>
+                    </ul>
+                </li>
+                <li><a ui-sref="linqTest">Analysis</a></li>
             </ul>
-        </nav>
+        </nav>*@
 
         <!-- MAIN CONTENT -->
         <div class="container">

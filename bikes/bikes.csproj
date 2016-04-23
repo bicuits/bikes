@@ -106,6 +106,11 @@
     <Content Include="Content\angular-resource\bower.json" />
     <Content Include="Content\angular-resource\package.json" />
     <Content Include="Content\angular-resource\README.md" />
+    <Content Include="Content\angular-ui-grid\ui-grid.css" />
+    <Content Include="Content\angular-ui-grid\ui-grid.js" />
+    <Content Include="Content\angular-ui-grid\ui-grid.min.css" />
+    <Content Include="Content\angular-ui-grid\ui-grid.min.js" />
+    <Content Include="Content\angular-ui-grid\ui-grid.svg" />
     <Content Include="Content\angular-ui-router\.bower.json" />
     <Content Include="Content\angular-ui-router\bower.json" />
     <Content Include="Content\angular-ui-router\CHANGELOG.md" />
@@ -118,6 +123,9 @@
     <Content Include="Content\angular\bower.json" />
     <Content Include="Content\angular\package.json" />
     <Content Include="Content\angular\README.md" />
+    <Content Include="Content\angular-ui-grid\ui-grid.eot" />
+    <Content Include="Content\angular-ui-grid\ui-grid.ttf" />
+    <Content Include="Content\angular-ui-grid\ui-grid.woff" />
     <None Include="Content\bootstrap\bootstrap-theme.css" />
     <None Include="Content\bootstrap\bootstrap-theme.min.css" />
     <None Include="Content\bootstrap\bootstrap.css" />
@@ -150,6 +158,7 @@
     <Content Include="Content\app\html\bike-edit.html" />
     <Content Include="Content\app\html\bike-list.html" />
     <Content Include="Content\app\html\home.html" />
+    <Content Include="Content\app\html\linq-test.html" />
     <Content Include="Content\app\html\payment-list.html" />
     <Content Include="Content\app\html\ride-add.html" />
     <Content Include="Content\app\html\ride-edit.html" />
@@ -158,6 +167,7 @@
     <Content Include="Content\app\html\rider-list.html" />
     <Content Include="Content\app\html\route-edit.html" />
     <Content Include="Content\app\html\route-list.html" />
+    <Content Include="Content\app\linq-test.js" />
     <Content Include="Content\app\payment.js" />
     <Content Include="Content\app\ride.js" />
     <Content Include="Content\app\rider.js" />

@@ -155,7 +155,7 @@ namespace Bikes.Model.Banking
             return accounts;
         }
 
-        public static Payment deposit(Rider rider, double amount, string description)
+        public static Payment deposit(Rider rider, decimal amount, string description)
         {
             Payment payment = new Payment();
 

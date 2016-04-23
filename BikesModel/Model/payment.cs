@@ -18,7 +18,7 @@ namespace Bikes.Model.Banking
 
         public int id { get; internal set; }
         public string rider { get; internal set; }
-        public double amount { get; internal set; }
+        public decimal amount { get; internal set; }
         public string bank_branch { get; internal set; }
         public string bank_username { get; internal set; }
         public string bank_account { get; internal set; }

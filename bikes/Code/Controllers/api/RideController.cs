@@ -30,7 +30,7 @@ namespace Bikes.Api
         {
             //calculate the reward and distance
             double rideLength;
-            double reward;
+            decimal reward;
             Rider rider;
 
             if (vm.routeId == Route.DefaultId)
@@ -48,7 +48,7 @@ namespace Bikes.Api
 
             rider = Rider.getRider(vm.riderId);
 
-            reward = vm.payable ? vm.bonus + (rideLength * rider.rate) / 100f : 0;
+            reward = vm.payable ? vm.bonus + (decimal)((rideLength * rider.rate) / 100) : 0m;
 
             //create the ride
             Ride ride = Ride.add(

@@ -14,6 +14,12 @@
 
     <div ng-show="ride.riderId > 1">
 
+        <!-- Date datepicker -->
+        <div class="form-group">
+            <label for="rideDate" class="control-label">Date</label>
+            <input type="text" ng-model="ride.rideDate" class="form-control" id="rideDate" placeholder="dd/mm/yyyy" />
+        </div>
+
         <!-- Bike select -->
         <div class="form-group">
             <label for="bikeSelect" class="control-label">Bike</label>
@@ -23,13 +29,7 @@
         <!-- Route select -->
         <div class="form-group">
             <label for="routeSelect" class="control-label">Route</label>
-            <select id="routeSelect" ng-model="ride.routeId" ng-options="r.id as r.name for r in routes" class="form-control"></select>
-        </div>
-
-        <!-- Date datepicker -->
-        <div class="form-group">
-            <label for="rideDate" class="control-label">Date</label>
-            <input type="text" ng-model="ride.rideDate" class="form-control" id="rideDate" placeholder="dd/mm/yyyy" />
+            <select id="routeSelect" ng-model="ride.routeId" ng-options="r.id as routeCaption(r) for r in routes" class="form-control"></select>
         </div>
 
         <!-- Distance number -->
@@ -45,14 +45,14 @@
 
         <!-- Payable checkbox -->
         <div class="form-group">
-            <label><input type="checkbox" ng-model="ride.payable" id="payable" /> this ride earns rewards</label>
+            <label><input type="checkbox" ng-model="ride.payable" id="payable" /> this ride earns a reward</label>
+            <label ng-show="ride.payable"> of £{{calculateReward()}}</label>
         </div>
 
         <!-- Bonus number -->
         <div class="form-group" ng-show="ride.payable">
             <label for="bonus" class="control-label">Bonus</label>
             <input type="number" ng-model="ride.bonus" class="form-control" id="bonus" placeholder="Bonus in pounds" />
-            <label ng-show="ride.payable">The total reward for this ride is {{calculateReward()}}</label>
         </div>
 
         <!-- Notes text -->
@@ -72,6 +72,6 @@
 
 <script>
         $(function () {
-            $("#rideDate").datepicker({format: "dd/mm/yyyy"});
+            $("#rideDate").datepicker({format: "dd/mm/yyyy", autoclose: true});
         });
 </script>

@@ -32,9 +32,9 @@ angular
     return resource("/api/payment");
 }])
 
-//.factory('Model', ["$resource", function (resource) {
-//    return resource("/api/lookup").get();
-//}])
+.factory('RawData', ["$resource", function (resource) {
+    return resource("/api/rawdata/:year", { year: "@year"});
+}])
 
 .factory('chartColors', ["$resource", function (resource) {
     return resource("/api/chartcolor").query();

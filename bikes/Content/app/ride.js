@@ -12,6 +12,14 @@
 
 .controller('rideAddController', ["$scope", "$state", "Ride", "Rider", "Route", "Bike", function (scope, state, Ride, Rider, Route, Bike) {
 
+    scope.routeCaption = function (route) {
+        if (route.id == 1) {
+            return route.name;
+        } else {
+            return route.name + ' (' + route.distance + ' miles)';
+        }
+    };
+
     var getRider = function (id) {
         var i;
         for (i = 0; i < scope.riders.length; i++) {
