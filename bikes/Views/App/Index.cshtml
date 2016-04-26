@@ -1,4 +1,4 @@
-﻿
+﻿@model AppVM
 @{
     Layout = null;
 }
@@ -13,21 +13,22 @@
     <link rel="stylesheet" type="text/css" href="~/Content/bootstrap/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="~/Content/bootstrap/bootstrap-theme.min.css" />
     <link rel="stylesheet" type="text/css" href="~/Content/datepicker/css/bootstrap-datepicker3.min.css" />
-    <link rel="stylesheet" type="text/css" href="~/Content/angular-ui-grid/ui-grid.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/angular-ui-grid/ui-grid.min.css" />
 
-    <script src="~/Content/jquery/jquery-1.9.1.js"></script>
-    <script src="~/Content/jquery/jquery.validate.js"></script>
-    <script src="~/Content/jquery/jquery.validate.unobtrusive.js"></script>
-    <script src="~/Content/bootstrap/scripts/bootstrap.js"></script>
-    <script src="~/Content/datepicker/js/bootstrap-datepicker.js"></script>
+    <script src="~/Content/jquery/jquery-1.9.1.min.js"></script>
+    <script src="~/Content/jquery/jquery.validate.min.js"></script>
+    <script src="~/Content/jquery/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Content/bootstrap/scripts/bootstrap.min.js"></script>
+    <script src="~/Content/datepicker/js/bootstrap-datepicker.min.js"></script>
 
-    <script src="~/Content/angular/angular.js"></script>
-    <script src="~/Content/angular-resource/angular-resource.js"></script>
-    <script src="~/Content/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="~/Content/angular/angular.min.js"></script>
+    <script src="~/Content/angular-resource/angular-resource.min.js"></script>
+    <script src="~/Content/angular-ui-router/release/angular-ui-router.min.js"></script>
 
+    <script src="~/Content/linqjs/linq.min.js"></script>
     <script src="~/Content/chartjs/Chart.min.js"></script>
 
-    <script src="~/Content/angular-ui-grid/ui-grid.js"></script>
+    <script src="~/Content/angular-ui-grid/ui-grid.min.js"></script>
     
     <script src="~/Content/app/app.js"></script>
     <script src="~/Content/app/bike-services.js"></script>
@@ -37,8 +38,19 @@
     <script src="~/Content/app/ride.js"></script>
     <script src="~/Content/app/home.js"></script>
     <script src="~/Content/app/payment.js"></script>
+    <script src="~/Content/app/analysis.js"></script>
+    <script src="~/Content/app/user.js"></script>
 
-    <script src="~/Content/app/linq-test.js"></script>
+    <script src="~/Content/app/fiddle.js"></script>
+
+    <script>
+        angular.module('bikesApp')
+            .service('currentUser', function () {
+                this.riderId = @Model.currentRiderId;
+                this.name = '@Model.currentRiderName';
+            });
+    </script>
+
 
 </head>
 
@@ -59,8 +71,9 @@
 
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a ui-sref="home">Home</a></li>
+                    <li><a ui-sref="userHome">@Model.currentRiderName</a></li>
                     <li><a ui-sref="rideList">Rides</a></li>
+                    <li><a ui-sref="analysis">Analysis</a></li>
                     <li class="dropdown">
                         <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin<span class="caret"></span></a>
                         <ul class="dropdown-menu">
@@ -68,38 +81,20 @@
                             <li><a ui-sref="riderList">Riders</a></li>
                             <li><a ui-sref="routeList">Routes</a></li>
                             <li><a ui-sref="paymentList">Payments</a></li>
+                         @*   <li><a ui-sref="fiddle">Fiddle</a></li>*@
                         </ul>
                     </li>
-                    <li><a ui-sref="linqTest">Analysis</a></li>
+                    <li><a href="/login/logout">Logout</a></li>
                 </ul>
-            </div><!--/.nav-collapse -->
+            </div>
         </div>
     </nav>
 
+    <!-- MAIN CONTENT -->
+    <div class="container">
 
-        <!-- NAVIGATION -->
-        @*<nav class="navbar navbar-inverse" role="navigation">
-            <ul class="nav navbar-nav">
-                <li><a ui-sref="home">Home</a></li>
-                <li><a ui-sref="rideList">Rides</a></li>
-                <li class="dropdown">
-                    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin<span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a ui-sref="bikeList">Bikes</a></li>
-                        <li><a ui-sref="riderList">Riders</a></li>
-                        <li><a ui-sref="routeList">Routes</a></li>
-                        <li><a ui-sref="paymentList">Payments</a></li>
-                    </ul>
-                </li>
-                <li><a ui-sref="linqTest">Analysis</a></li>
-            </ul>
-        </nav>*@
+        <div ui-view></div>
 
-        <!-- MAIN CONTENT -->
-        <div class="container">
-
-            <div ui-view></div>
-
-        </div>
+    </div>
 </body>
 </html>

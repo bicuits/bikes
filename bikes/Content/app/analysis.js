@@ -1,6 +1,6 @@
 ﻿angular.module('bikesApp')
 
-.controller('linqTestController', ["$scope", "$state", "uiGridConstants", "RawData", function (scope, state, uiGridConstants, RawData) {
+.controller('analysisController', ["$scope", "$state", "uiGridConstants", "RawData", function (scope, state, uiGridConstants, RawData) {
 
     scope.gridOptions = {
         enableSorting: true,
@@ -25,6 +25,7 @@
                 field: 'distance',
                 type: 'number',
                 aggregationType: uiGridConstants.aggregationTypes.sum,
+                footerCellTemplate: "<div>{{col.getAggregationValue() | number : 0}}</div>",
                 enableFiltering: false
             },
             {
@@ -32,6 +33,7 @@
                 field: 'reward',
                 typee: 'number',
                 aggregationType: uiGridConstants.aggregationTypes.sum,
+                footerCellTemplate: "<div>{{col.getAggregationValue() | number : 2}}</div>",
                 enableFiltering: false
             },
             {

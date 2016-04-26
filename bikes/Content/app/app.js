@@ -7,7 +7,7 @@ angular
 
 .config(function ($stateProvider, $urlRouterProvider) {
 
-    $urlRouterProvider.otherwise('/home');
+    $urlRouterProvider.otherwise('/user-home');
 
     $stateProvider
 
@@ -19,12 +19,24 @@ angular
             controller: 'homeController'
         })
 
+        .state('userHome', {
+            url: '/user-home',
+            templateUrl: '/content/app/html/user-home.html',
+            controller: 'userHomeController'
+        })
+
+        .state('analysis', {
+            url: '/analysis',
+            templateUrl: '/content/app/html/analysis.html',
+            controller: 'analysisController'
+        })
+
         // FIDDLE STATES ========================================
 
-        .state('linqTest', {
-            url: '/linq-test',
-            templateUrl: '/content/app/html/linq-test.html',
-            controller: 'linqTestController'
+        .state('fiddle', {
+            url: '/fiddle',
+            templateUrl: '/content/app/html/fiddle.html',
+            controller: 'fiddleController'
         })
 
         // ADMIN STATES ========================================
@@ -44,7 +56,7 @@ angular
         })
 
         .state('rideAdd', {
-            url: '/ride/add',
+            url: '/ride/add/:riderId',
             templateUrl: '/content/app/html/ride-add.html',
             controller: 'rideAddController'
         })
@@ -94,7 +106,13 @@ angular
             templateUrl: '/content/app/html/rider-edit.html',
             controller: 'riderEditController'
         })
-    
+
+        .state('riderPwd', {
+            url: '/rider/:id/pwd',
+            templateUrl: '/content/app/html/rider-pwd.html',
+            controller: 'riderPwdController'
+        })
+
         // BIKE PAGE =================================
 
         .state('bikeList', {

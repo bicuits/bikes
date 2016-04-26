@@ -1,0 +1,68 @@
+﻿<h3>Welcome {{currentUser.name}}</h3>
+
+<div>
+    <div class="row">
+        <label class="col-xs-4">Distance this month</label>
+        <div class="col-xs-8">{{summary.monthDistance}}</div>
+    </div>
+    <div class="row">
+        <label class="col-xs-4">Distance this year</label>
+        <div class="col-xs-8">{{summary.yearDistance}}</div>
+    </div>
+    <div class="row">
+        <label class="col-xs-4">Cash unpaid</label>
+        <div class="col-xs-8">{{summary.cashUnpaid}}</div>
+    </div>
+    <div class="row">
+        <label class="col-xs-4">Cash paid this year</label>
+        <div class="col-xs-8">{{summary.cashYear}}</div>
+    </div>
+</div>
+
+<!--<table>
+    <tr ng-repeat="r in yearSummary.riderSummary">
+        <td>{{r.monthDistance}}</td>
+        <td>{{r.yearDistance}}</td>
+        <td>{{r.cashUnpaid}}</td>
+        <td>{{r.cashYear}}</td>
+    </tr>
+</table>-->
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Year summary</h3>
+    </div>
+
+    <div class="panel-body">
+        <div>
+            <canvas id="barYearSummary" style="width:100%;height:400px;"></canvas>
+        </div>
+        <div>
+            <div class='label label-default' ng-repeat="d in yearSummary.chartData.datasets" style="background-color:{{d.fillColor}}">{{d.label}}</div>
+        </div>
+    </div>
+</div>
+
+<h3>{{currentUser.name}}'s Rides <button type="button" class="btn btn-primary" ng-click="addRide()">Add Ride</button></h3>
+
+<table class="table table-striped">
+    <tr>
+        <th>Route</th>
+        <th>Rider</th>
+        <th>Date</th>
+        <th>Distance</th>
+        <th>Reward</th>
+        <th>Bike</th>
+        <th>Notes</th>
+    </tr>
+    <tr ng-repeat="ride in rides">
+        <td><a ui-sref="rideEdit({id: ride.id})">{{ride.route}}</a></td>
+        <td>{{ride.rider}}</td>
+        <td>{{ride.ride_date}}</td>
+        <td>{{ride.distance}}</td>
+        <td>{{ride.reward.toFixed(2)}}</td>
+        <td>{{ride.bike}}</td>
+        <td>{{ride.notes}}</td>
+    </tr>
+</table>

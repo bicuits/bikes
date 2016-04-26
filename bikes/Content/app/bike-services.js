@@ -12,6 +12,18 @@ angular
     return resource("/api/rider/:id", { id: "@id" });
 }])
 
+.factory('RiderPwd', ["$resource", function (resource) {
+    return resource(
+        "/api/rider/:id/pwd",
+        { id: "@id" },
+        {
+            setPwd: {
+                method: 'POST'
+            }
+        }
+    );
+}])
+
 .factory('Route', ["$resource", function (resource) {
     return resource("/api/route/:id", { id: "@id" });
 }])
@@ -21,11 +33,11 @@ angular
 }])
 
 .factory('YearSummary', ["$resource", function (resource) {
-    return resource("/api/YearSummary/:year", { year: "@year" });
+    return resource("/api/rider/:riderId/YearSummary/:year", { riderId: "@riderId", year: "@year" });
 }])
 
 .factory('RiderSummary', ["$resource", function (resource) {
-    return resource("/api/RiderSummary/:month", { month: "@month" });
+    return resource("/api/rider/:riderId/RiderSummary/:month", { riderId: "@riderId", month: "@month" });
 }])
 
 .factory('Payment', ["$resource", function (resource) {

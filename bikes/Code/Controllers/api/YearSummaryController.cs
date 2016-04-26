@@ -14,25 +14,37 @@ namespace Bikes.Api
     public class YearSummaryController : BikesApiControllerBase
     {
         [HttpGet]
-        [Route("api/YearSummary/{year:int}")]
-        public JObject Get(int year)
+        [Route("api/rider/{riderId:int}/YearSummary/{year:int}")]
+        public JObject Get(int riderId, int year)
         {
             int[] months = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
 
             //get all archived rides for this year
             IEnumerable<Ride> rides = Ride.getRides().Where(r => r.ride_date.Year == DateTime.Now.Year);
+            if (riderId > 0)
+            {
+                rides = rides.Where(r => r.rider_id == riderId);
+            }
+            
             //group rides by rider
             IEnumerable<IGrouping<int, Ride>> groups = rides.GroupBy(r => r.rider_id);
+            
             //get the riders for reference lookups
             IEnumerable<Rider> riders = Rider.getRiders();
+            if (riderId > 0)
+            {
+                riders = riders.Where(r => r.id == riderId);
+            }
 
             //get the yearly summary imfo for each user
             JArray riderSummary =
                 new JArray(groups.Select(g =>
                     new JObject(
                         new JProperty("rider", g.riderName(riders)),
-                        new JProperty("monthDistance", g.Where(r => r.ride_date.Month == DateTime.Now.Month).Sum(r => r.distance)),
-                        new JProperty("yearDistance", g.Sum(r => r.distance)),
+                        new JProperty("monthDistance", Math.Round( 
+                            g.Where(r => r.ride_date.Month == DateTime.Now.Month).Sum(r => r.distance), 1)),
+                        new JProperty("yearDistance", Math.Round( 
+                            g.Sum(r => r.distance))),
                         new JProperty("cashYear", g.Sum(r => r.reward).ToString("C")),
                         new JProperty("cashUnpaid", g.Where(r => r.paid == false).Sum(r => r.reward).ToString("C"))))); 
 
@@ -52,8 +64,9 @@ namespace Bikes.Api
                             new JProperty("data",
                                 //group the rides for each rider by month
                                 new JArray(months.Select(i => 
-                                    g.Where(r => r.ride_date.Month == i)
-                                    .Sum(r => r.distance) ))))))));
+                                    Math.Round(
+                                        g.Where(r => r.ride_date.Month == i).Sum(r => r.distance), 2)
+                                        ))))))));
 
             JObject result = new JObject(
                     new JProperty("chartData", yearRides),

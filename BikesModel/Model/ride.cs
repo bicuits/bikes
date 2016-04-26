@@ -48,20 +48,26 @@ namespace Bikes.Model
 
         public static List<Ride> getRides()
         {
-            Database db = new PetaPoco.Database(ModelConfig.connectionStringName("bikes"));
-            return db.Fetch<Ride>("");
+            using (Database db = new PetaPoco.Database(ModelConfig.connectionStringName("bikes")))
+            {
+                return db.Fetch<Ride>("");
+            }
         }
 
         public static List<Ride> getUnpaidRides()
         {
-            Database db = new PetaPoco.Database(ModelConfig.connectionStringName("bikes"));
-            return db.Fetch<Ride>("WHERE paid = FALSE");
+            using (Database db = new PetaPoco.Database(ModelConfig.connectionStringName("bikes")))
+            {
+                return db.Fetch<Ride>("WHERE paid = FALSE");
+            }
         }
 
         public static Ride getRide(int id)
         {
-            Database db = new PetaPoco.Database(ModelConfig.connectionStringName("bikes"));
-            return db.FirstOrDefault<Ride>("WHERE id = @0", id);
+            using (Database db = new PetaPoco.Database(ModelConfig.connectionStringName("bikes")))
+            {
+                return db.FirstOrDefault<Ride>("WHERE id = @0", id);
+            }
         }
 
         public static void deleteRide(int id)
@@ -71,8 +77,10 @@ namespace Bikes.Model
             //do not allow rides that have been paid to be deleted
             if (ride != null && ride.payment_id == Payment.NullPaymentId)
             {
-                Database db = new PetaPoco.Database(ModelConfig.connectionStringName("bikes"));
-                db.Execute("DELETE FROM ride WHERE id = @0", id);
+                using (Database db = new PetaPoco.Database(ModelConfig.connectionStringName("bikes")))
+                {
+                    db.Execute("DELETE FROM ride WHERE id = @0", id);
+                }
             }
         }
 
@@ -80,8 +88,10 @@ namespace Bikes.Model
         {
             payment_id = paymentId;
             paid = true;
-            Database db = new PetaPoco.Database(ModelConfig.connectionStringName("bikes"));
-            db.Save(this);
+            using (Database db = new PetaPoco.Database(ModelConfig.connectionStringName("bikes")))
+            {
+                db.Save(this);
+            }
         }
 
         public static Ride add(
@@ -111,9 +121,10 @@ namespace Bikes.Model
 
             ride.paid = false;
 
-            Database db = new PetaPoco.Database(ModelConfig.connectionStringName("bikes"));
-            db.Insert(ride);
-
+            using (Database db = new PetaPoco.Database(ModelConfig.connectionStringName("bikes")))
+            {
+                db.Insert(ride);
+            }
             return ride;
         }
 
@@ -122,8 +133,10 @@ namespace Bikes.Model
             Ride ride = getRide(rideId);
             ride.notes = notes;
 
-            Database db = new PetaPoco.Database(ModelConfig.connectionStringName("bikes"));
-            db.Update(ride);
+            using (Database db = new PetaPoco.Database(ModelConfig.connectionStringName("bikes")))
+            {
+                db.Update(ride);
+            }
         }
     }
 }

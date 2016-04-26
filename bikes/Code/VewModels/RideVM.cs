@@ -4,8 +4,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Bikes.Model;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel;
 
 namespace Bikes.Api
 {
@@ -19,22 +17,22 @@ namespace Bikes.Api
         public string route { get; private set; }
         public string bike { get; private set; }
         public decimal reward { get; set; }
-        public String rideDate { get; set; }
+        public String ride_date { get; set; }
         public String notes { get; set; }
 
         //The following are transient fields, only used for creating rides
         public bool returnRide { get; set; }
         public bool payable { get; set; }
-        public int riderId { get; set; }
-        public int routeId { get; set; }
-        public int bikeId { get; set; }
+        public int rider_id { get; set; }
+        public int route_id { get; set; }
+        public int bike_id { get; set; }
         public decimal bonus { get; set; }
 
         public RideVM()
         {
-            bikeId = 0;
-            riderId = 0;
-            routeId = 0;
+            bike_id = 0;
+            rider_id = 0;
+            route_id = 0;
 
             bike = "other";
             rider = "other";
@@ -43,7 +41,7 @@ namespace Bikes.Api
             returnRide = false;
             payable = true;
 
-            rideDate = DateTime.Now.ToString("dd/MM/yyyy");
+            ride_date = DateTime.Now.ToString("dd/MM/yyyy");
         }
 
         public RideVM(Ride ride)
@@ -51,13 +49,18 @@ namespace Bikes.Api
         {
             id = ride.id;
 
+            bike_id = ride.bike_id;
+            rider_id = ride.rider_id;
+            route_id = ride.route_id;
+
             bike = ride.bike;
             rider = ride.rider;
             route = ride.route;
-            distance = ride.distance;
-            reward = ride.reward;
+
+            distance = Math.Round(ride.distance, 2);
+            reward = Math.Round(ride.reward, 2);
             notes = ride.notes;
-            rideDate = ride.ride_date.ToString("dd/MM/yyyy");
+            ride_date = ride.ride_date.ToString("dd/MM/yyyy");
         }
     }
 }

@@ -22,33 +22,41 @@ namespace Bikes.Model
 
         public static List<Route> getRoutes()
         {
-            Database db = new PetaPoco.Database(ModelConfig.connectionStringName("bikes"));
-            return db.Fetch<Route>("WHERE deleted = FALSE");
-        }
+            using (Database db = new PetaPoco.Database(ModelConfig.connectionStringName("bikes")))
+            {
+                return db.Fetch<Route>("WHERE deleted = FALSE");
+            }
+    }
 
         public static Route getRoute(int id)
         {
-            Database db = new PetaPoco.Database(ModelConfig.connectionStringName("bikes"));
-            return db.FirstOrDefault<Route>("WHERE id = @0", id);
+            using (Database db = new PetaPoco.Database(ModelConfig.connectionStringName("bikes")))
+            {
+                return db.FirstOrDefault<Route>("WHERE id = @0", id);
+            }
         }
 
         public static void deleteRoute(int id)
         {
-            Database db = new PetaPoco.Database(ModelConfig.connectionStringName("bikes"));
-            db.Execute("UPDATE route SET deleted = TRUE WHERE id = @0", id);
+            using (Database db = new PetaPoco.Database(ModelConfig.connectionStringName("bikes")))
+            {
+                db.Execute("UPDATE route SET deleted = TRUE WHERE id = @0", id);
+            }
         }
 
         public void save()
         {
-            Database db = new PetaPoco.Database(ModelConfig.connectionStringName("bikes"));
-
-            if (id == Route.DefaultId)
+            using (Database db = new PetaPoco.Database(ModelConfig.connectionStringName("bikes")))
             {
-                //cannot change name or distance for the default route
-                name = DefaultName;
-                distance = DefaultDistance;
+
+                if (id == Route.DefaultId)
+                {
+                    //cannot change name or distance for the default route
+                    name = DefaultName;
+                    distance = DefaultDistance;
+                }
+                db.Save(this);
             }
-            db.Save(this);
         }
     }
 }

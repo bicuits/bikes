@@ -158,20 +158,25 @@
     <Content Include="Content\app\html\bike-edit.html" />
     <Content Include="Content\app\html\bike-list.html" />
     <Content Include="Content\app\html\home.html" />
-    <Content Include="Content\app\html\linq-test.html" />
+    <Content Include="Content\app\html\analysis.html" />
+    <Content Include="Content\app\html\fiddle.html" />
     <Content Include="Content\app\html\payment-list.html" />
     <Content Include="Content\app\html\ride-add.html" />
     <Content Include="Content\app\html\ride-edit.html" />
     <Content Include="Content\app\html\ride-list.html" />
     <Content Include="Content\app\html\rider-edit.html" />
     <Content Include="Content\app\html\rider-list.html" />
+    <Content Include="Content\app\html\rider-pwd.html" />
     <Content Include="Content\app\html\route-edit.html" />
     <Content Include="Content\app\html\route-list.html" />
-    <Content Include="Content\app\linq-test.js" />
+    <Content Include="Content\app\analysis.js" />
+    <Content Include="Content\app\fiddle.js" />
+    <Content Include="Content\app\html\user-home.html" />
     <Content Include="Content\app\payment.js" />
     <Content Include="Content\app\ride.js" />
     <Content Include="Content\app\rider.js" />
     <Content Include="Content\app\route.js" />
+    <Content Include="Content\app\user.js" />
     <Content Include="Content\css\public.css" />
     <None Include="Content\bootstrap\fonts\glyphicons-halflings-regular.svg" />
     <None Include="Content\datepicker\css\bootstrap-datepicker.css" />
@@ -249,6 +254,8 @@
     <None Include="Content\datepicker\locales\bootstrap-datepicker.vi.min.js" />
     <None Include="Content\datepicker\locales\bootstrap-datepicker.zh-CN.min.js" />
     <None Include="Content\datepicker\locales\bootstrap-datepicker.zh-TW.min.js" />
+    <Content Include="Content\linqjs\linq.js" />
+    <Content Include="Content\linqjs\linq.min.js" />
     <Content Include="Global.asax" />
     <None Include="Content\bootstrap\fonts\glyphicons-halflings-regular.woff2" />
     <None Include="Content\bootstrap\fonts\glyphicons-halflings-regular.woff" />
@@ -304,7 +311,9 @@
     <Compile Include="Code\Controllers\api\RouteController.cs" />
     <Compile Include="Code\Controllers\app\AppController.cs" />
     <Compile Include="Code\Controllers\app\LoginController.cs" />
+    <Compile Include="Code\VewModels\AppVM.cs" />
     <Compile Include="Code\VewModels\LoginVM.cs" />
+    <Compile Include="Code\VewModels\PwdVM.cs" />
     <Compile Include="Code\VewModels\RideVM.cs" />
     <Compile Include="Code\Controllers\api\YearSummaryController.cs" />
     <Compile Include="Code\Controllers\api\RiderSummaryController.cs" />
@@ -321,6 +330,7 @@
     <Content Include="Views\Login\Login.cshtml" />
     <None Include="Properties\PublishProfiles\Webhosting UK.pubxml" />
     <Content Include="Views\App\Index.cshtml" />
+    <None Include="Properties\PublishProfiles\WebhostingUK.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

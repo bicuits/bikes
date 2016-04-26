@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Security;
 
 namespace Bikes.Api
 {
@@ -21,7 +22,14 @@ namespace Bikes.Api
         [Route("api/rider/{id:int}")]
         public Rider Get(int id)
         {
-            return Rider.getRider(id);
+            if (id == 0)
+            {
+                return Rider.findRiderByName(User.Identity.Name);
+            }
+            else
+            {
+                return Rider.getRider(id);
+            }
         }
 
         [HttpPost]
@@ -29,6 +37,8 @@ namespace Bikes.Api
         public Rider Post(Rider rider)
         {
             rider.save();
+            rider.setPwd(Membership.GeneratePassword(12, 5));
+
             return rider;
         }
 
@@ -38,6 +48,15 @@ namespace Bikes.Api
         {
             rider.save();
             return rider;
+        }
+
+        [HttpPost]
+        [Route("api/rider/{id:int}/pwd")]
+        public void Post(int id, PwdVM model)
+        {
+            Rider rider = Rider.getRider(id);
+
+            rider.setPwd(model.pwd);
         }
 
         [HttpDelete]

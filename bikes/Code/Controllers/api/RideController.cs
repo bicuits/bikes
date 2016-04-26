@@ -14,7 +14,9 @@ namespace Bikes.Api
         [Route("api/ride")]
         public IEnumerable<RideVM> Get()
         {
-            return Ride.getRides().Select(r => new RideVM(r));
+            return Ride.getRides()
+                .OrderByDescending(r => r.ride_date)
+                .Select(r => new RideVM(r));
         }
 
         [HttpGet]
@@ -33,32 +35,32 @@ namespace Bikes.Api
             decimal reward;
             Rider rider;
 
-            if (vm.routeId == Route.DefaultId)
+            if (vm.route_id == Route.DefaultId)
             {
                 rideLength = vm.distance;
             }
             else
             {
-                rideLength = Route.getRoute(vm.routeId).distance;
+                rideLength = Route.getRoute(vm.route_id).distance;
                 if (vm.returnRide)
                 {
                     rideLength *= 2;
                 }
             }
 
-            rider = Rider.getRider(vm.riderId);
+            rider = Rider.getRider(vm.rider_id);
 
             reward = vm.payable ? vm.bonus + (decimal)((rideLength * rider.rate) / 100) : 0m;
 
             //create the ride
             Ride ride = Ride.add(
-                vm.bikeId, 
-                vm.riderId, 
-                vm.routeId,
-                DateTime.Parse(vm.rideDate),
+                vm.bike_id, 
+                vm.rider_id, 
+                vm.route_id,
+                DateTime.Parse(vm.ride_date),
                 vm.notes,
-                reward,
-                rideLength);
+                Math.Round(reward, 2),
+                Math.Round(rideLength, 1));
 
             //return the new ride as a view model
             return new RideVM(ride);

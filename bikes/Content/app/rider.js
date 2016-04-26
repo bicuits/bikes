@@ -10,6 +10,29 @@ angular.module('bikesApp')
     };
 }])
 
+.controller('riderPwdController', ["$scope", "$state", "$stateParams", "RiderPwd",
+    function (scope, state, stateParams, RiderPwd) {
+        scope.rider = new RiderPwd();
+        //scope.rider.pwd = "joe";
+
+        scope.saveForm = function () {
+            scope.rider.$setPwd(
+                {id: stateParams.id},
+                function () {
+                    state.go("riderList");
+                },
+                function () {
+                    alert("Could not save rider");
+                }
+            );
+        };
+
+        scope.cancel = function () {
+            state.go("riderList");
+        };
+    }])
+
+
 .controller('riderEditController', ["$scope", "$state", "$stateParams", "Rider", "BankBranch", "BankCustomer", "BankAccount", "chartColors",
     function (scope, state, stateParams, Rider, BankBranch, BankCustomer, BankAccount, chartColors) {
 
@@ -48,6 +71,10 @@ angular.module('bikesApp')
             scope.rider.$delete(function () {
                 state.go("riderList");
             });
+        };
+
+        scope.setPwd = function () {
+            state.go("riderPwd", {id: stateParams.id});
         };
 
         scope.cancel = function () {
