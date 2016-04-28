@@ -44,13 +44,9 @@ angular
     return resource("/api/payment");
 }])
 
-.factory('RawData', ["$resource", function (resource) {
-    return resource("/api/rawdata/:year", { year: "@year"});
-}])
-
-.factory('chartColors', ["$resource", function (resource) {
-    return resource("/api/chartcolor").query();
-}])
+//.factory('chartColors', ["$resource", function (resource) {
+//    return resource("/api/chartcolor").query();
+//}])
 
 .factory('BankBranch', ["$resource", function (resource) {
     return resource("/api/bank/branch");
@@ -69,6 +65,7 @@ angular
 }])
 
 .factory("model", ["Model", function (Model) {
+
     var getData = function () {
         return Model.get({ year: 2016 });
     };

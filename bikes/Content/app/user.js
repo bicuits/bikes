@@ -2,15 +2,25 @@
 
 angular.module('bikesApp')
 
-.controller('userHomeController', ["$scope", "$state", "currentUser", "YearSummary", "Ride",
-    function (scope, state, currentUser, YearSummary, Ride) {
+.controller('userHomeController', ["$scope", "$state", "currentUser", "YearSummary", "model",
+    function (scope, state, currentUser, YearSummary, model) {
 
-        Ride.query(function (data) {
-            scope.rides = Enumerable
-                            .from(data)
-                            .where( function (r) {return r.rider_id == currentUser.riderId} )
-                            .toArray();
-        });
+        scope.selectRides = function () {
+            return Enumerable
+                    .from(scope.data.rides)
+                    .where(function (r) { return r.rider_id == currentUser.riderId })
+                    .orderByDescending(function (r) {
+                        return r.ride_date.replace(/(\d+)\/(\d+)\/(\d+)/, "$3/$2/$1");
+                    })
+                    .toArray();
+        };
+
+
+        scope.data = model.data;
+
+        //scope.$watch("model.data", function () {
+        //    scope.rides = selectRides(model.data.rides, currentUser.riderId);
+        //});
 
 
         YearSummary.get({ riderId: currentUser.riderId, year: 2016 }, function (data) {

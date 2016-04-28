@@ -28,6 +28,14 @@ namespace Bikes.Api
         public int bike_id { get; set; }
         public decimal bonus { get; set; }
 
+        public int month
+        {
+            get
+            {
+                return ride_date == null ? 0 : int.Parse(ride_date.Substring(3, 2));
+            }
+        }
+
         public RideVM()
         {
             bike_id = 0;

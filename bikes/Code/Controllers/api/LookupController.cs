@@ -23,19 +23,19 @@ namespace Bikes.Api
 
             JObject result = new JObject(
                 new JProperty("bikes",
-                    new JArray(Bike.getBikes().Select(b => JObject.FromObject(b)))),
+                    new JArray(Bike.getBikes().OrderBy(b => b.name).Select(b => JObject.FromObject(b)))),
 
                 new JProperty("riders",
-                    new JArray(Rider.getRiders().Select(r => JObject.FromObject(r)))),
+                    new JArray(Rider.getRiders().OrderBy(r => r.name).Select(r => JObject.FromObject(r)))),
 
                 new JProperty("routes",
-                    new JArray(Route.getRoutes().Select(r => JObject.FromObject(r)))),
+                    new JArray(Route.getRoutes().OrderBy(r => r.name).Select(r => JObject.FromObject(r)))),
 
                 new JProperty("rides",
-                    new JArray(Ride.getRides().Select(r => JObject.FromObject(new RideVM(r))))),
+                    new JArray(Ride.getRides().OrderByDescending(r => r.ride_date).Select(r => JObject.FromObject(new RideVM(r))))),
 
                 new JProperty("payments",
-                    new JArray(Payment.getPayments().Select(p => p.toJObject()))),
+                    new JArray(Payment.getPayments().OrderBy(p => p.paid_date).Select(p => p.toJObject()))),
 
                 new JProperty("chartColors", getChartColors()),
 

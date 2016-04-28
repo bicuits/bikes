@@ -1,8 +1,8 @@
 ﻿angular.module('bikesApp')
 
-.controller('rideListController', ["$scope", "$state", "Ride", function (scope, state, Ride) {
-    //scope.riders = Rider.query();
-    scope.rides = Ride.query();
+.controller('rideListController', ["$scope", "$state", "model", function (scope, state, model) {
+
+    scope.data = model.data;
 
     scope.add = function () {
         state.go("rideAdd");
@@ -10,8 +10,8 @@
 
 }])
 
-.controller('rideAddController', ["$scope", "$state", "$stateParams", "Ride", "Rider", "Route", "Bike",
-    function (scope, state, stateParams, Ride, Rider, Route, Bike) {
+.controller('rideAddController', ["$scope", "$state", "$stateParams", "model", "Ride", "Rider", "Route", "Bike",
+    function (scope, state, stateParams, model, Ride, Rider, Route, Bike) {
 
         scope.routeCaption = function (route) {
             if (route.id == 1) {
@@ -95,6 +95,7 @@
         scope.saveForm = function () {
             scope.ride.$save(
                 function () {
+                    model.refresh();
                     goBack();
                 },
                 function () {

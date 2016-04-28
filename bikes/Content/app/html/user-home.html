@@ -48,7 +48,7 @@
         <th>Bike</th>
         <th>Notes</th>
     </tr>
-    <tr ng-repeat="ride in rides">
+    <tr ng-repeat="ride in selectRides()">
         <td><a ui-sref="rideEdit({id: ride.id})">{{ride.route}}</a></td>
         <td>{{ride.rider}}</td>
         <td>{{ride.ride_date}}</td>

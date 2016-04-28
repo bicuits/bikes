@@ -254,6 +254,7 @@
     <None Include="Content\datepicker\locales\bootstrap-datepicker.vi.min.js" />
     <None Include="Content\datepicker\locales\bootstrap-datepicker.zh-CN.min.js" />
     <None Include="Content\datepicker\locales\bootstrap-datepicker.zh-TW.min.js" />
+    <Content Include="Content\jinqjs\jinqjs.min.js" />
     <Content Include="Content\linqjs\linq.js" />
     <Content Include="Content\linqjs\linq.min.js" />
     <Content Include="Global.asax" />

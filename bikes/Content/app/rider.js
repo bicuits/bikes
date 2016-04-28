@@ -32,13 +32,13 @@ angular.module('bikesApp')
     }])
 
 
-.controller('riderEditController', ["$scope", "$state", "$stateParams", "model", "Rider", "BankBranch", "BankCustomer", "BankAccount", "chartColors",
-    function (scope, state, stateParams, model, Rider, BankBranch, BankCustomer, BankAccount, chartColors) {
+.controller('riderEditController', ["$scope", "$state", "$stateParams", "model", "Rider", "BankBranch", "BankCustomer", "BankAccount",
+    function (scope, state, stateParams, model, Rider, BankBranch, BankCustomer, BankAccount) {
 
         scope.branches = BankBranch.query();
         scope.customers = [];
         scope.accounts = [];
-        scope.model = model;
+        scope.data = model.data;
 
         if (stateParams.id == 0) {
             scope.rider = new Rider();

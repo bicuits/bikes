@@ -1,6 +1,6 @@
 ﻿angular.module('bikesApp')
 
-.controller('analysisController', ["$scope", "$state", "uiGridConstants", "RawData", function (scope, state, uiGridConstants, RawData) {
+.controller('analysisController', ["$scope", "$state", "uiGridConstants", "model", function (scope, state, uiGridConstants, model) {
 
     scope.gridOptions = {
         enableSorting: true,
@@ -51,12 +51,10 @@
                 //}]
             }
         ],
-        data: []
+        data: "data.rides"
     };
 
-    scope.data = RawData.get({ year: 2016 }, function () {
-        scope.gridOptions.data = scope.data.rides;
-    });
+    scope.data = model.data;
 
 }]);
 
