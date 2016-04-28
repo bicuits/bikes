@@ -19,31 +19,39 @@ namespace Bikes.Model
 
         public static List<Bike> getBikes()
         {
-            Database db = new PetaPoco.Database(ModelConfig.connectionStringName("bikes"));
-            return db.Fetch<Bike>("WHERE deleted = FALSE");
+            using (Database db = new PetaPoco.Database(ModelConfig.connectionStringName("bikes")))
+            {
+                return db.Fetch<Bike>("WHERE deleted = FALSE");
+            }
         }
 
         public static Bike getBike(int id)
         {
-            Database db = new PetaPoco.Database(ModelConfig.connectionStringName("bikes"));
-            return db.FirstOrDefault<Bike>("WHERE id = @0", id);
+            using (Database db = new PetaPoco.Database(ModelConfig.connectionStringName("bikes")))
+            {
+                return db.FirstOrDefault<Bike>("WHERE id = @0", id);
+            }
         }
 
         public static void deleteBike(int id)
         {
-            Database db = new PetaPoco.Database(ModelConfig.connectionStringName("bikes"));
-            db.Execute("UPDATE bike SET deleted = TRUE WHERE id = @0", id);
+            using (Database db = new PetaPoco.Database(ModelConfig.connectionStringName("bikes")))
+            {
+                db.Execute("UPDATE bike SET deleted = TRUE WHERE id = @0", id);
+            }
         }
 
         public void save()
         {
-            Database db = new PetaPoco.Database(ModelConfig.connectionStringName("bikes"));
-            if (id == Route.DefaultId)
+            using (Database db = new PetaPoco.Database(ModelConfig.connectionStringName("bikes")))
             {
-                //cannot change name for the default bike
-                name = DefaultName;
+                if (id == Bike.DefaultId)
+                {
+                    //cannot change name for the default bike
+                    name = DefaultName;
+                }
+                db.Save(this);
             }
-            db.Save(this);
         }
     }
 }

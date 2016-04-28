@@ -4,89 +4,44 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Bikes.Model;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel;
 
-namespace Bikes.App
+namespace Bikes.Api
 {
+    //RideVM is a view model for the Ride class.
+    //Ride objects are mostly immutable.  Only the notes field can be updated once a ride is created.
     public class RideVM
     {
-        [HiddenInput]
         public int id { get; set; }
-
-        [Display(Name = "Distance")]
-        [Required]
         public double distance { get; set; }
-
-        [Display(Name = "Return")]
-        [Required]
-        public bool returnRide { get; set; }
-
-        [Display(Name = "Payable")]
-        [Required]
-        public bool payable { get; set; }
-
-        [Display(Name = "Bonus")]
-        [Required]
-        public double bonus { get; set; }
-
-        [Display(Name = "Date")]
-        [Required]
-        [DataType(DataType.Text)]
-        public String rideDate { get; set; }
-
-        [Display(Name = "Notes")]
+        public string rider { get; private set; }
+        public string route { get; private set; }
+        public string bike { get; private set; }
+        public decimal reward { get; set; }
+        public String ride_date { get; set; }
         public String notes { get; set; }
 
-        [Display(Name = "Rider")]
-        public int riderId { get; set; }
-        [Display(Name = "Route")]
-        public int routeId { get; set; }
-        [Display(Name = "Bike")]
-        public int bikeId { get; set; }
-
-        [Display(Name = "Rider")]
-        public string rider { get; private set; }
-        [Display(Name = "Route")]
-        public string route { get; private set; }
-        [Display(Name = "Bike")]
-        public string bike { get; private set; }
-
-        public IEnumerable<SelectListItem> bikeList
-        {
-            get
-            {
-                return new SelectList(Bike.getBikes(), "id", "name");
-            }
-        }
-
-        public IEnumerable<SelectListItem> riderList
-        {
-            get
-            {
-                return new SelectList(Rider.getRiders(), "id", "name");
-            }
-        }
-
-        public IEnumerable<SelectListItem> routeList
-        {
-            get
-            {
-                return new SelectList(
-                    Route.getRoutes()
-                    .Select(r => new
-                    {
-                        id = r.id,
-                        name = r.id == Route.DefaultId ? r.name : String.Format("{0} ({1} miles)", r.name, r.distance)
-                    }), 
-                    "id", 
-                    "name");
-            }
-        }
+        //The following are transient fields, only used for creating rides
+        public bool returnRide { get; set; }
+        public bool payable { get; set; }
+        public int rider_id { get; set; }
+        public int route_id { get; set; }
+        public int bike_id { get; set; }
+        public decimal bonus { get; set; }
 
         public RideVM()
         {
-            rideDate = DateTime.Now.ToString("dd/MM/yyyy");
+            bike_id = 0;
+            rider_id = 0;
+            route_id = 0;
+
+            bike = "other";
+            rider = "other";
+            route = "other";
+
+            returnRide = false;
+            payable = true;
+
+            ride_date = DateTime.Now.ToString("dd/MM/yyyy");
         }
 
         public RideVM(Ride ride)
@@ -94,21 +49,18 @@ namespace Bikes.App
         {
             id = ride.id;
 
-            bikeId = ride.bike_id;
-            riderId = ride.rider_id;
-            routeId = ride.route_id;
+            bike_id = ride.bike_id;
+            rider_id = ride.rider_id;
+            route_id = ride.route_id;
 
             bike = ride.bike;
             rider = ride.rider;
             route = ride.route;
 
-            distance = ride.distance;
-            returnRide = false;
-            payable = true;
-            bonus = ride.bonus;
-
+            distance = Math.Round(ride.distance, 2);
+            reward = Math.Round(ride.reward, 2);
             notes = ride.notes;
-            rideDate = ride.ride_date.ToString("dd/MM/yyyy");
+            ride_date = ride.ride_date.ToString("dd/MM/yyyy");
         }
     }
 }

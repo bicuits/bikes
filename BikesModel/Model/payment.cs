@@ -18,7 +18,7 @@ namespace Bikes.Model.Banking
 
         public int id { get; internal set; }
         public string rider { get; internal set; }
-        public double amount { get; internal set; }
+        public decimal amount { get; internal set; }
         public string bank_branch { get; internal set; }
         public string bank_username { get; internal set; }
         public string bank_account { get; internal set; }
@@ -36,14 +36,18 @@ namespace Bikes.Model.Banking
 
         public static List<Payment> getPayments()
         {
-            Database db = new PetaPoco.Database(ModelConfig.connectionStringName("bikes"));
-            return db.Fetch<Payment>("");
+            using (Database db = new PetaPoco.Database(ModelConfig.connectionStringName("bikes")))
+            {
+                return db.Fetch<Payment>("");
+            }
         }
 
         public static Rider getPayment(int id)
         {
-            Database db = new PetaPoco.Database(ModelConfig.connectionStringName("bikes"));
-            return db.FirstOrDefault<Rider>("WHERE id = @0", id);
+            using (Database db = new PetaPoco.Database(ModelConfig.connectionStringName("bikes")))
+            {
+                return db.FirstOrDefault<Rider>("WHERE id = @0", id);
+            }
         }
 
         //public static Payment recordPayment(Rider rider, double amount, string branch, string username, string account)
@@ -71,8 +75,10 @@ namespace Bikes.Model.Banking
 
         internal void save()
         {
-            Database db = new PetaPoco.Database(ModelConfig.connectionStringName("bikes"));
-            db.Save(this);
+            using (Database db = new PetaPoco.Database(ModelConfig.connectionStringName("bikes")))
+            {
+                db.Save(this);
+            }
         }
 
         public JObject toJObject()

@@ -8,16 +8,28 @@ using Newtonsoft.Json.Linq;
 using Bikes.Model;
 using System.Drawing;
 
-namespace Bikes.App
+namespace Bikes.Api
 {
     public class RiderSummaryController : BikesApiControllerBase
     {
-        public JObject Get()
+        [HttpGet]
+        [Route("api/rider/{riderId:int}/RiderSummary/{month:int}")]
+        public JObject Get(int riderId, int month)
         {
             //get the rides for this month
             IEnumerable<Ride> rides = Ride.getRides().Where(r => r.ride_date.Month == DateTime.Now.Month);
+            if (riderId > 0)
+            {
+                rides = rides.Where(r => r.rider_id == riderId);
+            }
+
             IEnumerable<IGrouping<int, Ride>> groups = rides.GroupBy(r => r.rider_id);
+
             IEnumerable<Rider> riders = Rider.getRiders();
+            if (riderId > 0)
+            {
+                riders = riders.Where(r => r.id == riderId);
+            }
 
             JObject recentRides = new JObject(
                 new JProperty("labels",
@@ -31,10 +43,12 @@ namespace Bikes.App
                             new JProperty("highlightFill", g.chartColor(riders, 180)),
                             new JProperty("highlightStroke", g.chartColor(riders, 255)),
                             new JProperty("data",
-                                new JArray(g.Sum(r => r.distance))))))));
+                                new JArray(Math.Round( 
+                                    g.Sum(r => r.distance), 2)
+                                    )))))));
 
 
-            BikesDebug.dumpToFile("recentRides.json", recentRides.ToString(Newtonsoft.Json.Formatting.Indented));
+            App.BikesDebug.dumpToFile("recentRides.json", recentRides.ToString(Newtonsoft.Json.Formatting.Indented));
 
             return recentRides;
         }

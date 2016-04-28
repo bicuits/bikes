@@ -23,8 +23,10 @@ namespace Bikes.App
         {
             get
             {
-                bool unused;
-                return bool.TryParse(ConfigurationManager.AppSettings["debug"], out unused);
+                bool result = false;
+                bool.TryParse(ConfigurationManager.AppSettings["debug"], out result);
+
+                return result;
             }
         }
     }

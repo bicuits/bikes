@@ -1,0 +1,100 @@
+﻿@model AppVM
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Bikes</title>
+
+    <link rel="stylesheet" type="text/css" href="~/Content/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/bootstrap/bootstrap-theme.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/datepicker/css/bootstrap-datepicker3.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/angular-ui-grid/ui-grid.min.css" />
+
+    <script src="~/Content/jquery/jquery-1.9.1.min.js"></script>
+    <script src="~/Content/jquery/jquery.validate.min.js"></script>
+    <script src="~/Content/jquery/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Content/bootstrap/scripts/bootstrap.min.js"></script>
+    <script src="~/Content/datepicker/js/bootstrap-datepicker.min.js"></script>
+
+    <script src="~/Content/angular/angular.min.js"></script>
+    <script src="~/Content/angular-resource/angular-resource.min.js"></script>
+    <script src="~/Content/angular-ui-router/release/angular-ui-router.min.js"></script>
+
+    <script src="~/Content/linqjs/linq.min.js"></script>
+    <script src="~/Content/chartjs/Chart.min.js"></script>
+
+    <script src="~/Content/angular-ui-grid/ui-grid.min.js"></script>
+    
+    <script src="~/Content/app/app.js"></script>
+    <script src="~/Content/app/bike-services.js"></script>
+    <script src="~/Content/app/bike.js"></script>
+    <script src="~/Content/app/rider.js"></script>
+    <script src="~/Content/app/route.js"></script>
+    <script src="~/Content/app/ride.js"></script>
+    <script src="~/Content/app/home.js"></script>
+    <script src="~/Content/app/payment.js"></script>
+    <script src="~/Content/app/analysis.js"></script>
+    <script src="~/Content/app/user.js"></script>
+
+    <script src="~/Content/app/fiddle.js"></script>
+
+    <script>
+        angular.module('bikesApp')
+            .service('currentUser', function () {
+                this.riderId = @Model.currentRiderId;
+                this.name = '@Model.currentRiderName';
+            });
+    </script>
+
+
+</head>
+
+<body ng-app="bikesApp">
+
+    <!-- MAIN MENU -->
+    <nav class="navbar navbar-inverse navbar-static-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" ui-sref="home">Drurys Bikes</a>
+            </div>
+
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a ui-sref="userHome">@Model.currentRiderName</a></li>
+                    <li><a ui-sref="rideList">Rides</a></li>
+                    <li><a ui-sref="analysis">Analysis</a></li>
+                    <li class="dropdown">
+                        <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a ui-sref="bikeList">Bikes</a></li>
+                            <li><a ui-sref="riderList">Riders</a></li>
+                            <li><a ui-sref="routeList">Routes</a></li>
+                            <li><a ui-sref="paymentList">Payments</a></li>
+                         @*   <li><a ui-sref="fiddle">Fiddle</a></li>*@
+                        </ul>
+                    </li>
+                    <li><a href="/login/logout">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <div class="container">
+
+        <div ui-view></div>
+
+    </div>
+</body>
+</html>

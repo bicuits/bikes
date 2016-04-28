@@ -1,0 +1,2 @@
+ALTER TABLE rider
+	ADD COLUMN pwd VARCHAR(255);

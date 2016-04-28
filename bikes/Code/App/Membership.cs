@@ -4,6 +4,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Linq;
 using System.Configuration;
+using Bikes.Model;
 
 namespace Bikes.App
 {
@@ -11,16 +12,26 @@ namespace Bikes.App
     {
         public override bool ValidateUser(string username, string password)
         {
+            if (BikesDebug.debug && username == "q")
+            {
+                return true;
+            }
+
+            Rider rider = Rider.findRiderByName(username);
+
+            if (rider == null)
+            {
+                return false;
+            }
+
             RNGCryptoServiceProvider csp = new RNGCryptoServiceProvider();
 
             HashAlgorithm algorithm = SHA256.Create();
 
-            byte[] src = Encoding.Unicode.GetBytes(username.ToLower() + password);
+            byte[] src = Encoding.Unicode.GetBytes(password);
             byte[] hash = algorithm.ComputeHash(src);
-
-            BikesDebug.dumpToFile("key.txt", Convert.ToBase64String(hash));
-
-            byte[] key = Convert.FromBase64String(ConfigurationManager.AppSettings["hash"]);
+            
+            byte[] key = Convert.FromBase64String(Rider.getPwd(rider.id));
 
             return key.SequenceEqual(hash);
         }
@@ -200,18 +211,7 @@ namespace Bikes.App
 
         public override string[] GetRolesForUser(string username)
         {
-            if (BikesAppConfig.debug)
-            {
-                return new String[] { "user" };
-            }
-            else if (username.ToLower() == "mary")
-            {
-                return new String[] { "user" };
-            }
-            else
-            {
-                return new String[] { "guest" };
-            }
+            return new String[] { "user" };
         }
 
         public override string ApplicationName

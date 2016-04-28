@@ -1,0 +1,14 @@
+﻿<h2>Routes</h2>
+
+<div class="panel">
+    <button type="button" class="btn btn-primary" ng-click="add()">Add Route</button>
+</div>
+
+<table class="table table-striped">
+    <tr>
+        <th>Name</th>
+    </tr>
+    <tr ng-repeat="route in routes">
+        <td><a ui-sref="routeEdit({id: route.id})">{{route.name}}</a></td>
+    </tr>
+</table>
