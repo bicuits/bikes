@@ -1,23 +1,15 @@
 ﻿<h3>Welcome {{currentUser.name}}</h3>
 
-<div>
-    <div class="row">
-        <label class="col-xs-4">Distance this month</label>
-        <div class="col-xs-8">{{summary.monthDistance}}</div>
-    </div>
-    <div class="row">
-        <label class="col-xs-4">Distance this year</label>
-        <div class="col-xs-8">{{summary.yearDistance}}</div>
-    </div>
-    <div class="row">
-        <label class="col-xs-4">Cash unpaid</label>
-        <div class="col-xs-8">{{summary.cashUnpaid}}</div>
-    </div>
-    <div class="row">
-        <label class="col-xs-4">Cash paid this year</label>
-        <div class="col-xs-8">{{summary.cashYear}}</div>
-    </div>
-</div>
+<dl class="dl-horizontal">
+    <dt>Distance this month</dt>
+    <dd>{{summary.monthDistance}}</dd>
+    <dt>Distance this year</dt>
+    <dd>{{summary.yearDistance}}</dd>
+    <dt>Cash unpaid</dt>
+    <dd>{{summary.cashUnpaid}}</dd>
+    <dt>Cash paid this year</dt>
+    <dd>{{summary.cashYear}}</dd>
+</dl>
 
 <!--<table>
     <tr ng-repeat="r in yearSummary.riderSummary">
