@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using Bikes.Model;
 using System.Text.RegularExpressions;
 using System.Drawing;
 using Newtonsoft.Json.Linq;
+
+using Bikes.Model;
+using Bikes.Model.Banking;
 
 namespace Bikes.Api
 {
@@ -73,30 +75,39 @@ namespace Bikes.Api
             return String.Format("rgba({0},{1},{2},{3:n2})", color.R, color.G, color.B, color.A / 255f);
         }
 
-        public static JObject toJObject(this Bike bike)
+        public static JObject toJObject(this Payment p)
         {
             return new JObject(
-                new JProperty("id", bike.id.ToString()),
-                new JProperty("name", bike.name));
+                new JProperty("rider", p.rider),
+                new JProperty("amount", p.amount.ToString("C")),
+                new JProperty("paid_date",
+                    p.paid_date.HasValue ? p.paid_date.Value.ToString("dd/MM/yyyy") : ""));
         }
 
-        public static JObject toJObject(this Rider rider)
-        {
-            return new JObject(
-                new JProperty("id", rider.id.ToString()),
-                new JProperty("name", rider.name),
-                new JProperty("bank_branch_id", rider.bank_branch_id),
-                new JProperty("bank_customer_id", rider.bank_customer_id),
-                new JProperty("bank_account_id", rider.bank_account_id));
-        }
+        //public static JObject toJObject(this Bike bike)
+        //{
+        //    return new JObject(
+        //        new JProperty("id", bike.id.ToString()),
+        //        new JProperty("name", bike.name));
+        //}
 
-        public static JObject toJObject(this Route route)
-        {
-            return new JObject(
-                new JProperty("id", route.id.ToString()),
-                new JProperty("name", route.name),
-                new JProperty("distance", route.distance.ToString()),
-                new JProperty("notes", route.notes));
-        }
+        //public static JObject toJObject(this Rider rider)
+        //{
+        //    return new JObject(
+        //        new JProperty("id", rider.id.ToString()),
+        //        new JProperty("name", rider.name),
+        //        new JProperty("bank_branch_id", rider.bank_branch_id),
+        //        new JProperty("bank_customer_id", rider.bank_customer_id),
+        //        new JProperty("bank_account_id", rider.bank_account_id));
+        //}
+
+        //public static JObject toJObject(this Route route)
+        //{
+        //    return new JObject(
+        //        new JProperty("id", route.id.ToString()),
+        //        new JProperty("name", route.name),
+        //        new JProperty("distance", route.distance.ToString()),
+        //        new JProperty("notes", route.notes));
+        //}
     }
 }

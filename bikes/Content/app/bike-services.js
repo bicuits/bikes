@@ -62,4 +62,23 @@ angular
 
 .factory('BankAccount', ["$resource", function (resource) {
     return resource("/api/bank/customer/:customerId/account", { customerId: "customerId" });
+}])
+
+.factory('Model', ["$resource", function (resource) {
+    return resource("/api/model/:year", { year: "@year" });
+}])
+
+.factory("model", ["Model", function (Model) {
+    var getData = function () {
+        return Model.get({ year: 2016 });
+    };
+
+    return {
+
+        data: getData(),
+
+        refresh: function () {
+            this.data = getData()
+        }
+    };
 }]);

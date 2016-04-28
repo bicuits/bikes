@@ -17,7 +17,7 @@
     <div class="form-group">
         <label for="chartColorSelect" class="control-label">Chart Color</label>
         <select id="chartColorSelect" ng-model="rider.color_code" style="background-color:{{rider.color_code}}" class="form-control">
-            <option ng-repeat="c in chartColors"style="background-color:{{c}}">{{c}}</option>
+            <option ng-repeat="c in model.data.chartColors"style="background-color:{{c}}">{{c}}</option>
         </select>
     </div>
 

@@ -1,7 +1,7 @@
 ﻿angular.module('bikesApp')
 
-.controller('routeListController', ["$scope", "$state", "Route", function (scope, state, Route) {
-    scope.routes = Route.query();
+.controller('routeListController', ["$scope", "$state", "model", function (scope, state, model) {
+    scope.data = model.data;
 
     scope.add = function () {
         state.go("routeAdd", { id: 0 });
@@ -9,7 +9,7 @@
 
 }])
 
-.controller('routeEditController', ["$scope", "$state", "$stateParams", "Route", function (scope, state, stateParams, Route) {
+.controller('routeEditController', ["$scope", "$state", "$stateParams", "model", "Route", function (scope, state, stateParams, model, Route) {
 
     if (stateParams.id == 0) {
         scope.route = new Route();
@@ -19,12 +19,14 @@
 
     scope.saveForm = function () {
         scope.route.$save(function () {
+            model.refresh();
             state.go("routeList");
         });
     };
 
     scope.delete = function () {
         scope.route.$delete(function () {
+            model.refresh();
             state.go("routeList");
         });
     };

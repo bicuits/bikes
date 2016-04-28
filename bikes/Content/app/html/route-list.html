@@ -8,7 +8,7 @@
     <tr>
         <th>Name</th>
     </tr>
-    <tr ng-repeat="route in routes">
+    <tr ng-repeat="route in data.routes">
         <td><a ui-sref="routeEdit({id: route.id})">{{route.name}}</a></td>
     </tr>
 </table>

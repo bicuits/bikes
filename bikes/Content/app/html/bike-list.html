@@ -9,7 +9,7 @@
     <tr>
         <th>Name</th>
     </tr>
-    <tr ng-repeat="bike in bikes">
+    <tr ng-repeat="bike in data.bikes">
         <td><a ui-sref="bikeEdit({id: bike.id})">{{bike.name}}</a></td>
     </tr>
 </table>

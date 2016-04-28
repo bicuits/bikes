@@ -17,15 +17,8 @@ namespace Bikes.Api
         [Route("api/payment")]
         public JArray Get()
         {
-            //return Payment.getPayments();
-
             return new JArray(
-                Payment.getPayments().Select(p => 
-                    new JObject(
-                        new JProperty("rider", p.rider),
-                        new JProperty("amount", p.amount.ToString("C")),
-                        new JProperty("paid_date", 
-                            p.paid_date.HasValue ? p.paid_date.Value.ToString("dd/MM/yyyy") : ""))));
+                Payment.getPayments().Select(p => p.toJObject()));
         }
 
         //POST makes a payment for all riders

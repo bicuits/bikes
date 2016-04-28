@@ -2,8 +2,8 @@
 
 angular.module('bikesApp')
 
-.controller('riderListController', ["$scope", "$state", "Rider", function (scope, state, Rider) {
-    scope.riders = Rider.query();
+.controller('riderListController', ["$scope", "$state", "model", function (scope, state, model) {
+    scope.data = model.data;
 
     scope.add = function () {
         state.go("riderAdd", { id : 0} );
@@ -13,7 +13,6 @@ angular.module('bikesApp')
 .controller('riderPwdController', ["$scope", "$state", "$stateParams", "RiderPwd",
     function (scope, state, stateParams, RiderPwd) {
         scope.rider = new RiderPwd();
-        //scope.rider.pwd = "joe";
 
         scope.saveForm = function () {
             scope.rider.$setPwd(
@@ -33,13 +32,13 @@ angular.module('bikesApp')
     }])
 
 
-.controller('riderEditController', ["$scope", "$state", "$stateParams", "Rider", "BankBranch", "BankCustomer", "BankAccount", "chartColors",
-    function (scope, state, stateParams, Rider, BankBranch, BankCustomer, BankAccount, chartColors) {
+.controller('riderEditController', ["$scope", "$state", "$stateParams", "model", "Rider", "BankBranch", "BankCustomer", "BankAccount", "chartColors",
+    function (scope, state, stateParams, model, Rider, BankBranch, BankCustomer, BankAccount, chartColors) {
 
         scope.branches = BankBranch.query();
         scope.customers = [];
         scope.accounts = [];
-        scope.chartColors = chartColors;
+        scope.model = model;
 
         if (stateParams.id == 0) {
             scope.rider = new Rider();
@@ -59,6 +58,7 @@ angular.module('bikesApp')
 
             scope.rider.$save(
                 function () {
+                    model.refresh();
                     state.go("riderList");
                 },
                 function () {
@@ -69,6 +69,7 @@ angular.module('bikesApp')
 
         scope.delete = function () {
             scope.rider.$delete(function () {
+                model.refresh();
                 state.go("riderList");
             });
         };
