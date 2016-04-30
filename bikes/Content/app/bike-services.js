@@ -32,9 +32,6 @@ angular
     return resource("/api/ride/:id", { id: "@id" })
 }])
 
-.factory('YearSummary', ["$resource", function (resource) {
-    return resource("/api/rider/:riderId/YearSummary/:year", { riderId: "@riderId", year: "@year" });
-}])
 
 .factory('RiderSummary', ["$resource", function (resource) {
     return resource("/api/rider/:riderId/RiderSummary/:month", { riderId: "@riderId", month: "@month" });
@@ -43,10 +40,6 @@ angular
 .factory('Payment', ["$resource", function (resource) {
     return resource("/api/payment");
 }])
-
-//.factory('chartColors', ["$resource", function (resource) {
-//    return resource("/api/chartcolor").query();
-//}])
 
 .factory('BankBranch', ["$resource", function (resource) {
     return resource("/api/bank/branch");
@@ -66,16 +59,78 @@ angular
 
 .factory("model", ["Model", function (Model) {
 
-    var getData = function () {
-        return Model.get({ year: 2016 });
+    var _getData = function () {
+
+        return Model.get({ year: 2016 }, function (data) {
+
+            //alert("before " + (data.rides[0].ride_date instanceof Date));
+
+            data.rides.forEach(function (ride) {
+                ride.ride_date = new Date(ride.ride_date);
+            });
+
+            //alert("after " + (data.rides[0].ride_date instanceof Date));
+
+
+            data.yearSummaryChartData =
+            {
+                labels:
+                    new jinqJs().from(data.months).select(function (m) { return m.caption }),
+                datasets:
+                    new jinqJs()
+                    .from(data.riders)
+                    .select(function (rider) {
+                        return {
+                            riderId: rider.id,
+                            label: rider.name,
+                            fillColor: rider.color_code,
+                            data: new jinqJs()
+                                .from(data.months)
+                                .select(function (month) {
+                                    return new jinqJs()
+                                            .from(data.rides)
+                                            .where(function (r) { return r.rider_id == rider.id && r.month == month.month })
+                                            .sum("distance")
+                                            .select()[0];
+                                })
+                        };
+                    })
+            };
+
+            //data.debug = JSON.stringify(new jinqJs().from(data.riders).select(function (r) { return r.name; }), null, 2 );
+
+            data.monthSummaryChartData =
+            {
+                labels:
+                    [ moment().format("MMMM") ],
+                datasets:
+                    new jinqJs()
+                    .from(data.riders)
+                    .select(function (rider) {
+                        return {
+                            riderId: rider.id,
+                            label: rider.name,
+                            fillColor: rider.color_code,
+                            data: new jinqJs()
+                                        .from(data.rides)
+                                        .where(function (r) { return r.rider_id == rider.id && r.month == 4 })
+                                        .sum("distance")
+                                        .select()
+                            };
+                    })
+            };
+
+            //data.debug = JSON.stringify( data.monthSummaryChartData , null, 2);
+
+        });
     };
 
     return {
 
-        data: getData(),
+        data: _getData(),
 
         refresh: function () {
-            this.data = getData()
+            this.data = _getData()
         }
     };
 }]);

@@ -2,6 +2,8 @@
 
 .controller('analysisController', ["$scope", "$state", "uiGridConstants", "model", function (scope, state, uiGridConstants, model) {
 
+    scope.data = model.data;
+
     scope.gridOptions = {
         enableSorting: true,
         enableFiltering: true,
@@ -31,7 +33,7 @@
             {
                 name: 'reward',
                 field: 'reward',
-                typee: 'number',
+                type: 'number',
                 aggregationType: uiGridConstants.aggregationTypes.sum,
                 footerCellTemplate: "<div>{{col.getAggregationValue() | number : 2}}</div>",
                 enableFiltering: false
@@ -39,6 +41,8 @@
             {
                 name: 'date',
                 field: 'ride_date',
+                type: 'date',
+                cellFilter: 'date',
                 enableFiltering: false
                 //filters: [
                 //{
@@ -53,8 +57,6 @@
         ],
         data: "data.rides"
     };
-
-    scope.data = model.data;
 
 }]);
 

@@ -17,7 +17,7 @@ namespace Bikes.Api
         public string route { get; private set; }
         public string bike { get; private set; }
         public decimal reward { get; set; }
-        public String ride_date { get; set; }
+        public DateTime ride_date { get; set; }
         public String notes { get; set; }
 
         //The following are transient fields, only used for creating rides
@@ -32,7 +32,7 @@ namespace Bikes.Api
         {
             get
             {
-                return ride_date == null ? 0 : int.Parse(ride_date.Substring(3, 2));
+                return ride_date == null ? 0 : ride_date.Month;
             }
         }
 
@@ -49,7 +49,7 @@ namespace Bikes.Api
             returnRide = false;
             payable = true;
 
-            ride_date = DateTime.Now.ToString("dd/MM/yyyy");
+            ride_date = DateTime.Now;
         }
 
         public RideVM(Ride ride)
@@ -68,7 +68,7 @@ namespace Bikes.Api
             distance = Math.Round(ride.distance, 2);
             reward = Math.Round(ride.reward, 2);
             notes = ride.notes;
-            ride_date = ride.ride_date.ToString("dd/MM/yyyy");
+            ride_date = ride.ride_date;
         }
     }
 }

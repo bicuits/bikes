@@ -111,7 +111,7 @@
     }
 ])
 
-.controller('rideEditController', ["$scope", "$state", "$stateParams", "Ride", function (scope, state, stateParams, Ride) {
+.controller('rideEditController', ["$scope", "$state", "$stateParams", "model", "Ride", function (scope, state, stateParams, model, Ride) {
 
     scope.ride = Ride.get({ id: stateParams.id });
 
@@ -124,14 +124,15 @@
     };
 
     scope.saveForm = function () {
-        Ride.notes
         scope.ride.$save(function () {
+            model.refresh();
             goBack();
         });
     };
 
     scope.delete = function () {
         scope.ride.$delete(function () {
+            model.refresh();
             goBack();
         });
     };

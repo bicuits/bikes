@@ -1,4 +1,4 @@
-﻿
+﻿<!--<pre ng-bind="data.debug">world</pre>-->
 
 <div class="row">
 
@@ -13,7 +13,7 @@
                     <canvas id="barMonthSummary" style="width:100%;height:400px;"></canvas>
                 </div>
                 <div>
-                    <div class='label label-default' ng-repeat="d in data.monthSummary.datasets" ng-attr-style="background-color:{{d.fillColor}}" >{{d.label}}</div>
+                    <div class='label label-default' ng-repeat="d in data.monthSummaryChartData.datasets" ng-attr-style="background-color:{{d.fillColor}}" >{{d.label}}</div>
                 </div>
             </div>
         </div>
@@ -33,7 +33,7 @@
                             <th>unpaid</th>
                             <th>total</th>
                         </tr>
-                        <tr ng-repeat="r in data.yearSummary.riderSummary">
+                        <tr ng-repeat="r in data.riderSummary">
                             <td>{{r.rider}}</td>
                             <td>{{r.monthDistance}}</td>
                             <td>{{r.yearDistance}}</td>
@@ -58,7 +58,7 @@
                     <canvas id="barYearSummary" style="width:100%;height:400px;"></canvas>
                 </div>
                 <div>
-                    <div class='label label-default' ng-repeat="d in yearSummary.chartData.datasets" ng-attr-style="background-color: {{ d.fillColor }}">{{d.label}}</div>
+                    <div class='label label-default' ng-repeat="d in data.monthSummaryChartData.datasets" ng-attr-style="background-color: {{ d.fillColor }}">{{d.label}}</div>
                 </div>
             </div>
         </div>

@@ -57,7 +57,7 @@ namespace Bikes.Api
                 vm.bike_id, 
                 vm.rider_id, 
                 vm.route_id,
-                DateTime.Parse(vm.ride_date),
+                vm.ride_date,
                 vm.notes,
                 Math.Round(reward, 2),
                 Math.Round(rideLength, 1));
