@@ -11,7 +11,7 @@
 .controller('bikeEditController', ["$scope", "$state", "$stateParams", "model", "Bike", function (scope, state, stateParams, model, Bike) {
 
     if (stateParams.id == 0) {
-        scope.Bike = new Bike();
+        scope.bike = new Bike();
     } else {
         scope.bike = Bike.get({ id: stateParams.id });
     }
@@ -23,7 +23,7 @@
         });
     };
 
-    scope.delete = function () {
+    scope.deleteBike = function () {
         scope.bike.$delete(function () {
             model.refresh();
             state.go("bikeList");

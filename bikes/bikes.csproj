@@ -141,6 +141,8 @@
     <Content Include="Content\app\rider.js" />
     <Content Include="Content\app\route.js" />
     <Content Include="Content\app\user.js" />
+    <Content Include="Content\bikes.min.css" />
+    <Content Include="Content\bikes.min.js" />
     <Content Include="Content\css\public.css" />
     <None Include="Content\bootstrap\fonts\glyphicons-halflings-regular.svg" />
     <None Include="Content\datepicker\css\bootstrap-datepicker3.min.css" />

@@ -6,17 +6,17 @@
 
     <div class="form-group">
         <label for="name" class="control-label">Name</label>
-        <input type="text" ng-model="rider.name" class="form-control" id="name" placeholder="Name of rider" />
+        <input type="text" ng-model="rider.name" class="form-control" id="name" placeholder="Name of rider" required/>
     </div>
 
     <div class="form-group">
         <label for="rate" class="control-label">Rate</label>
-        <input type="text" ng-model="rider.rate" class="form-control" id="rate" placeholder="Rate in pence per mile" />
+        <input type="text" ng-model="rider.rate" class="form-control" id="rate" placeholder="Rate in pence per mile" required/>
     </div>
 
     <div class="form-group">
         <label for="chartColorSelect" class="control-label">Chart Color</label>
-        <select id="chartColorSelect" ng-model="rider.color_code" style="background-color:{{rider.color_code}}" class="form-control">
+        <select id="chartColorSelect" ng-model="rider.color_code" style="background-color:{{rider.color_code}}" class="form-control" required>
             <option ng-repeat="c in data.chartColors"style="background-color:{{c}}">{{c}}</option>
         </select>
     </div>
@@ -40,7 +40,7 @@
         <input type="submit" class="btn btn-primary" name="save" value="Save" />
         <input type="button" class="btn btn-primary" name="cancel" value="Cancel" ng-click="cancel()" />
         <input type="button" class="btn btn-primary" name="pwd" value="Set Password" ng-click="setPwd()" ng-show="rider.id" />
-        <input type="button" class="btn btn-primary" name="cancel" value="Delete" ng-click="delete()" ng-show="rider.id" />
+        <input type="button" class="btn btn-primary" name="deleteRider" value="Delete" ng-click="deleteRider()" ng-show="rider.id" />
     </div>
 
 </form>

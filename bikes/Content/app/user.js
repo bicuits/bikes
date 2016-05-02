@@ -29,7 +29,7 @@ angular.module('bikesApp')
 
                 //scope.jsonx = JSON.stringify( chartData, null, 2);
 
-                var ctx = $("#barYearSummary").get(0).getContext("2d");
+                var ctx = document.getElementById("barYearSummary").getContext("2d");
                 new Chart(ctx).Bar(chartData, {
                     responsive: true,
                     maintainAspectRatio: false,

@@ -9,7 +9,7 @@
     <!-- Rider select -->
     <div class="form-group">
         <label for="riderSelect" class="control-label">Rider</label>
-        <select id="riderSelect" ng-model="ride.rider_id" ng-options="r.id as r.name for r in riders" class="form-control"></select>
+        <select id="riderSelect" ng-model="ride.rider_id" ng-options="r.id as r.name for r in riders" class="form-control" required></select>
     </div>
 
     <div ng-show="ride.rider_id > 0">
@@ -17,19 +17,19 @@
         <!-- Date datepicker -->
         <div class="form-group">
             <label for="rideDate" class="control-label">Date</label>
-            <input type="text" ng-model="ride.ride_date" class="form-control" id="rideDate" placeholder="dd/mm/yyyy" />
+            <input type="text" ng-model="ride.ride_date" class="form-control" id="rideDate" placeholder="dd/mm/yyyy" required/>
         </div>
 
         <!-- Bike select -->
         <div class="form-group">
             <label for="bikeSelect" class="control-label">Bike</label>
-            <select id="bikeSelect" ng-model="ride.bike_id" ng-options="b.id as b.name for b in bikes" class="form-control"></select>
+            <select id="bikeSelect" ng-model="ride.bike_id" ng-options="b.id as b.name for b in bikes" class="form-control" required></select>
         </div>
         
         <!-- Route select -->
         <div class="form-group">
             <label for="routeSelect" class="control-label">Route</label>
-            <select id="routeSelect" ng-model="ride.route_id" ng-options="r.id as routeCaption(r) for r in routes" class="form-control"></select>
+            <select id="routeSelect" ng-model="ride.route_id" ng-options="r.id as routeCaption(r) for r in routes" class="form-control" required></select>
         </div>
 
         <!-- Distance number -->

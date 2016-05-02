@@ -24,7 +24,7 @@
         });
     };
 
-    scope.delete = function () {
+    scope.deleteRoute = function () {
         scope.route.$delete(function () {
             model.refresh();
             state.go("routeList");

@@ -67,7 +67,7 @@ angular.module('bikesApp')
             );
         };
 
-        scope.delete = function () {
+        scope.deleteRider = function () {
             scope.rider.$delete(function () {
                 model.refresh();
                 state.go("riderList");

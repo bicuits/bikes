@@ -5,11 +5,11 @@ angular
 
 .module('bikesApp', ['ui.router', "ui.grid", "bikeServices"])
 
-.config(function ($stateProvider, $urlRouterProvider) {
+.config(["$stateProvider", "$urlRouterProvider", function (stateProvider, urlRouterProvider) {
 
-    $urlRouterProvider.otherwise('/user-home');
+    urlRouterProvider.otherwise('/user-home');
 
-    $stateProvider
+    stateProvider
 
         // HOME STATES ========================================
 
@@ -131,4 +131,4 @@ angular
             templateUrl: '/content/app/html/bike-edit.html',
             controller: 'bikeEditController'
         });
-});
+}]);

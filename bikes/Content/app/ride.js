@@ -142,7 +142,7 @@
         });
     };
 
-    scope.delete = function () {
+    scope.deleteRide = function () {
         //scope.ride.$delete(
         Ride.trash(
             { id: stateParams.id },

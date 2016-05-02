@@ -5,13 +5,13 @@
 
     <div class="form-group">
         <label for="title" class="control-label">Title</label>
-        <input type="text" ng-model="bike.name" class="form-control" id="name" placeholder="Name of bicycle" />
+        <input type="text" ng-model="bike.name" class="form-control" id="name" placeholder="Name of bicycle" required />
     </div>
 
     <div class="form-group">
         <input type="submit" class="btn btn-primary" name="save" value="Save" />
         <input type="button" class="btn btn-primary" name="cancel" value="Cancel" ng-click="cancel()" />
-        <input type="button" class="btn btn-primary" name="cancel" value="Delete" ng-click="delete()" ng-show="bike.id" />
+        <input type="button" class="btn btn-primary" name="deleteBike" value="Delete" ng-click="deleteBike()" ng-show="bike.id" />
     </div>
 
 </form>
