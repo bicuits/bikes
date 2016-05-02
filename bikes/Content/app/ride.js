@@ -93,11 +93,23 @@
         };
 
         scope.saveForm = function () {
+
+            //first convert UK date string to ISO date format
+            scope.ride.ride_date = new Date(
+                    "" +
+                    scope.ride.ride_date.substr(6, 4) + "-" +
+                    scope.ride.ride_date.substr(3, 2) + "-" +
+                    scope.ride.ride_date.substr(0, 2) + "-" +
+                    "T12:00:00");
+
+            //now save the ride
             scope.ride.$save(
+                //on success
                 function () {
                     model.refresh();
                     goBack();
                 },
+                //on failure
                 function () {
                     alert("Failed to save new ride.");
                     goBack();
@@ -131,10 +143,23 @@
     };
 
     scope.delete = function () {
-        scope.ride.$delete(function () {
-            model.refresh();
-            goBack();
-        });
+        //scope.ride.$delete(
+        Ride.trash(
+            { id: stateParams.id },
+            function (data) {
+                if (data.status == "OK") {
+                    model.refresh();
+                    goBack();
+                } else if (data.status == "ALREADY_PAID") {
+                    scope.message = "Rides that have been paid cannot be deleted.";
+                } else {
+                    scope.message = "There was a problem deleting this ride.";
+                }
+            },
+            function (response) {
+                alert("failed to delete ride - " + response.status);
+            }
+        );
     };
 
     scope.cancel = function () {

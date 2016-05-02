@@ -11,6 +11,12 @@ namespace Bikes.Model
     [PetaPoco.PrimaryKey("id")]
     public class Ride
     {
+        public enum StatusCode
+        {
+            OK = 0,
+            ALREADY_PAID = 1
+        }
+
         //read/write properites persisted to the database
         public int id { get; internal set; }                 //primary key
 
@@ -70,8 +76,10 @@ namespace Bikes.Model
             }
         }
 
-        public static void deleteRide(int id)
+        public static StatusCode deleteRide(int id)
         {
+            StatusCode status = StatusCode.OK;
+
             Ride ride = getRide(id);
 
             //do not allow rides that have been paid to be deleted
@@ -82,6 +90,11 @@ namespace Bikes.Model
                     db.Execute("DELETE FROM ride WHERE id = @0", id);
                 }
             }
+            else
+            {
+                status = StatusCode.ALREADY_PAID;
+            }
+            return status;
         }
 
         public void setAsPaid(int paymentId)

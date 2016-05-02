@@ -77,12 +77,33 @@ namespace Bikes.Api
             return new RideVM(Ride.getRide(id));
         }
 
+        //Fudge.  I cannot get http delete method to work on the live server.  Server always
+        //returns 404 not found errors.  Have tried all sorts of fixes but none effective 
+        //so far.
+        [HttpPost]
+        [Route("api/ride/{id:int}/delete")]
+        public object Post(int id)
+        {
+            Ride.StatusCode status = Ride.deleteRide(id);
+            return new
+            {
+                id = id,
+                status = status.ToString()
+            };
+        }
+
+        //this route works locally but is not found when deployed
+        //to live server.  Fudge above used until solution is found
         [HttpDelete]
         [Route("api/ride/{id:int}")]
-        public int Delete(int id)
+        public object Delete(int id)
         {
-            Ride.deleteRide(id);
-            return id;
+            Ride.StatusCode status = Ride.deleteRide(id);
+            return new
+            {
+                id = id,
+                status = status.ToString()
+            };
         }
 
     }

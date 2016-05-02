@@ -29,7 +29,15 @@ angular
 }])
 
 .factory('Ride', ["$resource", function (resource) {
-    return resource("/api/ride/:id", { id: "@id" })
+    return resource(
+        "/api/ride/:id",
+        { id: "@id" },
+        {
+            trash: {
+                method: 'POST',
+                url: "/api/ride/:id/delete"
+            }
+        })
 }])
 
 
@@ -63,13 +71,13 @@ angular
 
         return Model.get({ year: 2016 }, function (data) {
 
-            //alert("before " + (data.rides[0].ride_date instanceof Date));
+            //alert("before " + data.rides[data.rides.length - 1].ride_date);
 
             data.rides.forEach(function (ride) {
                 ride.ride_date = new Date(ride.ride_date);
             });
 
-            //alert("after " + (data.rides[0].ride_date instanceof Date));
+            //alert("after " + data.rides[data.rides.length - 1].ride_date);
 
 
             data.yearSummaryChartData =
@@ -113,7 +121,7 @@ angular
                             fillColor: rider.color_code,
                             data: new jinqJs()
                                         .from(data.rides)
-                                        .where(function (r) { return r.rider_id == rider.id && r.month == 4 })
+                                        .where(function (r) { return r.rider_id == rider.id && r.month == moment().month() + 1 })
                                         .sum("distance")
                                         .select()
                             };
