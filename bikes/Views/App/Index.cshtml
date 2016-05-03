@@ -7,43 +7,68 @@
 
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" Source="width=device-width" />
     <title>Bikes</title>
 
-    <link rel="stylesheet" type="text/css" href="~/Content/bootstrap/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="~/Content/bootstrap/bootstrap-theme.min.css" />
-    <link rel="stylesheet" type="text/css" href="~/Content/datepicker/css/bootstrap-datepicker3.min.css" />
-    <link rel="stylesheet" type="text/css" href="~/Content/angular-ui-grid/ui-grid.min.css" />
-
-    @if (true)
+    @if (Bikes.App.BikesDebug.debug)
     {
-        @*DEVELOPMENT*@
-        <script src="~/Content/jquery/jquery-1.9.1.min.js"></script>
-        <script src="~/Content/bootstrap/scripts/bootstrap.min.js"></script>
-        <script src="~/Content/datepicker/js/bootstrap-datepicker.min.js"></script>
-        <script src="~/Content/angular/angular.min.js"></script>
-        <script src="~/Content/angular-resource/angular-resource.min.js"></script>
-        <script src="~/Content/angular-ui-router/angular-ui-router.min.js"></script>
-        <script src="~/Content/moment/moment.min.js"></script>
-        <script src="~/Content/jinqjs/jinqjs.min.js"></script>
-        <script src="~/Content/chartjs/Chart.min.js"></script>
-        <script src="~/Content/angular-ui-grid/ui-grid.min.js"></script>
+        /******************************* DEVELOPMENT ******************************************/
 
-        <script src="~/Content/app/app.js"></script>
-        <script src="~/Content/app/bike-services.js"></script>
-        <script src="~/Content/app/bike.js"></script>
-        <script src="~/Content/app/rider.js"></script>
-        <script src="~/Content/app/route.js"></script>
-        <script src="~/Content/app/ride.js"></script>
-        <script src="~/Content/app/home.js"></script>
-        <script src="~/Content/app/payment.js"></script>
-        <script src="~/Content/app/analysis.js"></script>
-        <script src="~/Content/app/user.js"></script>
-        <script src="~/Content/app/fiddle.js"></script>
+        <link rel="stylesheet" type="text/css" href="~/Source/bootstrap/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="~/Source/bootstrap/bootstrap-theme.min.css" />
+        <link rel="stylesheet" type="text/css" href="~/Source/datepicker/css/bootstrap-datepicker3.min.css" />
+        <link rel="stylesheet" type="text/css" href="~/Source/angular-ui-grid/ui-grid.min.css" />
+
+        <script src="~/Source/jquery/jquery-1.9.1.min.js"></script>
+        <script src="~/Source/bootstrap/scripts/bootstrap.min.js"></script>
+        <script src="~/Source/datepicker/js/bootstrap-datepicker.min.js"></script>
+        <script src="~/Source/angular/angular.min.js"></script>
+        <script src="~/Source/angular-resource/angular-resource.min.js"></script>
+        <script src="~/Source/angular-ui-router/angular-ui-router.min.js"></script>
+        <script src="~/Source/moment/moment.min.js"></script>
+        <script src="~/Source/jinqjs/jinqjs.min.js"></script>
+        <script src="~/Source/chartjs/Chart.min.js"></script>
+        <script src="~/Source/angular-ui-grid/ui-grid.min.js"></script>
+
+        <script src="~/Source/app/app.js"></script>
+        <script src="~/Source/app/bike-services.js"></script>
+        <script src="~/Source/app/bike.js"></script>
+        <script src="~/Source/app/rider.js"></script>
+        <script src="~/Source/app/route.js"></script>
+        <script src="~/Source/app/ride.js"></script>
+        <script src="~/Source/app/home.js"></script>
+        <script src="~/Source/app/payment.js"></script>
+        <script src="~/Source/app/analysis.js"></script>
+        <script src="~/Source/app/user.js"></script>
+        <script src="~/Source/app/fiddle.js"></script>
     }
     else
     {
-        @*PRODUCTION*@
+        /******************************* PRODUCTION ******************************************/
+
+        //CDN hosted           
+        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/css/bootstrap-datepicker.css" />
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-grid/3.1.1/ui-grid.css" />
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/js/bootstrap-datepicker.min.js"></script>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-resource/1.5.5/angular-resource.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.18/angular-ui-router.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-grid/3.1.1/ui-grid.min.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jinq/1.5.10/jinqjs.min.js"></script>
+
+        //<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.0.1/Chart.min.js"></script>
+        <script src="~/Content/chartjs/Chart.min.js"></script>
+        
+        //locally hosted
+        <link rel="stylesheet" type="text/css" href="~/Content/bootstrap-theme.min.css" />
         <script src="~/Content/bikes.min.js"></script>
     }
 
@@ -55,13 +80,12 @@
             });
     </script>
 
-
 </head>
 
 <body ng-app="bikesApp">
 
     <!-- MAIN MENU -->
-    <nav class="navbar navbar-inverse navbar-static-top">
+    <nav class="navbar navbar-static-top @(Bikes.Model.ModelConfig.connectionName() == "live" ? "navbar-inverse" : "")">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -94,7 +118,7 @@
         </div>
     </nav>
 
-    <!-- MAIN CONTENT -->
+    <!-- MAIN Source -->
     <div class="container">
 
         <div ui-view></div>

@@ -5,18 +5,38 @@
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
 
-    <link rel="stylesheet" type="text/css" href="~/Content/bootstrap/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="~/Content/bootstrap/bootstrap-theme.min.css" />
-    <link rel="stylesheet" type="text/css" href="~/Content/css/public.css" />
+    @if (Bikes.App.BikesDebug.debug)
+    {
+        /******************************* DEVELOPMENT ******************************************/
 
-    <script src="~/Content/jquery/jquery-1.9.1.min.js"></script>
-    <script src="~/Content/jquery/jquery.validate.min.js"></script>
-    <script src="~/Content/jquery/jquery.validate.unobtrusive.min.js"></script>
-    <script src="~/Content/bootstrap/scripts/bootstrap.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="~/Source/bootstrap/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="~/Source/bootstrap/bootstrap-theme.min.css" />
+        <link rel="stylesheet" type="text/css" href="~/Source/css/public.css" />
+
+        <script src="~/Source/jquery/jquery-1.9.1.min.js"></script>
+        <script src="~/Source/jquery/jquery.validate.min.js"></script>
+        <script src="~/Source/jquery/jquery.validate.unobtrusive.min.js"></script>
+        <script src="~/Source/bootstrap/scripts/bootstrap.min.js"></script>
+    }
+    else
+    {
+        /******************************* PRODUCTION ******************************************/
+
+        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="~/Content/bootstrap-theme.min.css" />
+        <link rel="stylesheet" type="text/css" href="~/Content/public-min.css" />
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.0/jquery.validate.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    }
+
+
 </head>
 <body>
     <!-- Fixed navbar -->
-    <nav class="navbar navbar-inverse navbar-static-top">
+    <nav class="navbar navbar-static-top @(Bikes.Model.ModelConfig.connectionName() == "live" ? "navbar-inverse" : "")">
         <div class="container">
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">

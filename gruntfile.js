@@ -9,7 +9,7 @@ module.exports = function (grunt) {
                     banner: '/* Bikes minified css */'  
                 },  
                 files: {  
-                    'bikes/Content/bikes.min.css': ['bikes/Content/css/public.css']  
+                    'bikes/Content/bikes.min.css': ['bikes/Source/css/public.css']  
                 }  
             }  
         },  
@@ -19,28 +19,17 @@ module.exports = function (grunt) {
             },  
             applib: {  
                 src: [  
-                'bikes/Content/jquery/jquery-1.9.1.min.js',  
-                'bikes/Content/angular/angular.min.js',  
-                'bikes/Content/angular-resource/angular-resource.min.js',  
-                'bikes/Content/angular-ui-router/angular-ui-router.min.js',  
-                'bikes/Content/angular-ui-grid/ui-grid.min.js',  
-                'bikes/Content/bootstrap/scripts/bootstrap.min.js',  
-                'bikes/Content/chartjs/Chart.min.js',  
-                'bikes/Content/datepicker/js/bootstrap-datepicker.min.js',  
-                'bikes/Content/jinqjs/jinqjs.min.js',  
-                'bikes/Content/moment/moment.min.js',  
-
-                'bikes/Content/app/app.js',
-                'bikes/Content/app/bike-services.js',
-                'bikes/Content/app/bike.js',
-                'bikes/Content/app/rider.js',  
-                'bikes/Content/app/route.js',  
-                'bikes/Content/app/ride.js',  
-                'bikes/Content/app/home.js',
-                'bikes/Content/app/payment.js',  
-                'bikes/Content/app/analysis.js',  
-                'bikes/Content/app/user.js'  ,
-                'bikes/Content/app/fiddle.js'  
+                'bikes/Source/app/app.js',
+                'bikes/Source/app/bike-services.js',
+                'bikes/Source/app/bike.js',
+                'bikes/Source/app/rider.js',  
+                'bikes/Source/app/route.js',  
+                'bikes/Source/app/ride.js',  
+                'bikes/Source/app/home.js',
+                'bikes/Source/app/payment.js',  
+                'bikes/Source/app/analysis.js',  
+                'bikes/Source/app/user.js'  ,
+                'bikes/Source/app/fiddle.js'  
                 ],  
                 dest: 'bikes/Content/bikes.min.js',
 				nonull: true
