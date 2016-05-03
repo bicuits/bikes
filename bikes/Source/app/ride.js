@@ -53,12 +53,19 @@
 
         scope.ride = new Ride();
         scope.ride.distance = 0;
-        scope.ride.payable = false;
+
+        if (model.data.currentRider) {
+            scope.ride.payable = model.data.currentRider.default_payable;
+        }
+
         scope.ride.bonus = 0;
         scope.ride.rider_id = stateParams.riderId ? parseInt(stateParams.riderId, 10) : 0;
-        //scope.ride.rider_id = 2;
         scope.ride.route_id = 1;
         scope.ride.bike_id = 1;
+
+        scope.riderChanged = function () {
+            scope.ride.payable = getRider(scope.ride.rider_id).default_payable;
+        };
 
         scope.calculateReward = function () {
             var distance;

@@ -24,7 +24,7 @@
     };
 
     scope.deleteBike = function () {
-        scope.bike.$delete(function () {
+        scope.bike.$trash(function () {
             model.refresh();
             state.go("bikeList");
         });

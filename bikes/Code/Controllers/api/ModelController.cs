@@ -38,7 +38,7 @@ namespace Bikes.Api
                 new JProperty("payments",
                     new JArray(Payment.getPayments().OrderBy(p => p.paid_date).Select(p => p.toJObject()))),
 
-                new JProperty("chartColors", getChartColors()),
+                new JProperty("colorList", getChartColors()),
 
                 new JProperty("months", Enumerable.Range(1, 12).Select(i => new JObject(
                     new JProperty("month", i), new JProperty("caption", dtfi.GetAbbreviatedMonthName(i))))),

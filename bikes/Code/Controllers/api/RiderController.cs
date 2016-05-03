@@ -59,6 +59,17 @@ namespace Bikes.Api
             rider.setPwd(model.pwd);
         }
 
+        //Fudge.  I cannot get http delete method to work on the live server.  Server always
+        //returns 404 not found errors.  Have tried all sorts of fixes but none effective 
+        //so far.
+        [HttpPost]
+        [Route("api/rider/{id:int}/delete")]
+        public int Post(int id)
+        {
+            Rider.deleteRider(id);
+            return id;
+        }
+
         [HttpDelete]
         [Route("api/rider/{id:int}")]
         public int Delete(int id)

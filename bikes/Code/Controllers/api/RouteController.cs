@@ -41,6 +41,17 @@ namespace Bikes.Api
             return route;
         }
 
+        //Fudge.  I cannot get http delete method to work on the live server.  Server always
+        //returns 404 not found errors.  Have tried all sorts of fixes but none effective 
+        //so far.
+        [HttpPost]
+        [Route("api/route/{id:int}/delete")]
+        public int Post(int id)
+        {
+            Route.deleteRoute(id);
+            return id;
+        }
+
         [HttpDelete]
         [Route("api/route/{id:int}")]
         public int Delete(int id)

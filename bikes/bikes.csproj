@@ -106,7 +106,7 @@
     <Content Include="Content\public-min.css" />
     <Content Include="Global.asax" />
     <Content Include="bikes.wpp.targets" />
-    <None Include="connectionStrings.config" />
+    <Content Include="connectionStrings.config" />
     <None Include="appSettings.config">
       <SubType>Designer</SubType>
     </None>
@@ -137,6 +137,7 @@
     <Content Include="Content\app\html\route-edit.html" />
     <Content Include="Content\app\html\route-list.html" />
     <Content Include="Content\app\html\user-home.html" />
+    <Content Include="Source\app\model.js" />
     <Content Include="Source\app\payment.js" />
     <Content Include="Source\app\ride.js" />
     <Content Include="Source\app\rider.js" />

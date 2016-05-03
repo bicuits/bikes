@@ -25,7 +25,7 @@
     };
 
     scope.deleteRoute = function () {
-        scope.route.$delete(function () {
+        scope.route.$trash(function () {
             model.refresh();
             state.go("routeList");
         });

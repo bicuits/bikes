@@ -9,7 +9,7 @@
     <!-- Rider select -->
     <div class="form-group">
         <label for="riderSelect" class="control-label">Rider</label>
-        <select id="riderSelect" ng-model="ride.rider_id" ng-options="r.id as r.name for r in riders" class="form-control" required></select>
+        <select id="riderSelect" ng-model="ride.rider_id" ng-options="r.id as r.name for r in riders" ng-change="riderChanged()" class="form-control" required></select>
     </div>
 
     <div ng-show="ride.rider_id > 0">

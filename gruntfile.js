@@ -21,6 +21,7 @@ module.exports = function (grunt) {
                 src: [  
                 'bikes/Source/app/app.js',
                 'bikes/Source/app/bike-services.js',
+                'bikes/Source/app/model.js',
                 'bikes/Source/app/bike.js',
                 'bikes/Source/app/rider.js',  
                 'bikes/Source/app/route.js',  

@@ -1,2 +1,6 @@
+use bikes;
+
 ALTER TABLE rider
-	ADD COLUMN pwd VARCHAR(255);
+	ADD COLUMN defaults TEXT;
+    
+UPDATE rider SET defaults = '{}';

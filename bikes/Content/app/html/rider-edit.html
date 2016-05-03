@@ -15,9 +15,13 @@
     </div>
 
     <div class="form-group">
+        <label><input type="checkbox" ng-model="rider.default_payable" id="payable" /> this rider normally earns rewards</label>
+    </div>
+
+    <div class="form-group">
         <label for="chartColorSelect" class="control-label">Chart Color</label>
         <select id="chartColorSelect" ng-model="rider.color_code" style="background-color:{{rider.color_code}}" class="form-control" required>
-            <option ng-repeat="c in data.chartColors"style="background-color:{{c}}">{{c}}</option>
+            <option ng-repeat="c in data.colorList"style="background-color:{{c}}">{{c}}</option>
         </select>
     </div>
 

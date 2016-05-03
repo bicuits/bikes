@@ -30,6 +30,7 @@ namespace Bikes.Model
         public int? bank_branch_id { get; set; }
         public int? bank_customer_id { get; set; }
         public int? bank_account_id { get; set; }
+        public bool default_payable { get; set; }
 
         public Rider()
         {
