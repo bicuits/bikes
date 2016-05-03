@@ -10,10 +10,17 @@
             </div>
             <div class="panel-body">
                 <div>
-                    <canvas id="barMonthSummary" style="width:100%;height:400px;"></canvas>
+                    <canvas 
+                        id="barMonthSummary" 
+                        class="chart chart-bar"
+                        style="width:100%;height:400px;" 
+                        chart-data="data.monthSummaryChartData.data"
+                        chart-labels="data.monthSummaryChartData.labels"
+                        chart-series="data.monthSummaryChartData.series"
+                        chart-colours="data.monthSummaryChartData.colors"></canvas>
                 </div>
                 <div>
-                    <div class='label label-default' ng-repeat="d in data.monthSummaryChartData.datasets" ng-attr-style="background-color:{{d.fillColor}}" >{{d.label}}</div>
+                    <div class='label label-default' ng-repeat="r in data.riders" ng-attr-style="background-color:{{r.color_code}}" >{{r.name}}</div>
                 </div>
             </div>
         </div>
@@ -55,10 +62,17 @@
             </div>
             <div class="panel-body">
                 <div>
-                    <canvas id="barYearSummary" style="width:100%;height:400px;"></canvas>
+                    <canvas 
+                        id="barYearSummary" 
+                        class="chart chart-bar"
+                        style="width:100%;height:400px;"
+                        chart-data="data.yearSummaryChartData.data"
+                        chart-labels="data.yearSummaryChartData.labels"
+                        chart-series="data.yearSummaryChartData.series"
+                        chart-colours="data.yearSummaryChartData.colors"></canvas>
                 </div>
                 <div>
-                    <div class='label label-default' ng-repeat="d in data.monthSummaryChartData.datasets" ng-attr-style="background-color: {{ d.fillColor }}">{{d.label}}</div>
+                    <div class='label label-default' ng-repeat="r in data.riders" ng-attr-style="background-color:{{r.color_code}}">{{r.name}}</div>
                 </div>
             </div>
         </div>

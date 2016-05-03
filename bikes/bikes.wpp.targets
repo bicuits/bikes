@@ -6,5 +6,9 @@
         <ExcludeFromPackageFolders Include="Source">
             <FromTarget>ContactManager.Mvc.wpp.targets</FromTarget>
         </ExcludeFromPackageFolders>
+        
+        <ExcludeFromPackageFiles Include="Web.config,appSettings.config,bikes.wpp.targets">
+            <FromTarget>ContactManager.Mvc.wpp.targets</FromTarget>
+        </ExcludeFromPackageFiles>
     </ItemGroup>
 </Project>
