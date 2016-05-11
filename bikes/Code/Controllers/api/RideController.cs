@@ -30,7 +30,7 @@ namespace Bikes.Api
         [Route("api/ride")]
         public RideVM Post(RideVM vm)
         {
-            //calculate the reward and distance
+            //re-calculate the reward and distance
             double rideLength;
             decimal reward;
             Rider rider;

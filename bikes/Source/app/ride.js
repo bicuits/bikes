@@ -41,7 +41,7 @@
         var getRoute = function (id) {
             var i;
             for (i = 0; i < scope.routes.length; i++) {
-                if (scope.routes[i].id === id) {
+                if (scope.routes[i].id == id) {
                     return scope.routes[i];
                 }
             }
@@ -64,37 +64,33 @@
         scope.ride.bike_id = 1;
 
         scope.riderChanged = function () {
-            scope.ride.payable = getRider(scope.ride.rider_id).default_payable;
+            scope.rider = getRider(scope.ride.rider_id);
+            scope.ride.payable = scope.rider.default_payable;
         };
 
         scope.calculateReward = function () {
             var distance;
             var reward;
 
+            if (!scope.rider) {
+                return 0;
+            }
+
             if (!scope.ride.payable) {
                 reward = 0;
             } else {
+                //see if there is a route selected
+                if (scope.ride.route_id > 1) {
+                    distance = getRoute(scope.ride.route_id).distance;
 
-                //find the rider
-                var rider = getRider(scope.ride.rider_id);
-                if (!rider) {
-                    reward = scope.ride.bonus;
-                } else {
-
-                    //see if there is a route selected
-                    if (scope.ride.routeId > 1) {
-                        var route = getRoute(scope.ride.route_id);
-                        distance = route.distance;
-
-                        if (scope.ride.returnRide) {
-                            distance = distance * 2;
-                        }
-                    } else {
-                        distance = scope.ride.distance;
+                    if (scope.ride.returnRide) {
+                        distance = distance * 2;
                     }
-
-                    reward = scope.ride.bonus + (distance * rider.rate) / 100;
+                } else {
+                    distance = scope.ride.distance;
                 }
+
+                reward = scope.ride.bonus + (distance * scope.rider.rate) / 100;
             }
             return reward.toFixed(2);
         };
