@@ -8,6 +8,14 @@ angular.module("bikeServices")
 
         return Model.get({ year: 2016 }, function (data) {
 
+            //create an array to hold labels for the weeks in the year
+            var weeksArray = [];
+            var weeksInYear = moment().weeksInYear();
+
+            for (var i = 1; i <= weeksInYear; i++) {
+                weeksArray.push(i);
+            }
+
             data.currentRider = new jinqJs()
                                 .from(data.riders)
                                 .where(function (r) { return r.id == currentUser.riderId; })
@@ -64,8 +72,8 @@ angular.module("bikeServices")
             data.currentRiderYearSummaryChartData =
             {
                 labels: new jinqJs()
-                    .from(data.months)
-                    .select(function (m) { return m.caption }),
+                        .from(weeksArray)
+                        .select(function (w) { return w.toString(); }),
 
                 series: [data.currentRider.name],
 
@@ -81,11 +89,14 @@ angular.module("bikeServices")
                     .where(function (r) { return r.id == data.currentRider.id })
                     .select(function (rider) {
                         return new jinqJs()
-                        .from(data.months)
-                        .select(function (month) {
+                        .from(weeksArray)
+                        .select(function (week) {
                             return new jinqJs()
                                     .from(data.rides)
-                                    .where(function (r) { return r.rider_id == rider.id && r.month == month.month })
+                                    .where(function (r) {
+                                        return r.rider_id == rider.id &&
+                                                moment(r.ride_date).week() == week;
+                                    })
                                     .sum("distance")
                                     .select(function (s) {
                                         return Math.floor(s);
