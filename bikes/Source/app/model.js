@@ -8,26 +8,15 @@ angular.module("bikeServices")
 
         return Model.get({ year: 2016 }, function (data) {
 
-            //create an array to hold labels for the weeks in the year
-            var weeksArray = [];
-            var weeksInYear = moment().weeksInYear();
-
-            for (var i = 1; i <= weeksInYear; i++) {
-                weeksArray.push(i);
-            }
-
             data.currentRider = new jinqJs()
                                 .from(data.riders)
                                 .where(function (r) { return r.id == currentUser.riderId; })
                                 .select()[0];
 
-            //alert("before " + data.rides[data.rides.length - 1].ride_date);
-
+            //convert dates from stringso to javascript date objects
             data.rides.forEach(function (ride) {
                 ride.ride_date = new Date(ride.ride_date);
             });
-
-            //alert("after " + data.rides[data.rides.length - 1].ride_date);
 
             data.chartColors = new jinqJs()
                     .from(data.riders)
@@ -39,6 +28,57 @@ angular.module("bikeServices")
                             highlightStroke: rider.color_code
                         };
                     });
+
+            //create an array to hold labels for the weeks in the year
+            var i;
+            var weeksArray = [];
+            var monthsArray = [];
+            var weeksInYear = moment().weeksInYear();
+
+            for (i = 1; i <= weeksInYear; i++) {
+                weeksArray.push({ id: i, caption : i.toString() });
+            }
+
+            for (i = 0; i < 12; i++) {
+                monthsArray.push({ id: i + 1, caption: moment([2016, i, 1]).format("MMM") });
+            }
+
+            //utility function for grouping and filtering data
+            var _getCurrentRiderYearSummary = function (labels, filter) {
+                return {
+                    labels: new jinqJs()
+                            .from(labels)
+                            .select(function (label) { return label.caption; }),
+
+                    series: [data.currentRider.name],
+
+                    colors: [{
+                        fillColor: data.currentRider.color_code,
+                        strokeColor: data.currentRider.color_code,
+                        highlightFill: data.currentRider.color_code,
+                        highlightStroke: data.currentRider.color_code
+                    }],
+
+                    data: new jinqJs()
+                        .from(data.riders)
+                        .where(function (r) { return r.id == data.currentRider.id })
+                        .select(function (rider) {
+                            return new jinqJs()
+                            .from(labels)
+                            .select(function (label) {
+                                return new jinqJs()
+                                        .from(data.rides)
+                                        .where(function (r) {
+                                            return r.rider_id == rider.id && filter(r, label);
+                                        })
+                                        .sum("distance")
+                                        .select(function (s) {
+                                            return Math.floor(s);
+                                        })[0];
+                            })
+                        })
+                };
+            };
 
             data.yearSummaryChartData =
             {
@@ -69,41 +109,49 @@ angular.module("bikeServices")
                     })
             };
 
-            data.currentRiderYearSummaryChartData =
-            {
-                labels: new jinqJs()
-                        .from(weeksArray)
-                        .select(function (w) { return w.toString(); }),
+            data.currentRiderYearSummaryChartDataW = _getCurrentRiderYearSummary(weeksArray, function (ride, label) {
+                return (moment(ride.ride_date).week() == label.id);
+            });
 
-                series: [data.currentRider.name],
+            data.currentRiderYearSummaryChartDataM = _getCurrentRiderYearSummary(monthsArray, function (ride, label) {
+                return (ride.month == label.id);
+            });
 
-                colors: [{
-                    fillColor: data.currentRider.color_code,
-                    strokeColor: data.currentRider.color_code,
-                    highlightFill: data.currentRider.color_code,
-                    highlightStroke: data.currentRider.color_code
-                }],
+            //data.currentRiderYearSummaryChartData =
+            //{
+            //    labels: new jinqJs()
+            //            .from(weeksArray)
+            //            .select(function (w) { return w.toString(); }),
 
-                data: new jinqJs()
-                    .from(data.riders)
-                    .where(function (r) { return r.id == data.currentRider.id })
-                    .select(function (rider) {
-                        return new jinqJs()
-                        .from(weeksArray)
-                        .select(function (week) {
-                            return new jinqJs()
-                                    .from(data.rides)
-                                    .where(function (r) {
-                                        return r.rider_id == rider.id &&
-                                                moment(r.ride_date).week() == week;
-                                    })
-                                    .sum("distance")
-                                    .select(function (s) {
-                                        return Math.floor(s);
-                                    })[0];
-                        })
-                    })
-            };
+            //    series: [data.currentRider.name],
+
+            //    colors: [{
+            //        fillColor: data.currentRider.color_code,
+            //        strokeColor: data.currentRider.color_code,
+            //        highlightFill: data.currentRider.color_code,
+            //        highlightStroke: data.currentRider.color_code
+            //    }],
+
+            //    data: new jinqJs()
+            //        .from(data.riders)
+            //        .where(function (r) { return r.id == data.currentRider.id })
+            //        .select(function (rider) {
+            //            return new jinqJs()
+            //            .from(weeksArray)
+            //            .select(function (week) {
+            //                return new jinqJs()
+            //                        .from(data.rides)
+            //                        .where(function (r) {
+            //                            return r.rider_id == rider.id &&
+            //                                    moment(r.ride_date).week() == week;
+            //                        })
+            //                        .sum("distance")
+            //                        .select(function (s) {
+            //                            return Math.floor(s);
+            //                        })[0];
+            //            })
+            //        })
+            //};
 
             data.monthSummaryChartData =
             {
@@ -139,10 +187,7 @@ angular.module("bikeServices")
                 .select()[0];
 
             //data.debug = JSON.stringify(data.riderSummary, null, 2);
-
-
             //data.debug = JSON.stringify( data.monthSummaryChartData , null, 2);
-
         });
     };
 
