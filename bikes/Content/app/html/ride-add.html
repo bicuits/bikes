@@ -2,14 +2,15 @@
 
 <form class="form-horizontal" role="form" ng-submit="saveForm()">
 
-    <!-- Earns Rewards checkbox -->
-    <!-- Return Ride checkbox -->
-    <!-- Date datepicker -->
-
     <!-- Rider select -->
     <div class="form-group">
         <label for="riderSelect" class="control-label">Rider</label>
-        <select id="riderSelect" ng-model="ride.rider_id" ng-options="r.id as r.name for r in riders" ng-change="riderChanged()" class="form-control" required></select>
+        <select id="riderSelect" 
+                ng-model="ride.rider_id" 
+                ng-options="r.id as r.name for r in riders" 
+                ng-change="riderChanged()" 
+                class="form-control" 
+                required></select>
     </div>
 
     <div ng-show="ride.rider_id > 0">
@@ -17,7 +18,25 @@
         <!-- Date datepicker -->
         <div class="form-group">
             <label for="rideDate" class="control-label">Date</label>
-            <input type="text" ng-model="ride.ride_date" class="form-control" id="rideDate" placeholder="dd/mm/yyyy" required/>
+
+            <p class="input-group">
+                <input type="text" 
+                       class="form-control" 
+                       uib-datepicker-popup="dd/MM/yyyy"
+                       ng-model="ride.ride_date" 
+                       is-open="datePickerOpen" 
+                       datepicker-options="dateOptions" 
+                       ng-required="true" 
+                       close-text="Close" />
+
+                <span class="input-group-btn">
+                    <button type="button" 
+                            class="btn btn-default" 
+                            ng-click="openDatePicker()">
+                            <i class="glyphicon glyphicon-calendar"></i>
+                    </button>
+                </span>
+            </p>
         </div>
 
         <!-- Bike select -->
@@ -29,7 +48,11 @@
         <!-- Route select -->
         <div class="form-group">
             <label for="routeSelect" class="control-label">Route</label>
-            <select id="routeSelect" ng-model="ride.route_id" ng-options="r.id as routeCaption(r) for r in routes" class="form-control" required></select>
+            <select id="routeSelect" 
+                    ng-model="ride.route_id" 
+                    ng-options="r.id as routeCaption(r) for r in routes" 
+                    class="form-control" 
+                    required></select>
         </div>
 
         <!-- Distance number -->
@@ -69,9 +92,3 @@
     </div>
 
 </form>
-
-<script>
-        $(function () {
-            $("#rideDate").datepicker({format: "dd/mm/yyyy", todayHighlight: true, autoclose: true});
-        });
-</script>
