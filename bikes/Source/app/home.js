@@ -1,7 +1,7 @@
 ﻿angular.module('bikesApp')
 
-.controller('homeController', ["$scope", "$state", "model", function (scope, state, model) {
+.controller('homeController', ["$scope", "$state", "model", "currentYear", function (scope, state, model, currentYear) {
 
     scope.data = model.data;
-
+    scope.currentYear = currentYear;
 }]);

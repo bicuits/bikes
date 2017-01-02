@@ -12,7 +12,7 @@ namespace Bikes.App
     {
         public override bool ValidateUser(string username, string password)
         {
-            if (BikesDebug.debug && username == "q")
+            if (BikesDebug.debug && username == "paul")
             {
                 return true;
             }

@@ -13,8 +13,16 @@
 .controller('rideAddController', ["$scope", "$state", "$stateParams", "model", "Ride", "Rider", "Route", "Bike",
     function (scope, state, stateParams, model, Ride, Rider, Route, Bike) {
 
+        scope.dateOptions = {
+            showWeeks: false
+        };
+
+        scope.openDatePicker = function () {
+            scope.datePickerOpen = true;
+        };
+
         scope.routeCaption = function (route) {
-            if (route.id == 1) {
+            if (route.id === 1) {
                 return route.name;
             } else {
                 return route.name + ' (' + route.distance + ' miles)';
@@ -41,7 +49,7 @@
         var getRoute = function (id) {
             var i;
             for (i = 0; i < scope.routes.length; i++) {
-                if (scope.routes[i].id == id) {
+                if (scope.routes[i].id === id) {
                     return scope.routes[i];
                 }
             }
@@ -53,6 +61,7 @@
 
         scope.ride = new Ride();
         scope.ride.distance = 0;
+        scope.ride.ride_date = new Date();
 
         if (model.data.currentRider) {
             scope.ride.payable = model.data.currentRider.default_payable;
@@ -97,15 +106,7 @@
 
         scope.saveForm = function () {
 
-            //first convert UK date string to ISO date format
-            scope.ride.ride_date = new Date(
-                    "" +
-                    scope.ride.ride_date.substr(6, 4) + "-" +
-                    scope.ride.ride_date.substr(3, 2) + "-" +
-                    scope.ride.ride_date.substr(0, 2) + "-" +
-                    "T12:00:00");
-
-            //now save the ride
+            //save the ride
             scope.ride.$save(
                 //on success
                 function () {
@@ -146,14 +147,13 @@
     };
 
     scope.deleteRide = function () {
-        //scope.ride.$delete(
-        Ride.trash(
+       Ride.trash(
             { id: stateParams.id },
             function (data) {
-                if (data.status == "OK") {
+                if (data.status === "OK") {
                     model.refresh();
                     goBack();
-                } else if (data.status == "ALREADY_PAID") {
+                } else if (data.status === "ALREADY_PAID") {
                     scope.message = "Rides that have been paid cannot be deleted.";
                 } else {
                     scope.message = "There was a problem deleting this ride.";

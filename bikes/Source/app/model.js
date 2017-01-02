@@ -2,11 +2,11 @@
 
 angular.module("bikeServices")
 
-.factory("model", ["Model", "currentUser", function (Model, currentUser) {
+.factory("model", ["Model", "currentUser", "currentYear", function (Model, currentUser, currentYear) {
 
-    var _getData = function () {
+    var _getData = function (year) {
 
-        return Model.get({ year: 2016 }, function (data) {
+        return Model.get({ year: year }, function (data) {
 
             data.currentRider = new jinqJs()
                                 .from(data.riders)
@@ -19,15 +19,15 @@ angular.module("bikeServices")
             });
 
             data.chartColors = new jinqJs()
-                    .from(data.riders)
-                    .select(function (rider) {
-                        return {
-                            fillColor: rider.color_code,
-                            strokeColor: rider.color_code,
-                            highlightFill: rider.color_code,
-                            highlightStroke: rider.color_code
-                        };
-                    });
+                .from(data.riders)
+                .select(function (rider) {
+                    return {
+                        fillColor: rider.color_code,
+                        strokeColor: rider.color_code,
+                        highlightFill: rider.color_code,
+                        highlightStroke: rider.color_code
+                    };
+                });
 
             //create an array to hold labels for the weeks in the year
             var i;
@@ -40,7 +40,7 @@ angular.module("bikeServices")
             }
 
             for (i = 0; i < 12; i++) {
-                monthsArray.push({ id: i + 1, caption: moment([2016, i, 1]).format("MMM") });
+                monthsArray.push({ id: i + 1, caption: moment([currentYear, i, 1]).format("MMM") });
             }
 
             //utility function for grouping and filtering data
@@ -80,8 +80,8 @@ angular.module("bikeServices")
                 };
             };
 
-            data.yearSummaryChartData =
-            {
+            data.yearSummaryChartData = {
+
                 labels: new jinqJs()
                     .from(data.months)
                     .select(function (m) { return m.caption }),
@@ -117,42 +117,6 @@ angular.module("bikeServices")
                 return (ride.month == label.id);
             });
 
-            //data.currentRiderYearSummaryChartData =
-            //{
-            //    labels: new jinqJs()
-            //            .from(weeksArray)
-            //            .select(function (w) { return w.toString(); }),
-
-            //    series: [data.currentRider.name],
-
-            //    colors: [{
-            //        fillColor: data.currentRider.color_code,
-            //        strokeColor: data.currentRider.color_code,
-            //        highlightFill: data.currentRider.color_code,
-            //        highlightStroke: data.currentRider.color_code
-            //    }],
-
-            //    data: new jinqJs()
-            //        .from(data.riders)
-            //        .where(function (r) { return r.id == data.currentRider.id })
-            //        .select(function (rider) {
-            //            return new jinqJs()
-            //            .from(weeksArray)
-            //            .select(function (week) {
-            //                return new jinqJs()
-            //                        .from(data.rides)
-            //                        .where(function (r) {
-            //                            return r.rider_id == rider.id &&
-            //                                    moment(r.ride_date).week() == week;
-            //                        })
-            //                        .sum("distance")
-            //                        .select(function (s) {
-            //                            return Math.floor(s);
-            //                        })[0];
-            //            })
-            //        })
-            //};
-
             data.monthSummaryChartData =
             {
                 labels:
@@ -186,17 +150,15 @@ angular.module("bikeServices")
                 .where(function (rs) { return rs.riderId == currentUser.riderId; })
                 .select()[0];
 
-            //data.debug = JSON.stringify(data.riderSummary, null, 2);
-            //data.debug = JSON.stringify( data.monthSummaryChartData , null, 2);
         });
     };
 
     return {
 
-        data: _getData(),
+        data: _getData(currentYear),
 
         refresh: function () {
-            this.data = _getData()
+            this.data = _getData(currentYear)
         }
     };
 }]);

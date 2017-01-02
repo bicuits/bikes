@@ -88,7 +88,7 @@ namespace Bikes.Model.Banking
                 new JProperty("success", success),
                 new JProperty("rider", rider),
                 new JProperty("amount", amount.ToString("C")),
-                new JProperty("paid_date", paid_date.Value.ToString("dd MMM yyyy")),
+                new JProperty("paid_date", paid_date),
                 new JProperty("bank_branch", bank_branch),
                 new JProperty("bank_username", bank_username),
                 new JProperty("bank_account", bank_account));

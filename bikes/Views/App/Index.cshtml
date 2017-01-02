@@ -85,7 +85,8 @@
             .service('currentUser', function () {
                 this.riderId = @Model.currentRiderId;
                 this.name = '@Model.currentRiderName';
-            });
+            })
+            .value('currentYear', @DateTime.Now.Year);
     </script>
 
 </head>

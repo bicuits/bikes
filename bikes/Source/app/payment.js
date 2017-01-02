@@ -6,6 +6,6 @@
     scope.pay = function () {
         Payment.save();
         model.refresh();
-        state.go("home");
+        //state.go("home");
     };
 }]);

@@ -11,9 +11,9 @@
         <th>Amount</th>
         <th>Date</th>
     </tr>
-    <tr ng-repeat="p in data.payments">
+    <tr ng-repeat="p in data.payments | orderBy: '-paid_date'">
         <td>{{p.rider}}</td>
         <td>{{p.amount}}</td>
-        <td>{{p.paid_date}}</td>
+        <td>{{p.paid_date | date: "dd MMMM yyyy h:mm a"}}</td>
     </tr>
 </table>

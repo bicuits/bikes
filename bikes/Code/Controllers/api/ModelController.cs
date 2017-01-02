@@ -19,7 +19,10 @@ namespace Bikes.Api
         [Route("api/model/{year:int}")]
         public JObject Get(int year)
         {
-            //DO DO: egt the month from the query string
+            //get all archived rides for the requested year
+            IEnumerable<Ride> rides = Ride.getRides().Where(r => r.ride_date.Year == year);
+
+            //TO DO: get the month from the query string
             DateTimeFormatInfo dtfi = new DateTimeFormatInfo();
 
             JObject result = new JObject(
@@ -33,7 +36,7 @@ namespace Bikes.Api
                     new JArray(Route.getRoutes().OrderBy(r => r.name).Select(r => JObject.FromObject(r)))),
 
                 new JProperty("rides",
-                    new JArray(Ride.getRides().OrderByDescending(r => r.ride_date).Select(r => JObject.FromObject(new RideVM(r))))),
+                    new JArray(rides.OrderByDescending(r => r.ride_date).Select(r => JObject.FromObject(new RideVM(r))))),
 
                 new JProperty("payments",
                     new JArray(Payment.getPayments().OrderBy(p => p.paid_date).Select(p => p.toJObject()))),
@@ -43,7 +46,7 @@ namespace Bikes.Api
                 new JProperty("months", Enumerable.Range(1, 12).Select(i => new JObject(
                     new JProperty("month", i), new JProperty("caption", dtfi.GetAbbreviatedMonthName(i))))),
 
-                new JProperty("riderSummary", getRiderSummary(year))
+                new JProperty("riderSummary", getRiderSummary(rides))
 
             );
 
@@ -65,11 +68,9 @@ namespace Bikes.Api
                 .Select(c => ColorTranslator.ToHtml(c)));
         }
 
-        private JArray getRiderSummary(int year)
+        private JArray getRiderSummary(IEnumerable<Ride> rides)
         {
 
-            //get all archived rides for this year
-            IEnumerable<Ride> rides = Ride.getRides().Where(r => r.ride_date.Year == DateTime.Now.Year);
 
             //group rides by rider
             IEnumerable<IGrouping<int, Ride>> groups = rides.GroupBy(r => r.rider_id);

@@ -36,6 +36,14 @@ namespace Bikes.Api
             }
         }
 
+        public int year
+        {
+            get
+            {
+                return ride_date == null ? 0 : ride_date.Year;
+            }
+        }
+
         public RideVM()
         {
             bike_id = 0;

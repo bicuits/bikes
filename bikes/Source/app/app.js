@@ -3,7 +3,7 @@
 
 angular
 
-.module('bikesApp', ['ui.router', "ui.grid", "bikeServices", 'chart.js'])
+.module('bikesApp', ['ui.router', "ui.grid", "ui.bootstrap", "bikeServices", 'chart.js'])
 
 .config(["$stateProvider", "$urlRouterProvider", function (stateProvider, urlRouterProvider) {
 
