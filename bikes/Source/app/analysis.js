@@ -2,7 +2,7 @@
 
 .controller('analysisController', ["$scope", "$state", "uiGridConstants", "model", function (scope, state, uiGridConstants, model) {
 
-    scope.data = model.data;
+    scope.model = model;
 
     scope.gridOptions = {
         enableSorting: true,
@@ -55,7 +55,7 @@
                 //}]
             }
         ],
-        data: "data.rides"
+        data: "model.data.rides"
     };
 
 }]);

@@ -4,13 +4,13 @@
 
 <dl class="dl-horizontal">
     <dt>Distance this month</dt>
-    <dd>{{data.currentRiderSummary.monthDistance}}</dd>
+    <dd>{{model.data.currentRiderSummary.monthDistance}}</dd>
     <dt>Distance this year</dt>
-    <dd>{{data.currentRiderSummary.yearDistance}}</dd>
+    <dd>{{model.data.currentRiderSummary.yearDistance}}</dd>
     <dt>Cash unpaid</dt>
-    <dd>{{data.currentRiderSummary.cashUnpaid}}</dd>
+    <dd>{{model.data.currentRiderSummary.cashUnpaid}}</dd>
     <dt>Cash paid this year</dt>
-    <dd>{{data.currentRiderSummary.cashYear}}</dd>
+    <dd>{{model.data.currentRiderSummary.cashYear}}</dd>
 </dl>
 
 <div class="panel panel-default">
@@ -25,14 +25,12 @@
             <canvas id="barYearSummary" 
                     class="chart chart-bar"
                     style="width:100%;height:400px;"
-                    chart-data="chartData.data"
-                    chart-labels="chartData.labels"
-                    chart-series="chartData.series"
-                    chart-colours="chartData.colors"></canvas>
+                    chart-data="chartData().data"
+                    chart-labels="chartData().labels"
+                    chart-series="chartData().series"
+                    chart-colours="chartData().colors"></canvas>
         </div>
-        <div>
-            <div class='label label-default' ng-repeat="d in yearSummary.chartData.datasets" style="background-color:{{d.fillColor}}">{{d.label}}</div>
-        </div>
+
     </div>
 </div>
 
@@ -48,7 +46,7 @@
         <th>Bike</th>
         <th>Notes</th>
     </tr>
-    <tr ng-repeat="ride in data.currentRiderRides">
+    <tr ng-repeat="ride in model.data.currentRiderRides">
         <td><a ui-sref="rideEdit({id: ride.id})">{{ride.route}}</a></td>
         <td>{{ride.rider}}</td>
         <td>{{ride.ride_date | date: 'dd/MM/yyyy' }}</td>

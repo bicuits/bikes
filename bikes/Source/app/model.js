@@ -40,7 +40,7 @@ angular.module("bikeServices")
             }
 
             for (i = 0; i < 12; i++) {
-                monthsArray.push({ id: i + 1, caption: moment([currentYear, i, 1]).format("MMM") });
+                monthsArray.push({ id: i + 1, caption: moment([year, i, 1]).format("MMM") });
             }
 
             //utility function for grouping and filtering data
@@ -154,11 +154,10 @@ angular.module("bikeServices")
     };
 
     return {
-
-        data: _getData(currentYear),
+        data: _getData(currentYear.getYear()),
 
         refresh: function () {
-            this.data = _getData(currentYear)
+            this.data = _getData(currentYear.getYear())
         }
     };
 }]);

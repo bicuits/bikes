@@ -15,7 +15,7 @@
         <th>Bike</th>
         <th>Notes</th>
     </tr>
-    <tr ng-repeat="ride in data.rides">
+    <tr ng-repeat="ride in model.data.rides">
         <td><a ui-sref="rideEdit({id: ride.id})">{{ride.route}}</a></td>
         <td>{{ride.rider}}</td>
         <td>{{ride.ride_date | date: 'dd/MM/yyyy'}}</td>

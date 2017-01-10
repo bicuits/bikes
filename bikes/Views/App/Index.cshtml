@@ -48,6 +48,7 @@
         <script src="~/Source/app/payment.js"></script>
         <script src="~/Source/app/analysis.js"></script>
         <script src="~/Source/app/user.js"></script>
+        <script src="~/Source/app/nav.js"></script>
         <script src="~/Source/app/fiddle.js"></script>
     }
     else
@@ -86,7 +87,15 @@
                 this.riderId = @Model.currentRiderId;
                 this.name = '@Model.currentRiderName';
             })
-            .value('currentYear', @DateTime.Now.Year);
+            .factory('currentYear', function () {
+                var _year = '@DateTime.Now.Year';
+                
+                return {
+                    getYear : function () { return _year; },
+                    setYear : function (year) { _year = year; }
+                };
+            });
+        
     </script>
 
 </head>
@@ -94,7 +103,7 @@
 <body ng-app="bikesApp">
 
     <!-- MAIN MENU -->
-    <nav class="navbar navbar-static-top @(Bikes.Model.ModelConfig.connectionName() == "live" ? "navbar-inverse" : "")">
+    <nav class="navbar navbar-static-top @(Bikes.Model.ModelConfig.connectionName() == "live" ? "navbar-inverse" : "")" ng-controller="navController">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -123,6 +132,10 @@
                     </li>
                     <li><a href="/login/logout">Logout</a></li>
                 </ul>
+                <div class="pull-right" style="padding:15px">
+                    <select name="yearSelect" ng-model="currentYear" ng-options="x for x in years" ng-change="onChange()">
+                    </select>
+                </div>
             </div>
         </div>
     </nav>

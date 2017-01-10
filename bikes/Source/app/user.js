@@ -9,17 +9,20 @@ angular.module('bikesApp')
         scope.showMonthly = true;
 
         model.data.$promise.then(function () {
-            scope.data = model.data;
-            scope.chartData = model.data.currentRiderYearSummaryChartDataM;
+            scope.model = model;
+
+            scope.chartData = function () {
+                if (scope.showMonthly) {
+                    return model.data.currentRiderYearSummaryChartDataM;
+                } else {
+                    return model.data.currentRiderYearSummaryChartDataW;
+                }
+            };
+
+            //scope.chartData = model.data.currentRiderYearSummaryChartDataM;
 
             scope.toggleChart = function () {
-                if (scope.showMonthly) {
-                    scope.chartData = model.data.currentRiderYearSummaryChartDataW;
-                    scope.showMonthly = false;
-                } else {
-                    scope.chartData = model.data.currentRiderYearSummaryChartDataM;
-                    scope.showMonthly = true;
-                }
+                scope.showMonthly = !scope.showMonthly;
             };
         });
 

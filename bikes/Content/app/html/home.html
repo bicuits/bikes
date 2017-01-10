@@ -14,13 +14,13 @@
                         id="barMonthSummary" 
                         class="chart chart-bar"
                         style="width:100%;height:400px;" 
-                        chart-data="data.monthSummaryChartData.data"
-                        chart-labels="data.monthSummaryChartData.labels"
-                        chart-series="data.monthSummaryChartData.series"
-                        chart-colours="data.monthSummaryChartData.colors"></canvas>
+                        chart-data="model.data.monthSummaryChartData.data"
+                        chart-labels="model.data.monthSummaryChartData.labels"
+                        chart-series="model.data.monthSummaryChartData.series"
+                        chart-colours="model.data.monthSummaryChartData.colors"></canvas>
                 </div>
                 <div>
-                    <div class='label label-default' ng-repeat="r in data.riders" ng-attr-style="background-color:{{r.color_code}}" >{{r.name}}</div>
+                    <div class='label label-default' ng-repeat="r in model.data.riders" ng-attr-style="background-color:{{r.color_code}}" >{{r.name}}</div>
                 </div>
             </div>
         </div>
@@ -40,7 +40,7 @@
                             <th>unpaid</th>
                             <th>total</th>
                         </tr>
-                        <tr ng-repeat="r in data.riderSummary">
+                        <tr ng-repeat="r in model.data.riderSummary">
                             <td>{{r.rider}}</td>
                             <td>{{r.monthDistance}}</td>
                             <td>{{r.yearDistance}}</td>
@@ -66,13 +66,13 @@
                         id="barYearSummary" 
                         class="chart chart-bar"
                         style="width:100%;height:400px;"
-                        chart-data="data.yearSummaryChartData.data"
-                        chart-labels="data.yearSummaryChartData.labels"
-                        chart-series="data.yearSummaryChartData.series"
-                        chart-colours="data.yearSummaryChartData.colors"></canvas>
+                        chart-data="model.data.yearSummaryChartData.data"
+                        chart-labels="model.data.yearSummaryChartData.labels"
+                        chart-series="model.data.yearSummaryChartData.series"
+                        chart-colours="model.data.yearSummaryChartData.colors"></canvas>
                 </div>
                 <div>
-                    <div class='label label-default' ng-repeat="r in data.riders" ng-attr-style="background-color:{{r.color_code}}">{{r.name}}</div>
+                    <div class='label label-default' ng-repeat="r in model.data.riders" ng-attr-style="background-color:{{r.color_code}}">{{r.name}}</div>
                 </div>
             </div>
         </div>

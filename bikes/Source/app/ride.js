@@ -2,7 +2,7 @@
 
 .controller('rideListController', ["$scope", "$state", "model", function (scope, state, model) {
 
-    scope.data = model.data;
+    scope.model = model;
 
     scope.add = function () {
         state.go("rideAdd");
