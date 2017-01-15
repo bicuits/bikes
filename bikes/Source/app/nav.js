@@ -1,11 +1,11 @@
 ﻿angular.module('bikesApp')
 
 .controller('navController', ["$scope", "$state", "model", "currentYear", function (scope, state, model, currentYear) {
-    scope.currentYear = currentYear.getYear();
+    scope.year = currentYear.year;
     scope.years = ['2016', '2017'];
 
     scope.onChange = function () {
-        currentYear.setYear(scope.currentYear);
+        currentYear.setYear(scope.year);
         model.refresh();
     };
 }]);

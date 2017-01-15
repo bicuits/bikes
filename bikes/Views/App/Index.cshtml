@@ -88,14 +88,13 @@
                 this.name = '@Model.currentRiderName';
             })
             .factory('currentYear', function () {
-                var _year = '@DateTime.Now.Year';
-                
+
                 return {
-                    getYear : function () { return _year; },
-                    setYear : function (year) { _year = year; }
+                    year : '@DateTime.Now.Year',
+                    setYear : function (year) { this.year = year; }
                 };
             });
-        
+
     </script>
 
 </head>
@@ -133,7 +132,7 @@
                     <li><a href="/login/logout">Logout</a></li>
                 </ul>
                 <div class="pull-right" style="padding:15px">
-                    <select name="yearSelect" ng-model="currentYear" ng-options="x for x in years" ng-change="onChange()">
+                    <select name="yearSelect" ng-model="year" ng-options="x for x in years" ng-change="onChange()">
                     </select>
                 </div>
             </div>

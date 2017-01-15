@@ -154,10 +154,10 @@ angular.module("bikeServices")
     };
 
     return {
-        data: _getData(currentYear.getYear()),
+        data: _getData(currentYear.year),
 
         refresh: function () {
-            this.data = _getData(currentYear.getYear())
+            this.data = _getData(currentYear.year)
         }
     };
 }]);
