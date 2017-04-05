@@ -1,10 +1,16 @@
 ﻿angular.module('bikesApp')
 
-.controller('routeListController', ["$scope", "$state", "model", function (scope, state, model) {
+.controller('routeListController', ["$scope", "$state", "model", "Admin", function (scope, state, model, Admin) {
     scope.data = model.data;
 
     scope.add = function () {
         state.go("routeAdd", { id: 0 });
+    };
+
+    scope.refresh = function () {
+        Admin.refresh();
+        model.refresh();
+        state.go("routeList");
     };
 
 }])

@@ -68,6 +68,14 @@ namespace Bikes.Model
             }
         }
 
+        public static List<Ride> getRidesForRoute(int routeId)
+        {
+            using (Database db = new PetaPoco.Database(ModelConfig.connectionStringName("bikes")))
+            {
+                return db.Fetch<Ride>("WHERE route_id = @0", routeId);
+            }
+        }
+
         public static Ride getRide(int id)
         {
             using (Database db = new PetaPoco.Database(ModelConfig.connectionStringName("bikes")))
@@ -138,6 +146,12 @@ namespace Bikes.Model
             {
                 db.Insert(ride);
             }
+
+            //increnet the ride count for this route
+            Route route = Route.getRoute(route_id);
+            route.recent_rides += 1;
+            route.save();
+
             return ride;
         }
 

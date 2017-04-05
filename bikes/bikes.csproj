@@ -243,6 +243,7 @@
     <Compile Include="Code\App\BikesDebug.cs" />
     <Compile Include="Code\App\Membership.cs" />
     <Compile Include="Code\App\ModelExtensions.cs" />
+    <Compile Include="Code\Controllers\api\AdminController.cs" />
     <Compile Include="Code\Controllers\api\BankAccountController.cs" />
     <Compile Include="Code\Controllers\api\BankBranchController.cs" />
     <Compile Include="Code\Controllers\api\BankCustomerController.cs" />

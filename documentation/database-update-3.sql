@@ -1,0 +1,2 @@
+ALTER TABLE route
+	ADD COLUMN recent_rides INT(11) DEFAULT 0;

@@ -50,7 +50,7 @@
             <label for="routeSelect" class="control-label">Route</label>
             <select id="routeSelect" 
                     ng-model="ride.route_id" 
-                    ng-options="r.id as routeCaption(r) for r in routes" 
+                    ng-options="r.id as routeCaption(r) for r in routes | orderBy:'recent_rides':true" 
                     class="form-control" 
                     required></select>
         </div>

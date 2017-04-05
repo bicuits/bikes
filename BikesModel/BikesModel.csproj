@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\Admin.cs" />
     <Compile Include="Model\Bank.cs" />
     <Compile Include="Model\bike.cs" />
     <Compile Include="Model\ModelConfig.cs" />

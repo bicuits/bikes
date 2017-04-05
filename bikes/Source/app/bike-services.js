@@ -82,5 +82,18 @@ angular
 
 .factory('Model', ["$resource", function (resource) {
     return resource("/api/model/:year", { year: "@year" });
+}])
+
+
+.factory('Admin', ["$resource", function (resource) {
+    return resource(
+        "/api/admin/",
+        null,
+        {
+            refresh : {
+                method: 'POST',
+                url: "/api/admin/routes/update"
+            }
+        });
 }]);
 

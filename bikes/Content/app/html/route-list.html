@@ -2,13 +2,16 @@
 
 <div class="panel">
     <button type="button" class="btn btn-primary" ng-click="add()">Add Route</button>
+    <button type="button" class="btn btn-primary" ng-click="refresh()">Refresh</button>
 </div>
 
 <table class="table table-striped">
     <tr>
         <th>Name</th>
+        <th>Recent rides</th>
     </tr>
     <tr ng-repeat="route in data.routes">
         <td><a ui-sref="routeEdit({id: route.id})">{{route.name}}</a></td>
+        <td>{{route.recent_rides}}</td>
     </tr>
 </table>
