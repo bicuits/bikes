@@ -147,11 +147,6 @@ namespace Bikes.Model
                 db.Insert(ride);
             }
 
-            //increnet the ride count for this route
-            Route route = Route.getRoute(route_id);
-            route.recent_rides += 1;
-            route.save();
-
             return ride;
         }
 

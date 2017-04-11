@@ -9,9 +9,11 @@
     <tr>
         <th>Name</th>
         <th>Recent rides</th>
+        <th>Recent distance</th>
     </tr>
     <tr ng-repeat="route in data.routes">
         <td><a ui-sref="routeEdit({id: route.id})">{{route.name}}</a></td>
         <td>{{route.recent_rides}}</td>
+        <td>{{route.recent_distance | number: 0}}</td>
     </tr>
 </table>

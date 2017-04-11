@@ -47,7 +47,6 @@ namespace Bikes.Api
                     new JProperty("month", i), new JProperty("caption", dtfi.GetAbbreviatedMonthName(i))))),
 
                 new JProperty("riderSummary", getRiderSummary(rides))
-
             );
 
             App.BikesDebug.dumpToFile("model.json", result.ToString(Newtonsoft.Json.Formatting.Indented));
@@ -70,8 +69,6 @@ namespace Bikes.Api
 
         private JArray getRiderSummary(IEnumerable<Ride> rides)
         {
-
-
             //group rides by rider
             IEnumerable<IGrouping<int, Ride>> groups = rides.GroupBy(r => r.rider_id);
 

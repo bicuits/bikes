@@ -34,7 +34,7 @@
             <div class="panel-body">
                 <table class="table table-striped">
                         <tr>
-                            <th>Name</th>
+                            <th>Rider</th>
                             <th>month</th>
                             <th>year</th>
                             <th>unpaid</th>
@@ -48,10 +48,21 @@
                             <td>{{r.cashYear}}</td>
                         </tr>
                 </table>
+
+                <table class="table table-striped">
+                    <tr>
+                        <th>Recent rides</th>
+                        <th>count</th>
+                        <th>distance</th>
+                    </tr>
+                    <tr ng-repeat="rs in model.data.routeSummary | orderBy:'rides':true | limitTo:5">
+                        <td>{{rs.name}}</td>
+                        <td>{{rs.rides}}</td>
+                        <td>{{rs.totalDistance}}</td>
+                    </tr>
+                </table>
             </div>
         </div>
-
-    </div>
 </div>
 
 <div class="row">

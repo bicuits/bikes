@@ -8,9 +8,10 @@
     };
 
     scope.refresh = function () {
-        Admin.refresh();
-        model.refresh();
-        state.go("routeList");
+        Admin.refresh(function () {
+            model.refresh();
+            state.go("routeList");
+        });
     };
 
 }])

@@ -1,0 +1,35 @@
+﻿
+<h2>Leader Boards</h2>
+
+<div class="panel panel-default" ng-repeat="report in reports">
+    <div class="panel-heading">
+        <h3 class="panel-title">{{report.title}}</h3>
+        <!--<div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-10">
+                    <h3 class="panel-title">{{report.title}}</h3>
+                </div>
+                <div class="col-xs-2">
+                    <select ng-if="$first" name="daySpan" ng-model="report.daySpan" ng-options="x.label for x in daySpanOptions" ng-change="onChange()"></select>
+                    {{daySpan}}
+                </div>
+            </div>
+        </div>-->
+    </div>
+    <div class="panel-body">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th ng-repeat="heading in report.data.headings" style="width:30%">{{heading.caption}}</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr ng-repeat="row in report.data.rows">
+                    <td ng-repeat="cell in row.cells">{{cell.value}}</td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>

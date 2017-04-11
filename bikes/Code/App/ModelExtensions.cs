@@ -13,10 +13,6 @@ namespace Bikes.Api
 {
     public static class ModelExtensions
     {
-        //public static RideVM toRideVM(this Ride ride)
-        //{
-        //    return new RideVM(ride);
-        //}
         public static String notesSummary(this Ride ride)
         {
             return getSummary(ride.notes);
@@ -67,6 +63,11 @@ namespace Bikes.Api
             return riders.Where(r => r.id == group.Key).First().name;
         }
 
+        public static string routeName(this IGrouping<int, Ride> group, IEnumerable<Route> routes)
+        {
+            return routes.Where(r => r.id == group.Key).First().name;
+        }
+
         public static string chartColor(this IGrouping<int, Ride> group, IEnumerable<Rider> riders, byte alpha)
         {
             Rider rider = riders.Where(r => r.id == group.Key).First();
@@ -84,30 +85,15 @@ namespace Bikes.Api
                     p.paid_date.HasValue ? p.paid_date.Value.ToString("dd/MM/yyyy") : ""));
         }
 
-        //public static JObject toJObject(this Bike bike)
-        //{
-        //    return new JObject(
-        //        new JProperty("id", bike.id.ToString()),
-        //        new JProperty("name", bike.name));
-        //}
+        public static TValue valueOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, TValue defaultValue)
+        {
+            TValue result;
 
-        //public static JObject toJObject(this Rider rider)
-        //{
-        //    return new JObject(
-        //        new JProperty("id", rider.id.ToString()),
-        //        new JProperty("name", rider.name),
-        //        new JProperty("bank_branch_id", rider.bank_branch_id),
-        //        new JProperty("bank_customer_id", rider.bank_customer_id),
-        //        new JProperty("bank_account_id", rider.bank_account_id));
-        //}
-
-        //public static JObject toJObject(this Route route)
-        //{
-        //    return new JObject(
-        //        new JProperty("id", route.id.ToString()),
-        //        new JProperty("name", route.name),
-        //        new JProperty("distance", route.distance.ToString()),
-        //        new JProperty("notes", route.notes));
-        //}
+            if (!dictionary.TryGetValue(key, out result))
+            {
+                result = defaultValue;
+            }
+            return result;
+        }
     }
 }

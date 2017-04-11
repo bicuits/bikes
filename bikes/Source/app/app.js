@@ -31,6 +31,12 @@ angular
             controller: 'analysisController'
         })
 
+        .state('reports', {
+            url: '/reports',
+            templateUrl: '/content/app/html/report.html',
+            controller: 'reportController'
+        })
+
         // FIDDLE STATES ========================================
 
         .state('fiddle', {

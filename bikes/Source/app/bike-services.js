@@ -84,6 +84,10 @@ angular
     return resource("/api/model/:year", { year: "@year" });
 }])
 
+.factory('Report', ["$resource", function (resource) {
+    return resource("/api/report/:id", { id: "@id" });
+}])
+
 
 .factory('Admin', ["$resource", function (resource) {
     return resource(

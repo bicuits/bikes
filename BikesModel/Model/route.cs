@@ -12,8 +12,7 @@ namespace Bikes.Model
     {
         public int id { get; set; }
         public String name { get; set; }
-        public float distance { get; set; }
-        public int recent_rides { get; set; }
+        public double distance { get; set; }
         public String notes { get; set; }
         public bool deleted { get; internal set; }
 

@@ -31,6 +31,7 @@ module.exports = function (grunt) {
                 'bikes/Source/app/analysis.js',  
                 'bikes/Source/app/user.js'  ,
                 'bikes/Source/app/nav.js'  ,
+                'bikes/Source/app/report.js'  ,
                 'bikes/Source/app/fiddle.js'  
                 ],  
                 dest: 'bikes/Content/bikes.min.js',
