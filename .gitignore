@@ -5,6 +5,7 @@
 bikes/connectionStrings.config
 bikes/App_Data/
 bikes-app/
+bikes/bin/
 
 bower_components
 
