@@ -4,9 +4,9 @@
   "author": "Paul Drury",
   "private": true,
   "devDependencies": {
-    "grunt": "^1.0.1",
+    "grunt": "^1.0.3",
     "grunt-contrib-cssmin": "*",
-    "grunt-contrib-uglify": "*",
-    "matchdep": "*"
+    "grunt-contrib-uglify": "^3.3.0",
+    "matchdep": "^2.0.0"
   }
 }

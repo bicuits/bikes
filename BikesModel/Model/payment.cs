@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using PetaPoco;
 using Newtonsoft.Json.Linq;
+using System.Globalization;
 
 namespace Bikes.Model.Banking
 {
@@ -87,7 +88,7 @@ namespace Bikes.Model.Banking
                 new JProperty("id", id),
                 new JProperty("success", success),
                 new JProperty("rider", rider),
-                new JProperty("amount", amount.ToString("C")),
+                new JProperty("amount", amount.ToString("C", new CultureInfo("en-GB"))),
                 new JProperty("paid_date", paid_date),
                 new JProperty("bank_branch", bank_branch),
                 new JProperty("bank_username", bank_username),

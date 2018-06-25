@@ -85,8 +85,8 @@ namespace Bikes.Api
                             g.Where(r => r.ride_date.Month == DateTime.Now.Month).Sum(r => r.distance), 1)),
                         new JProperty("yearDistance", Math.Round(
                             g.Sum(r => r.distance))),
-                        new JProperty("cashYear", g.Sum(r => r.reward).ToString("C")),
-                        new JProperty("cashUnpaid", g.Where(r => r.paid == false).Sum(r => r.reward).ToString("C")))));
+                        new JProperty("cashYear", g.Sum(r => r.reward).ToString("C", new CultureInfo("en-GB"))),
+                        new JProperty("cashUnpaid", g.Where(r => r.paid == false).Sum(r => r.reward).ToString("C", new CultureInfo("en-GB"))))));
 
 
             return riderSummary;

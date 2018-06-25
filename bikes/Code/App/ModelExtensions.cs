@@ -8,6 +8,7 @@ using Newtonsoft.Json.Linq;
 
 using Bikes.Model;
 using Bikes.Model.Banking;
+using System.Globalization;
 
 namespace Bikes.Api
 {
@@ -80,7 +81,7 @@ namespace Bikes.Api
         {
             return new JObject(
                 new JProperty("rider", p.rider),
-                new JProperty("amount", p.amount.ToString("C")),
+                new JProperty("amount", p.amount.ToString("C", new CultureInfo("en-GB"))),
                 new JProperty("paid_date",
                     p.paid_date.HasValue ? p.paid_date.Value.ToString("dd/MM/yyyy") : ""));
         }

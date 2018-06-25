@@ -15,7 +15,7 @@ namespace Bikes.Api
         [Route("api/route")]
         public IEnumerable<Route> Get()
         {
-            return Route.getRoutes();
+            return Route.getRoutes().OrderByDescending(r => r.name);
         }
 
         [HttpGet]
